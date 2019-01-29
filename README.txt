@@ -79,13 +79,13 @@ end
 
 The following are all of the possible ASSERTIONS to use:
 
-assert_match( pattern, string, [message] ): True if string =~ pattern
+assert_match( pattern, string, [message] )						|	True if string =~ pattern
 
-assert_no_match( pattern, string, [message] ): Passes if regexp !~ string
+assert_no_match( pattern, string, [message] )					|	Passes if regexp !~ string
 
-assert_nil( object, [message] ): True if object == nil
+assert_nil( object, [message] )									|	True if object == nil
 
-assert_not_nil( object, [message] ): Passes if ! object .nil?
+assert_not_nil( object, [message] )								|	Passes if ! object .nil?
 
 assert_in_delta( expected_float, actual_float, delta, [message] ): True if (actual_float - expected_float).abs <= delta
 
