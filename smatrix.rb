@@ -56,6 +56,7 @@ class SMatrix
 		assert i.is_a? Integer and j.is_a? Integer
 		assert 0 <= i and i < @rows
 		assert 0 <= j and j < @columns
+		assert value.is_a? Numeric
 
 		# post
 		@matrix[i, j] = value
@@ -152,6 +153,7 @@ s = SMatrix.new(3, 3,
 	[4, 5, 6],
 	[7, 8, 9]
 )
+s[0, 0] = 10
 
 i = IdentityMatrix.new(3)
 
