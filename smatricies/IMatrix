@@ -98,4 +98,27 @@ class IMatrix
 
       @matrix.trace
 	end
+
+  def rank()
+			#TODO: Implement
+      #No real assertions here..?
+	end
+
+  def row_sum(rowNum)
+			assert rowNum.is_a? Integer
+			assert rowNum >= 0
+      assert rowNum < @matrix.rows
+			#TODO: Implement
+	end
+
+	def col_sum(colNum)
+			assert colNum.is_a? Integer
+			assert colNum >= 0
+      assert colNum < @matrix.cols
+			#TODO: Implement
+	end
+
+	def total_sum()
+			#TODO: Implement
+	end
 end

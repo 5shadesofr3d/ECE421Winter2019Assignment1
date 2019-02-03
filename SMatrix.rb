@@ -149,6 +149,22 @@ public
 			@matrix.trace()
 	end
 
+	def rank()
+			@matrix.rank()
+	end
+
+	def row_sum(rowNum)
+			@matrix.row_sum(rowNum)
+	end
+
+	def col_sum(colNum)
+			@matrix.col_sum(colNum)
+	end
+
+	def total_sum()
+			@matrix.total_sum()
+	end
+
 private
 	@rows
 	@columns

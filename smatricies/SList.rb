@@ -1,6 +1,7 @@
 class SList < IMatrix
   def initialize(mat)
     ##Pass in a matrix built by abstract factory
+    assert mat.list?
     super
   end
 
@@ -8,7 +9,6 @@ class SList < IMatrix
       #pre
       assert mat.list? and @matrix.list?
 
-      #TODO: Main functionality
       super
 
       #post
@@ -19,7 +19,6 @@ class SList < IMatrix
       #pre
       assert mat.list? and @matrix.list?
 
-      #TODO: Main functionality
       super
 
       #post
@@ -31,7 +30,6 @@ class SList < IMatrix
       assert scalar.is_a? Integer
       assert scalar != 0
 
-      #TODO: Main functionality
       super
 
       #post
@@ -42,7 +40,6 @@ class SList < IMatrix
       #pre
       assert scalar.is_a? Integer
 
-      #TODO: Main functionality
       super
 
       #post
@@ -53,7 +50,6 @@ class SList < IMatrix
       #pre
       assert scalar.is_a? Integer
 
-      #TODO: Main functionality
       super
 
       #post
@@ -72,6 +68,28 @@ class SList < IMatrix
   end
 
   def trace()
+			super
+	end
+
+  def rank()
+			super
+	end
+
+  def row_sum(rowNum)
+			assert rowNum.is_a? Integer
+			assert rowNum >= 0
+      assert rowNum < @matrix.rows
+			super
+	end
+
+	def col_sum(colNum)
+			assert colNum.is_a? Integer
+			assert colNum >= 0
+      assert colNum < @matrix.cols
+			super
+	end
+
+	def total_sum()
 			super
 	end
 end
