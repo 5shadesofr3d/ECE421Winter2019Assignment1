@@ -1,3 +1,4 @@
+require 'Matrix'
 require 'test/unit'
 
 class SMatrix
@@ -6,7 +7,7 @@ class SMatrix
 	@row
 	@column
 
-	def initialize(row, column)
+	def initialize(row, column, *args)
 		# pre
 		assert row.is_a? Integer
 		assert column.is_a? Integer
@@ -29,7 +30,6 @@ class SMatrix
 		# post
 
 	end
-
 end
 
 s = SMatrix.new(10, 10)
