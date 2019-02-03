@@ -7,11 +7,11 @@ require 'test/unit'
 class SMatrix
 	include Test::Unit::Assertions
 
-	# Invariants ---
+	# --- Invariants ---
 	# @rows >= 0
 	# @columns >= 0
 	# @matrix.is_a? NMatrix
-	# ---
+	# ------------------
 
 	def initialize(rows, columns, *matrix)
 		# constructs a standard matrix
@@ -138,6 +138,8 @@ class ZeroMatrix < SMatrix
 	end
 
 end
+
+# Debugging stuff ... will remove later
 
 s = SMatrix.new(3, 3,
 	[1, 2, 3],
