@@ -7,12 +7,19 @@ require 'test/unit'
 class SMatrix
 	include Test::Unit::Assertions
 
+	# Invariants ---
+	# @rows >= 0
+	# @columns >= 0
+	# @matrix.is_a? NMatrix
+	# ---
+
 	def initialize(rows, columns, *matrix)
 		# constructs a standard matrix
 
 		# pre
 		assert rows.is_a? Integer and columns.is_a? Integer
 		assert rows >= 0 and columns >= 0
+		assert matrix.is_a? Array and matrix.size == rows
 		
 		# post
 		@rows = rows
