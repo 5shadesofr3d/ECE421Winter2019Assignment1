@@ -1,36 +1,60 @@
-require 'Matrix'
+require 'nmatrix'
 require 'test/unit'
 
+# SMatrix = Standard Matrix ?
+# do we really need it since we are only concerned about sparse matrices?
+# Also name can be confused with sparse matrix...
 class SMatrix
 	include Test::Unit::Assertions
 
-	@row
-	@column
-
-	def initialize(row, column, *args)
+	def initialize(rows, columns, *matrix)
 		# pre
-		assert row.is_a? Integer
-		assert column.is_a? Integer
+		assert rows.is_a? Integer
+		assert columns.is_a? Integer
 		
 		# post
-		@row = row
-		@column = column
-
+		@rows = rows
+		@columns = columns
+		@matrix = NMatrix[matrix]
+		for i in 0 .. (rows - 1)
+			for j in 0 .. (columns - 1)
+				puts "#{i}#{j}"
+				assert_same(matrix[i][j], self[i, j])
+			end
+		end
 	end
 
-	def [](row, column)
-		# returns the matrix index at position row, column
+	def [](i, j)
+		# returns the matrix index at position i, j
 		
 		# pre
-		assert row.is_a? Integer
-		assert column.is_a? Integer
-		assert 0 <= row && row < @row
-		assert 0 <= column && column < @column
+		assert i.is_a? Integer
+		assert j.is_a? Integer
+		assert 0 <= i && i < @rows
+		assert 0 <= j && j < @columns
 
 		# post
-
+		return @matrix[i, j]
 	end
+
+	@rows
+	@columns
+	@matrix
+
 end
 
-s = SMatrix.new(10, 10)
+# class IdentityMatrix < SMatrix
+
+# 	def initialize(rows, columns)
+# 		super(rows, columns)
+# 		assert @matrix.identity?
+# 	end
+
+# end
+
+s = SMatrix.new(3, 3,
+	[1, 2, 3],
+	[4, 5, 6],
+	[7, 8, 9]
+)
 puts s[0, 0]
