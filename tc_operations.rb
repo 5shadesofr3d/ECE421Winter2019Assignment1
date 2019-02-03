@@ -1,6 +1,5 @@
-require './Matrix.rb'
+require './SMatrix'
 require 'test/unit'
-require 'nmatrix'
 
 class TestOperations<Test::Unit::TestCase
   def test_addition
