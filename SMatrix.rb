@@ -141,6 +141,10 @@ public
 			@matrix.multiply(scalar)
 	end
 
+	def dot(mat)
+			@matrix.dot(mat)
+	end
+
 private
 	@rows
 	@columns

@@ -79,4 +79,15 @@ class IMatrix
       #post
       assert result == @matrix
   end
+
+  def dot(mat)
+      #pre
+      assert mat.is_a? NMatrix
+
+      @matrix.dot(mat)
+
+      #post
+      #@matrix = @matrix DOT mat
+      assert mat.is_a? NMatrix
+  end
 end

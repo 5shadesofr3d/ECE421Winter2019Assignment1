@@ -36,7 +36,6 @@ class SList < IMatrix
 
       #post
       assert @matrix.list?
-      assert result == @matrix
   end
 
   def exponent(scalar)
@@ -48,7 +47,6 @@ class SList < IMatrix
 
       #post
       assert @matrix.list?
-      assert result == @matrix
   end
 
   def multiply(scalar)
@@ -60,6 +58,16 @@ class SList < IMatrix
 
       #post
       assert @matrix.list?
-      assert result == @matrix
+  end
+
+  def dot(mat)
+      #pre
+      assert mat.list?
+
+      super
+
+      #post
+      #@matrix = @matrix DOT mat
+      assert mat.list?
   end
 end

@@ -59,4 +59,14 @@ class SYale < IMatrix
       #post
       assert result == @matrix
   end
+
+  def dot(mat)
+      #pre
+      assert mat.yale?
+
+      super
+
+      #post
+      assert mat.yale?
+  end
 end
