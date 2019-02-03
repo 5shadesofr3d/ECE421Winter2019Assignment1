@@ -122,78 +122,23 @@ public
 	end
 
 	def add(mat)
-	    #pre
-			assert mat.is_a? NMatrix
-	    #assert mat.yale? and @matrix.yale? not sure bout this one
-	    assert mat.shape == @matrix.shape
-
-	    #TODO: Main functionality
-			result = @matrix + mat
-	    @matrix = @matrix + mat
-
-	    #post
-			assert @matrix.shape == mat.shape
-			assert result == @matrix
-			assert @matrix.yale?
+	    @matrix.add(mat)
 	end
 
 	def subtract(mat)
-	    #pre
-			assert mat.is_a? NMatrix
-	    #assert mat.yale? and @matrix.yale? not sure bout this one
-	    assert mat.shape == @matrix.shape
-
-	    #TODO: Main functionality
-
-			result = @matrix - mat
-	    @matrix = @matrix - mat
-
-	    #post
-			assert @matrix.shape == mat.shape
-			assert result == @matrix
-			assert @matrix.yale?
+	   	@matrix.subtract(mat)
 	end
 
 	def divide(scalar)
-	    #pre
-			assert scalar.is_a? Integer
-			assert scalar != 0
-
-	    #TODO: Main functionality
-
-			result = @matrix/scalar
-	    @matrix = @matrix/scalar
-
-	    #post
-	    assert result == @matrix
+			@matrix.divide(scalar)
 	end
 
 	def exponent(scalar)
-	    #pre
-	    assert scalar.is_a? Integer
-
-	    #TODO: Main functionality
-
-			result = @matrix**scalar
-	    @matrix = @matrix**scalar
-
-
-	    #post
-			assert result == @matrix
+			@matrix.exponent(scalar)
 	end
 
 	def multiply(scalar)
-	    #pre
-	    assert scalar.is_a? Integer
-
-	    #TODO: Main functionality
-			result = @matrix*scalar
-	    @matrix = @matrix*scalar
-
-
-
-	    #post
-	    assert result == @matrix
+			@matrix.multiply(scalar)
 	end
 
 private
