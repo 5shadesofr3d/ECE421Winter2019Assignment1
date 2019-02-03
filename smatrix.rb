@@ -120,7 +120,7 @@ class SMatrix
 	@rows
 	@columns
 	@matrix
-
+	
 end
 
 class IdentityMatrix < SMatrix
