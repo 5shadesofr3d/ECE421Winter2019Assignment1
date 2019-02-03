@@ -145,6 +145,10 @@ public
 			@matrix.dot(mat)
 	end
 
+	def trace()
+			@matrix.trace()
+	end
+
 private
 	@rows
 	@columns

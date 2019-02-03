@@ -70,4 +70,8 @@ class SList < IMatrix
       #@matrix = @matrix DOT mat
       assert mat.list?
   end
+
+  def trace()
+			super
+	end
 end

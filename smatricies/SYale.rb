@@ -69,4 +69,8 @@ class SYale < IMatrix
       #post
       assert mat.yale?
   end
+
+  def trace()
+			super
+	end
 end

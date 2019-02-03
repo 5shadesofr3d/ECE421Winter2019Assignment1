@@ -90,4 +90,12 @@ class IMatrix
       #@matrix = @matrix DOT mat
       assert mat.is_a? NMatrix
   end
+
+  def trace()
+      #pre
+      #Matrix MUST be square to trace
+			assert @matrix.rows == @matrix.cols
+
+      @matrix.trace
+	end
 end
