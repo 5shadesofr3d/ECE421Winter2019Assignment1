@@ -7,7 +7,7 @@ The main focus on this assignment is creating classes and modules that will
 have methods and objects that will handle normal matrix calculations and for
 sparse matrix calculations
 
-The unit test cases will be writtent as follows:
+The unit test cases will be written as follows:
 - We must use the "design by contract" approach. The following method is explained below
 - We must also use the unit test case package explained in Lab 3
 
@@ -16,13 +16,13 @@ THIS MAY CHANGE
 - try to keep modules in seperate ruby files (e.g. "Module.rb")
 - every class should be its own file (e.g. "Class1.rb")
 - test cases for individual classes are their own file (e.g. "testClass1.rb")
-- test cases will later be stored in a conglomorate test file (e.g. "alltests.rb")
+- test cases will later be stored in a conglomerate test file (e.g. "alltests.rb")
 
 
 
 -------- DESIGN BY CONTRACT ------------------
 Design By Contract:
-For all of the methods that are made, an invarient, pre, and post conditions are required
+For all of the methods that are made, an invariant, pre, and post conditions are required
 to explain what the method should do. This can be the "comment" for the method.
 
 def method(x)
