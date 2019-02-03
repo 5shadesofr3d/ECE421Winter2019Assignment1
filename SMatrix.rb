@@ -27,7 +27,7 @@ public
 		assert rows.is_a? Integer and columns.is_a? Integer
 		assert rows >= 0 and columns >= 0
 		assert matrix.is_a? Array and matrix.size == rows # will likely replace this
-		
+
 		# post
 		@rows = rows
 		@columns = columns
@@ -43,7 +43,7 @@ public
 
 	def [](i, j)
 		# returns the matrix index at position i, j
-		
+
 		# pre
 		assert i.is_a? Integer and j.is_a? Integer
 		assert 0 <= i and i < @rows
@@ -55,7 +55,7 @@ public
 
 	def []=(i, j, value)
 		# returns the matrix index at position i, j
-		
+
 		# pre
 		assert i.is_a? Integer and j.is_a? Integer
 		assert 0 <= i and i < @rows
@@ -82,7 +82,7 @@ public
 
 	def identity?
 		# returns true if the matrix is an identity matrix
-		
+
 		# pre
 		false if @columns != @rows
 
@@ -98,7 +98,7 @@ public
 
 	def zero?
 		# returns true if the matrix is a zero matrix
-		
+
 		# pre
 
 		# post
@@ -122,68 +122,77 @@ public
 
 	def add(mat)
 	    #pre
-	    # mat = sparse yale format matrix
-	    # mat and _matrix must be matricies of the same size
+			assert mat.is_a? NMatrix
+	    #assert mat.yale? and @matrix.yale? not sure bout this one
+	    assert mat.shape == @matrix.shape
 
 	    #TODO: Main functionality
-
+			result = @matrix + mat
 	    @matrix = @matrix + mat
 
 	    #post
-	    # result = m1 + m2
-	    # result has same dimensions as m1 and m2
+			assert @matrix.shape == mat.shape
+			assert result == @matrix
+			assert @matrix.yale?
 	end
 
 	def subtract(mat)
 	    #pre
-	    # mat = sparse yale format matrix
-	    # mat and _matrix must be matricies of the same size
+			assert mat.is_a? NMatrix
+	    #assert mat.yale? and @matrix.yale? not sure bout this one
+	    assert mat.shape == @matrix.shape
 
 	    #TODO: Main functionality
 
+			result = @matrix - mat
 	    @matrix = @matrix - mat
 
-
 	    #post
-	    # result = m1 - m2
+			assert @matrix.shape == mat.shape
+			assert result == @matrix
+			assert @matrix.yale?
 	end
 
 	def divide(scalar)
 	    #pre
-	    # scalar = whole number integer to divide by
+			assert scalar.is_a? Integer
+			assert scalar != 0
 
 	    #TODO: Main functionality
 
+			result = @matrix/scalar
 	    @matrix = @matrix/scalar
 
 	    #post
-	    # result = m1 / m2
+	    assert result == @matrix
 	end
 
 	def exponent(scalar)
 	    #pre
-	    # scalar = whole number integer to exponentiate by
+	    assert scalar.is_a? Integer
 
 	    #TODO: Main functionality
 
+			result = @matrix**scalar
 	    @matrix = @matrix**scalar
 
 
 	    #post
-	    # result = m1 ^ m2
+			assert result == @matrix
 	end
 
 	def multiply(scalar)
 	    #pre
-	    # scalar = whole number integer to multiply by
+	    assert scalar.is_a? Integer
 
 	    #TODO: Main functionality
+			result = @matrix*scalar
 	    @matrix = @matrix*scalar
 
 
 
 	    #post
-	    # result = m1 * m2
+	    assert result == @matrix
 	end
 
 private
