@@ -12,6 +12,7 @@ class SMatrix
 	# @matrix.is_a? NMatrix
 	# ------------------
 
+public
 	def initialize(mSize)
 	    ##Create square matrix of size mSize
 	    ##Init full of zeros
@@ -185,6 +186,7 @@ class SMatrix
 	    # result = m1 * m2
 	end
 
+private
 	@rows
 	@columns
 	@matrix
