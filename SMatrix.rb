@@ -1,5 +1,6 @@
 require 'nmatrix'
 require 'matrix'
+require './IMatrix'
 require 'test/unit'
 
 class SMatrix
@@ -27,7 +28,7 @@ public
 		assert rows.is_a? Integer and columns.is_a? Integer
 		assert rows >= 0 and columns >= 0
 		assert matrix.is_a? Array and matrix.size == rows # will likely replace this
-		
+
 		# post
 		@rows = rows
 		@columns = columns
@@ -43,7 +44,7 @@ public
 
 	def [](i, j)
 		# returns the matrix index at position i, j
-		
+
 		# pre
 		assert i.is_a? Integer and j.is_a? Integer
 		assert 0 <= i and i < @rows
@@ -55,7 +56,7 @@ public
 
 	def []=(i, j, value)
 		# returns the matrix index at position i, j
-		
+
 		# pre
 		assert i.is_a? Integer and j.is_a? Integer
 		assert 0 <= i and i < @rows
@@ -82,7 +83,7 @@ public
 
 	def identity?
 		# returns true if the matrix is an identity matrix
-		
+
 		# pre
 		false if @columns != @rows
 
@@ -98,7 +99,7 @@ public
 
 	def zero?
 		# returns true if the matrix is a zero matrix
-		
+
 		# pre
 
 		# post
