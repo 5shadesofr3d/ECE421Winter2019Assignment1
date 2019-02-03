@@ -1,4 +1,5 @@
 require 'nmatrix'
+require 'matrix'
 require 'test/unit'
 
 # SMatrix = Standard Matrix ?
@@ -66,25 +67,30 @@ class SMatrix
 		# converts the matrix into a string
 
 		# pre
+		str = ""
 
 		# post
-		return @matrix.to_a.to_s
+		for row in @matrix.to_a
+			str += row.to_s + "\n"
+		end
+
+		str
 	end
 
 	def identity?
 		# returns true if the matrix is an identity matrix
-
+		
 		# pre
-		assert @columns == @rows
+		false if @columns != @rows
 
 		# post
 		for i in 0 .. (@rows - 1)
 			for j in 0 .. (@columns - 1)
-				return false if (i == j and self[i, j] != 1) or (i != j and self[i, j] != 0)
+				false if (i == j and self[i, j] != 1) or (i != j and self[i, j] != 0)
 			end
 		end
 
-		return true
+		true
 	end
 
 	def zero?
@@ -95,9 +101,20 @@ class SMatrix
 		# post
 		for i in 0 .. (@rows - 1)
 			for j in 0 .. (@columns - 1)
-				return false if self[i, j] != 0
+				false if self[i, j] != 0
 			end
 		end
+
+		true
+	end
+
+	def diagonal?
+		# returns true if the matrix is a diagonal matrix
+
+		# pre
+
+		# post
+		Matrix[*@matrix.to_a].diagonal?
 	end
 
 	@rows
@@ -108,6 +125,7 @@ end
 
 class IdentityMatrix < SMatrix
 	# --- Invariants ---
+	# @rows == @columns
 	# index [i, i] == 1
 	# index [i, j] == 0 if i =! j
 	# ------------------
@@ -117,10 +135,10 @@ class IdentityMatrix < SMatrix
 
 		# pre
 		assert size.is_a? Integer
-		@rows = @columns = size
-		@matrix = NMatrix.eye(size)
 
 		# post
+		@rows = @columns = size
+		@matrix = NMatrix.eye(size)
 		assert self.identity?
 	end
 
@@ -136,12 +154,33 @@ class ZeroMatrix < SMatrix
 
 		# pre
 		assert rows.is_a? Integer and columns.is_a? Integer
+
+		# post
 		@rows = rows
 		@columns = columns
 		@matrix = NMatrix.zeros([rows, columns])
+		assert self.zero?
+	end
+
+end
+
+class DiagonalMatrix < SMatrix
+	# --- Invariants ---
+	# index [i, j] == 0 if i != j
+	# ------------------
+
+	def initialize(*values)
+		# constructs a diagonal matrix
+
+		# pre
+		for value in values
+			assert value.is_a? Numeric
+		end
 
 		# post
-		assert self.zero?
+		@rows = @columns = values.size
+		@matrix = NMatrix.diagonal(values)
+		assert self.diagonal?
 	end
 
 end
@@ -159,6 +198,8 @@ i = IdentityMatrix.new(3)
 
 z = ZeroMatrix.new(3, 3)
 
+d = DiagonalMatrix.new(3, 3, 2, 5, 7)
+
 print s.to_s
 puts
 
@@ -166,4 +207,7 @@ print i.to_s
 puts
 
 print z.to_s
+puts
+
+print d.to_s
 puts
