@@ -1,4 +1,5 @@
 require './SMatrix'
+require './factory/StorageFactory'
 
 # Debugging stuff ... will remove later
 
@@ -26,3 +27,5 @@ puts
 
 print d.to_s
 puts
+
+f = StorageFactory.new
