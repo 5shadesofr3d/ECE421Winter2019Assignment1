@@ -28,6 +28,8 @@ public
 		# constructs a standard matrix
 
 		# pre
+		assert storage_type.is_a? Symbol
+		assert matrix.is_a? Matrix
 
 		# post
 		store_as(storage_type, matrix)
@@ -344,8 +346,7 @@ public
 		assert valid?
 		assert @storage.rows == @storage.cols
 		#Matrix MUST be square to trace
-		@storage.trace
-
+		#TODO: Implement
 		assert valid?
 	end
 
@@ -383,7 +384,7 @@ public
 		assert valid?
 		#pre
 		#matrix to be transposed has been initialized
-		@storage = @storage.transpose()
+		#TODO: Implement
 		#post
 		#@storage = @storage transposed
 		assert valid?
@@ -394,7 +395,7 @@ public
 		assert valid?
 		assert pow.is_a? Integer
 		assert @storage.shape[0] == @storage.shape[1] ##square matrix
-		@storage.pow(pow)
+		#TODO: Implement
 		assert valid?
 	end
 
@@ -417,7 +418,7 @@ public
 	def hessenberg
 		assert valid?
 		assert @storage.rows == @storage.cols
-		@storage.hessenberg
+		#TODO: Implement
 		assert valid?
 	end
 
@@ -425,7 +426,7 @@ public
 		assert valid?
 		#pre
 
-		@storage.diagonal()
+		#TODO: Implement
 
 		#post
 		assert valid?
@@ -435,7 +436,8 @@ public
 		assert valid?
 		#pre
 		assert @storage.shape[0] == @storage.shape[1] #square
-		@storage.det()
+		#TODO: Implement
+
 		#post
 		assert valid?
 	end
