@@ -148,6 +148,12 @@ public
 		assert valid?
 	end
 
+	def hermitian?
+		assert valid?
+		@storage.hermitian?
+		assert valid?
+	end
+
 	#Generic add for all SMatrix types
 	def +(mat)
 		assert valid?
@@ -354,6 +360,13 @@ public
 		#post
 		# @storage = @storage^-1
 		assert @storage.shape[0] == @storage.shape[1]
+		assert valid?
+	end
+
+	def hessenberg
+		assert valid?
+		assert @storage.rows == @storage.cols
+		@storage.hessenberg
 		assert valid?
 	end
 
