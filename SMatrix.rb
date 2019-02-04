@@ -8,6 +8,8 @@ class SMatrix
 	include Test::Unit::Assertions
 	# --- Invariants ---
 	# @storage.is_a? SparseStorage
+	# @storage.rows >= 0
+	# @storage.cols >= 0
 	# ------------------
 
 public
@@ -32,6 +34,8 @@ public
 	def valid?
 		# returns true if all class invariants hold
 		false if not @storage.is_a? SparseStorage
+		false if @storage.rows < 0
+		false if @storage.cols < 0
 
 		true
 	end
@@ -53,7 +57,7 @@ public
 	end
 
 	def []=(i, j, value)
-		# returns the matrix index at position i, j
+		# sets the matrix index at position i, j
 		assert valid?
 		# pre
 		assert i.is_a? Integer and j.is_a? Integer
@@ -93,7 +97,7 @@ public
 		# returns true if the matrix is an identity matrix
 		assert valid?
 		# pre
-		false if @storage.columns != @storage.rows
+		false if @storage.cols != @storage.rows
 
 		# post
 		@storage.each_index do |i, j|
@@ -128,6 +132,20 @@ public
 
 		assert valid?
 		Matrix[*@storage.to_a].diagonal?
+	end
+
+	def tridiagonal?
+		#pre
+		assert valid?
+		#TODO: Implement
+		#post
+		assert valid?
+	end
+
+	def symmetric?
+		assert valid?
+		@storage.symmetric?
+		assert valid?
 	end
 
 	#Generic add for all SMatrix types
@@ -277,7 +295,6 @@ public
 	def rank()
 		assert valid?
 		#TODO: Implement
-		#No real assertions here..?
 		assert valid?
 	end
 
@@ -336,6 +353,7 @@ public
 
 		#post
 		# @storage = @storage^-1
+		assert @storage.shape[0] == @storage.shape[1]
 		assert valid?
 	end
 
@@ -373,20 +391,6 @@ public
 		#matricies in SMatrix so conversions MUST be done
 
 		#post
-		assert valid?
-	end
-
-	def tridiagonal?
-		#pre
-		assert valid?
-		#TODO: Implement
-		#post
-		assert valid?
-	end
-
-	def symmetric?
-		assert valid?
-		@storage.symmetric?
 		assert valid?
 	end
 
