@@ -89,4 +89,10 @@ class SYale < IMatrix
   def transpose()
 			super
 	end
+
+  #Raise matrix to a power
+	def power(pow)
+      assert pow.is_a? Integer
+			super
+	end
 end

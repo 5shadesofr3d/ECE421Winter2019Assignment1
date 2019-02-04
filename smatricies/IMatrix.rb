@@ -129,4 +129,10 @@ class IMatrix
       #post
       #@matrix = @matrix transposed
 	end
+
+  #Raise matrix to a power
+	def power(pow)
+      assert pow.is_a? Integer
+			@matrix.pow(pow)
+	end
 end

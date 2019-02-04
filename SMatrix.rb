@@ -133,6 +133,7 @@ public
 			@matrix.divide(scalar)
 	end
 
+	#Element-wise exponent
 	def exponent(scalar)
 			@matrix.exponent(scalar)
 	end
@@ -167,6 +168,11 @@ public
 
 	def transpose()
 			@matrix.transpose()
+	end
+
+	#Raise matrix to a power
+	def power(pow)
+			@matrix.power(pow)
 	end
 
 private
