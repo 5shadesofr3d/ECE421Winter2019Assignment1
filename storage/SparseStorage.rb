@@ -52,6 +52,18 @@ public
 		zero_values / total_values
 	end
 
+	def each_index
+		assert valid?
+
+		for i in 0 .. @rows - 1
+			for j in 0 .. @columns - 1
+				yield i, j
+			end
+		end
+
+		assert valid?
+	end
+
 	attr_reader :rows, :columns
 	
 end

@@ -17,30 +17,17 @@ class SMatrix
 	# ------------------
 
 public
-	def initialize(mSize)
-	    ##Create square matrix of size mSize
-	    ##Init full of zeros
-	    #TODO: Factory here to build the matrix
-	    @storage = NMatrix(mSize, 0)
-	end
-
-	def initialize(rows, columns, *matrix)
+	def initialize(*matrix)
 		# constructs a standard matrix
 
 		# pre
-		assert rows.is_a? Integer and columns.is_a? Integer
-		assert rows >= 0 and columns >= 0
-		assert matrix.is_a? Array and matrix.size == rows # will likely replace this
 
 		# post
 		@storage = DokFactory.new.create(matrix)
 
-		for i in 0 .. (rows - 1)
-			for j in 0 .. (columns - 1)
-				assert_same(matrix[i][j], self[i, j])
-			end
+		@storage.each_index do |i, j|
+			assert_same(matrix[i][j], self[i, j])
 		end
-
 	end
 
 	def [](i, j)
@@ -96,10 +83,8 @@ public
 		false if @storage.columns != @storage.rows
 
 		# post
-		for i in 0 .. (@storage.rows - 1)
-			for j in 0 .. (@storage.columns - 1)
-				false if (i == j and self[i, j] != 1) or (i != j and self[i, j] != 0)
-			end
+		@storage.each_index do |i, j|
+			false if (i == j and self[i, j] != 1) or (i != j and self[i, j] != 0)
 		end
 
 		true
@@ -111,10 +96,9 @@ public
 		# pre
 
 		# post
-		for i in 0 .. (@storage.rows - 1)
-			for j in 0 .. (@storage.columns - 1)
-				false if self[i, j] != 0
-			end
+		
+		@storage.each_index do |i, j|
+			false if self[i, j] != 0
 		end
 
 		true

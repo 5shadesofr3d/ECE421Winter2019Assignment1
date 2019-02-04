@@ -3,7 +3,7 @@ require './factory/StorageFactory'
 
 # Debugging stuff ... will remove later
 
-s = SMatrix.new(3, 3,
+s = SMatrix.new(
 	[1, 2, 3],
 	[4, 5, 6],
 	[7, 8, 9]
