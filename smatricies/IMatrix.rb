@@ -170,4 +170,22 @@ class IMatrix
 			@matrix.det()
       #post
 	end
+
+  def cholesky()
+      assert @matrix.symmetric? #Matrix MUST be symmetric
+      #TODO: Implement NMatrix cholesky factorization
+	end
+
+  def luDecomp
+			#pre
+
+      #TODO: Implement this, this has only been implemented for Dense
+      #matricies in NMatrix so conversions MUST be done
+
+      #post
+	end
+
+  def symmetric?
+			@matrix.symmetric?
+	end
 end

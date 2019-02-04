@@ -127,4 +127,17 @@ class SList < IMatrix
       assert @matrix.shape[0] == @matrix.shape[1] #square
 			super
 	end
+
+  def cholesky()
+      assert @matrix.symmetric? #Matrix MUST be symmetric
+      super
+	end
+
+  def luDecomp
+		  super
+	end
+
+  def symmetric?
+			super
+	end
 end

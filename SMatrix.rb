@@ -188,6 +188,17 @@ public
 			@matrix.determinant()
 	end
 
+	def cholesky()
+			@matrix.cholesky()
+	end
+
+	def luDecomp
+			@matrix.luDecomp()
+	end
+
+	def symmetric?
+			@matrix.symmetric?
+	end
 
 private
 	@rows
