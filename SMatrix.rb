@@ -205,6 +205,29 @@ public
 
 	end
 
+	# TODO: Do these 2 functions violate dry?
+	def upper_triangle(k = 0)
+
+		# Pre-conditions
+		assert k.is_a? Integer and k >= 0
+		assert @matrix.shape.size == 2
+
+		# Post
+		@matrix.upper_triangle(k)
+
+	end
+
+	def upper_triangle!(k = 0)
+
+		# Pre-conditions
+		assert k.is_a? Integer and k >= 0
+		assert @matrix.shape.size == 2
+
+		# Post
+		@matrix.upper_triangle!(k)
+
+	end
+
 private
 	@rows
 	@columns
