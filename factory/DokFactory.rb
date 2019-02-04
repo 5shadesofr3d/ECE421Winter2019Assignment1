@@ -1,4 +1,4 @@
-require './StorageFactory'
+require './factory/StorageFactory'
 
 # NOTE: Dictionary of Keys (DOK)
 class DokFactory < StorageFactory
@@ -10,7 +10,7 @@ class DokFactory < StorageFactory
 		assert valid? storage
 		created = nil
 
-		case storage.class
+		case storage
 		when Yale
 			
 		when Dok
@@ -20,7 +20,7 @@ class DokFactory < StorageFactory
 		when Matrix
 
 		when Array
-
+			created = from_array(storage)
 		end
 
 		# post
@@ -28,4 +28,23 @@ class DokFactory < StorageFactory
 		created
 	end
 
+	def from_array(storage)
+		# returns a Dok object which contains content from storage
+
+		# pre
+		assert storage.is_a? Array
+
+		# post
+		rows = storage.size
+		columns = storage[0].size if rows > 0
+		dok = Dok.new(rows, columns)
+
+		for i in 0 .. rows - 1
+			for j in 0 .. columns - 1
+				dok[i, j] = storage[i][j]
+			end
+		end
+
+		dok
+	end
 end

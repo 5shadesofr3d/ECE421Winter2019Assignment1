@@ -1,4 +1,4 @@
-require './StorageFactory'
+require './factory/StorageFactory'
 
 # NOTE: List of List (LIL)
 class LilFactory < StorageFactory
@@ -10,7 +10,7 @@ class LilFactory < StorageFactory
 		assert valid? storage
 		created = nil
 
-		case storage.class
+		case storage
 		when Yale
 			
 		when Dok

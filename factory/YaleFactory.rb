@@ -1,4 +1,4 @@
-require './StorageFactory'
+require './factory/StorageFactory'
 require 'matrix'
 require 'nmatrix'
 
@@ -12,8 +12,7 @@ class YaleFactory < StorageFactory
 		# pre
 		assert valid? storage
 		created = nil
-
-		case storage.class
+		case storage
 		when Yale
 			created = storage
 		when Dok
@@ -23,7 +22,7 @@ class YaleFactory < StorageFactory
 		when Matrix
 
 		when Array
-
+			created = Yale[*storage]
 		end
 
 		# post

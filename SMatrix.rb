@@ -3,6 +3,9 @@ require 'matrix'
 # require './IMatrix'
 require 'test/unit'
 
+require './factory/YaleFactory'
+require './factory/DokFactory'
+
 class SMatrix
 	include Test::Unit::Assertions
 	# --- Invariants ---
@@ -32,7 +35,7 @@ public
 		# post
 		@rows = rows
 		@columns = columns
-		@matrix = NMatrix[*matrix] # we should be using a factory here instead
+		@matrix = DokFactory.new.create(matrix)
 
 		for i in 0 .. (rows - 1)
 			for j in 0 .. (columns - 1)
@@ -51,7 +54,7 @@ public
 		assert 0 <= j and j < @columns
 
 		# post
-		return @matrix[i, j]
+		@matrix[i, j]
 	end
 
 	def []=(i, j, value)
@@ -74,8 +77,15 @@ public
 		str = ""
 
 		# post
-		for row in @matrix.to_a
-			str += row.to_s + "\n"
+		col = 0
+
+		@matrix.each do |value|
+			str += "#{value} "
+			col += 1
+			if col == @matrix.columns
+				col = 0
+				str += "\n"
+			end
 		end
 
 		str
@@ -194,64 +204,64 @@ private
 
 end
 
-class IdentityMatrix < SMatrix
-	# --- Invariants ---
-	# @rows == @columns
-	# index [i, i] == 1
-	# index [i, j] == 0 if i =! j
-	# ------------------
+# class IdentityMatrix < SMatrix
+# 	# --- Invariants ---
+# 	# @rows == @columns
+# 	# index [i, i] == 1
+# 	# index [i, j] == 0 if i =! j
+# 	# ------------------
 
-	def initialize(size)
-		# constructs an identity matrix
+# 	def initialize(size)
+# 		# constructs an identity matrix
 
-		# pre
-		assert size.is_a? Integer
+# 		# pre
+# 		assert size.is_a? Integer
 
-		# post
-		@rows = @columns = size
-		@matrix = NMatrix.eye(size) # use factory here ?
-		assert self.identity?
-	end
+# 		# post
+# 		@rows = @columns = size
+# 		@matrix = NMatrix.eye(size) # use factory here ?
+# 		assert self.identity?
+# 	end
 
-end
+# end
 
-class ZeroMatrix < SMatrix
-	# --- Invariants ---
-	# index [i, j] == 0
-	# ------------------
+# class ZeroMatrix < SMatrix
+# 	# --- Invariants ---
+# 	# index [i, j] == 0
+# 	# ------------------
 
-	def initialize(rows, columns)
-		# constructs a zero matrix
+# 	def initialize(rows, columns)
+# 		# constructs a zero matrix
 
-		# pre
-		assert rows.is_a? Integer and columns.is_a? Integer
+# 		# pre
+# 		assert rows.is_a? Integer and columns.is_a? Integer
 
-		# post
-		@rows = rows
-		@columns = columns
-		@matrix = NMatrix.zeros([rows, columns]) # user factory here?
-		assert self.zero?
-	end
+# 		# post
+# 		@rows = rows
+# 		@columns = columns
+# 		@matrix = NMatrix.zeros([rows, columns]) # user factory here?
+# 		assert self.zero?
+# 	end
 
-end
+# end
 
-class DiagonalMatrix < SMatrix
-	# --- Invariants ---
-	# index [i, j] == 0 if i != j
-	# ------------------
+# class DiagonalMatrix < SMatrix
+# 	# --- Invariants ---
+# 	# index [i, j] == 0 if i != j
+# 	# ------------------
 
-	def initialize(*values)
-		# constructs a diagonal matrix
+# 	def initialize(*values)
+# 		# constructs a diagonal matrix
 
-		# pre
-		for value in values
-			assert value.is_a? Numeric
-		end
+# 		# pre
+# 		for value in values
+# 			assert value.is_a? Numeric
+# 		end
 
-		# post
-		@rows = @columns = values.size
-		@matrix = NMatrix.diagonal(values) # use factory here?
-		assert self.diagonal?
-	end
+# 		# post
+# 		@rows = @columns = values.size
+# 		@matrix = NMatrix.diagonal(values) # use factory here?
+# 		assert self.diagonal?
+# 	end
 
-end
+# end
