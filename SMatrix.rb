@@ -82,6 +82,15 @@ public
     assert valid?
   end
 
+	def for_main_diagonal()
+    #pre
+    assert @storage.rows == @storage.cols
+    assert valid?
+
+    #post
+    assert valid?
+  end
+
 	def [](i, j)
 		# returns the matrix index at position i, j
 
