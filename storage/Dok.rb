@@ -4,6 +4,10 @@ class Dok < SparseStorage
 
 public
 	def initialize(rows, columns)
+		assert rows.is_a? Integer
+		assert columns.is_a? Integer
+		assert rows >= 0
+		assert columns >= 0
 		@hash = Hash.new
 
 		super(rows, columns)
@@ -25,7 +29,7 @@ public
 
 		# post
 		if @hash.key?([i, j])
-			return @hash[[i, j]] 
+			return @hash[[i, j]]
 		else
 			return 0
 		end
