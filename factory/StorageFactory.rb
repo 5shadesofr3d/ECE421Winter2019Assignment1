@@ -1,5 +1,5 @@
 require 'test/unit'
-
+require 'nmatrix'
 require './storage/Dok'
 require './storage/Lil'
 

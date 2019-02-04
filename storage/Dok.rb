@@ -24,8 +24,11 @@ public
 		assert 0 <= j and j < @columns
 
 		# post
-		0 if not @hash.key? [i, j]
-		@hash[[i, j]] # otherwise
+		if @hash.key?([i, j])
+			return @hash[[i, j]] 
+		else
+			return 0
+		end
 	end
 
 	def []=(i, j, value)

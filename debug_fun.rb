@@ -1,14 +1,20 @@
 require './SMatrix'
-require './factory/StorageFactory'
 
 # Debugging stuff ... will remove later
 
-s = SMatrix.new(
-	[1, 2, 3],
-	[4, 5, 6],
-	[7, 8, 9]
-)
-s[0, 0] = 9
+s = SMatrix.new([
+	[0, 2, 0],
+	[0, 5, 0],
+	[0, 8, 0]
+])
+m = SMatrix.new([
+	[0, 2, 0],
+	[0, 5, 0],
+	[0, 8, 0]
+])
+
+a = s + m
+# s[0, 0] = 9
 
 # i = IdentityMatrix.new(3)
 
@@ -16,7 +22,7 @@ s[0, 0] = 9
 
 # d = DiagonalMatrix.new(3, 3, 2, 5, 7)
 
-print s.to_s
+print a.to_s
 puts
 
 # print i.to_s

@@ -14,7 +14,7 @@ class DokFactory < StorageFactory
 		when Yale
 			
 		when Dok
-			created = storage
+			created = storage.clone
 		when Lil
 			
 		when Matrix

@@ -1,4 +1,3 @@
-require 'nmatrix'
 require 'matrix'
 # require './IMatrix'
 require 'test/unit'
@@ -13,7 +12,7 @@ class SMatrix
 	# ------------------
 
 public
-	def initialize(*matrix)
+	def initialize(matrix)
 		# constructs a standard matrix
 		# pre
 
@@ -21,7 +20,11 @@ public
 		@storage = DokFactory.new.create(matrix)
 
 		@storage.each_index do |i, j|
-			assert_same(matrix[i][j], self[i, j])
+			if matrix.is_a? Array
+				assert_same(matrix[i][j], self[i, j])
+			else
+				assert_same(matrix[i, j], self[i, j])
+			end
 		end
 
 		assert valid?
@@ -128,101 +131,107 @@ public
 		Matrix[*@storage.to_a].diagonal?
 	end
 
-	#Generic add for all NMatrix types
-	def add(mat)
+	#Generic add for all SMatrix types
+	def +(mat)
 		assert valid?
 
 		#pre
-		assert mat.is_a? NMatrix
-		assert mat.shape == @matrix.shape
+		assert mat.is_a? SMatrix
+		assert mat.shape == self.shape
 
 		#TODO: Main functionality
-		result = @matrix + mat
-		@matrix = @matrix + mat
+		result = SMatrix.new(@storage)
+
+		@storage.each_index do |i, j|
+			result[i, j] += mat[i, j]
+		end
 
 		#post
-		assert @matrix.shape == mat.shape
-		assert result == @matrix
+		assert self.shape == result.shape
+		assert result.is_a? SMatrix
+		@storage.each_index do |i, j|
+			assert result[i, j] == self[i, j] + mat[i, j], "#{result[i,j]} #{self[i,j]} #{mat[i,j]}"
+		end
 
 		assert valid?
 	end
 
-	#Generic sub for all NMatrix types
-	def subtract(mat)
+	#Generic sub for all SMatrix types
+	def -(mat)
 		assert valid?
 
 		#pre
-		assert mat.is_a? NMatrix
-		assert mat.shape == @matrix.shape
+		assert mat.is_a? SMatrix
+		assert mat.shape == @storage.shape
 
 		#TODO: Main functionality
-		result = @matrix - mat
-		@matrix = @matrix - mat
+		result = @storage - mat
+		@storage = @storage - mat
 
 		#post
-		assert @matrix.shape == mat.shape
-		assert result == @matrix
+		assert @storage.shape == mat.shape
+		assert result == @storage
 
 		assert valid?
 	end
 
-	#Generic divide for all NMatrix types
-	def divide(scalar)
+	#Generic divide for all SMatrix types
+	def /(scalar)
 		assert valid?
 		#pre
 		assert scalar.is_a? Integer
 		assert scalar != 0
 
 		#TODO: Main functionality
-		result = @matrix/scalar
-		@matrix = @matrix/scalar
+		result = @storage/scalar
+		@storage = @storage/scalar
 
 		#post
-		assert result == @matrix
+		assert result == @storage
 
 		assert valid?
 	end
 
-	#Generic exponent for all NMatrix types
-	def exponent(scalar)
+	#Generic exponent for all SMatrix types
+	def **(scalar)
 		assert valid?
 		#pre
 		assert scalar.is_a? Integer
 
 		#TODO: Main functionality
-		result = @matrix**scalar
-		@matrix = @matrix**scalar
+		result = @storage**scalar
+		@storage = @storage**scalar
 
 		#post
-		assert result == @matrix
+		assert result == @storage
 		assert valid?
 	end
 
-	#Generic multiply for all NMatrix types
-	def multiply(scalar)
+	#Generic multiply for all SMatrix types
+	def *(scalar)
 		assert valid?
 		#pre
 		assert scalar.is_a? Integer
 
 		#TODO: Main functionality
-		result = @matrix*scalar
-		@matrix = @matrix*scalar
+		result = @storage*scalar
+		@storage = @storage*scalar
 
 		#post
-		assert result == @matrix
+		assert result == @storage
 		assert valid?
 	end
 
 	def dot(mat)
 		assert valid?
 		#pre
-		assert mat.is_a? NMatrix
+		assert mat.is_a? SMatrix
 
-		@matrix.dot(mat)
+		@storage.dot(mat)
 
 		#post
-		#@matrix = @matrix DOT mat
-		assert mat.is_a? NMatrix
+		#@storage = @storage DOT mat
+		assert mat.is_a? SMatrix
 		assert valid?
 	end
 
@@ -230,9 +239,9 @@ public
 		assert valid?
 		#pre
 		#Matrix MUST be square to trace
-		assert @matrix.rows == @matrix.cols
+		assert @storage.rows == @storage.cols
 
-		@matrix.trace
+		@storage.trace
 		assert valid?
 	end
 
@@ -247,7 +256,7 @@ public
 		assert valid?
 		assert rowNum.is_a? Integer
 		assert rowNum >= 0
-		assert rowNum < @matrix.rows
+		assert rowNum < @storage.rows
 		#TODO: Implement
 		assert valid?
 	end
@@ -256,7 +265,7 @@ public
 		assert valid?
 		assert colNum.is_a? Integer
 		assert colNum >= 0
-		assert colNum < @matrix.cols
+		assert colNum < @storage.cols
 		#TODO: Implement
 		assert valid?
 	end
@@ -271,9 +280,9 @@ public
 		assert valid?
 		#pre
 		#matrix to be transposed has been initialized
-		@matrix = @matrix.transpose()
+		@storage = @storage.transpose()
 		#post
-		#@matrix = @matrix transposed
+		#@storage = @storage transposed
 		assert valid?
 	end
 
@@ -281,23 +290,23 @@ public
 	def power(pow)
 		assert valid?
 		assert pow.is_a? Integer
-		assert @matrix.shape[0] == @matrix.shape[1] ##square matrix
-		@matrix.pow(pow)
+		assert @storage.shape[0] == @storage.shape[1] ##square matrix
+		@storage.pow(pow)
 		assert valid?
 	end
 
 	def inverse()
 		assert valid?
 		#pre
-		assert @matrix.shape[0] == @matrix.shape[1] #square only
+		assert @storage.shape[0] == @storage.shape[1] #square only
 
 		#TODO:
-		#NMatrix only implements this for dense matricies
+		#SMatrix only implements this for dense matricies
 		#so we must convert types then calculate then convert back..
 		#inefficient but necessary for now
 
 		#post
-		# @matrix = @matrix^-1
+		# @storage = @storage^-1
 		assert valid?
 	end
 
@@ -305,7 +314,7 @@ public
 		assert valid?
 		#pre
 
-		@matrix.diagonal()
+		@storage.diagonal()
 
 		#post
 		assert valid?
@@ -314,16 +323,16 @@ public
 	def determinant()
 		assert valid?
 		#pre
-		assert @matrix.shape[0] == @matrix.shape[1] #square
-		@matrix.det()
+		assert @storage.shape[0] == @storage.shape[1] #square
+		@storage.det()
 		#post
 		assert valid?
 	end
 
 	def cholesky()
 		assert valid?
-		assert @matrix.symmetric? #Matrix MUST be symmetric
-		#TODO: Implement NMatrix cholesky factorization
+		assert @storage.symmetric? #Matrix MUST be symmetric
+		#TODO: Implement SMatrix cholesky factorization
 		assert valid?
 	end
 
@@ -332,7 +341,7 @@ public
 		#pre
 
 		#TODO: Implement this, this has only been implemented for Dense
-		#matricies in NMatrix so conversions MUST be done
+		#matricies in SMatrix so conversions MUST be done
 
 		#post
 		assert valid?
@@ -340,8 +349,13 @@ public
 
 	def symmetric?
 		assert valid?
-		@matrix.symmetric?
+		@storage.symmetric?
 		assert valid?
+	end
+
+	def shape
+		assert valid?
+		[@storage.rows, @storage.columns]
 	end
 
 private
