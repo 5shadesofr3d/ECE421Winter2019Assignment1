@@ -545,6 +545,7 @@ public
 		#result = ....
 		#post
 		#assert result.tridiagonal?
+		assert valid?
 	end
 
 	def buildEye(size)
@@ -555,6 +556,7 @@ public
 
 		#post
 		#assert result.identity?
+		assert valid?
 	end
 
 	def buildZero(rows, cols)
@@ -567,6 +569,7 @@ public
 
 		#post
 		#assert result.identity?
+		assert valid?
 	end
 
 	def buildRandom(rows, cols)
@@ -579,6 +582,7 @@ public
 
 		#post
 		#assert result.sparsity <= 0.5
+		assert valid?
 	end
 
 private
