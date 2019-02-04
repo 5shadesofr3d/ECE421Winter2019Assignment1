@@ -13,7 +13,7 @@ class SMatrix
 	# @rows >= 0
 	# @columns >= 0
 	#
-	# @matrix.is_a? NMatrix
+	# @storage.is_a? NMatrix
 	# ------------------
 
 public
@@ -21,7 +21,7 @@ public
 	    ##Create square matrix of size mSize
 	    ##Init full of zeros
 	    #TODO: Factory here to build the matrix
-	    @matrix = NMatrix(mSize, 0)
+	    @storage = NMatrix(mSize, 0)
 	end
 
 	def initialize(rows, columns, *matrix)
@@ -35,7 +35,7 @@ public
 		# post
 		@rows = rows
 		@columns = columns
-		@matrix = DokFactory.new.create(matrix)
+		@storage = DokFactory.new.create(matrix)
 
 		for i in 0 .. (rows - 1)
 			for j in 0 .. (columns - 1)
@@ -54,7 +54,7 @@ public
 		assert 0 <= j and j < @columns
 
 		# post
-		@matrix[i, j]
+		@storage[i, j]
 	end
 
 	def []=(i, j, value)
@@ -67,7 +67,7 @@ public
 		assert value.is_a? Numeric
 
 		# post
-		@matrix[i, j] = value
+		@storage[i, j] = value
 	end
 
 	def to_s
@@ -79,10 +79,10 @@ public
 		# post
 		col = 0
 
-		@matrix.each do |value|
+		@storage.each do |value|
 			str += "#{value} "
 			col += 1
-			if col == @matrix.columns
+			if col == @storage.columns
 				col = 0
 				str += "\n"
 			end
@@ -128,7 +128,7 @@ public
 		# pre
 
 		# post
-		Matrix[*@matrix.to_a].diagonal?
+		Matrix[*@storage.to_a].diagonal?
 	end
 
 	def add(mat)
@@ -138,7 +138,7 @@ public
 
 	    #TODO: Main functionality
 
-	    @matrix = @matrix + mat
+	    @storage = @storage + mat
 
 	    #post
 	    # result = m1 + m2
@@ -152,7 +152,7 @@ public
 
 	    #TODO: Main functionality
 
-	    @matrix = @matrix - mat
+	    @storage = @storage - mat
 
 
 	    #post
@@ -165,7 +165,7 @@ public
 
 	    #TODO: Main functionality
 
-	    @matrix = @matrix/scalar
+	    @storage = @storage/scalar
 
 	    #post
 	    # result = m1 / m2
@@ -177,7 +177,7 @@ public
 
 	    #TODO: Main functionality
 
-	    @matrix = @matrix**scalar
+	    @storage = @storage**scalar
 
 
 	    #post
@@ -189,7 +189,7 @@ public
 	    # scalar = whole number integer to multiply by
 
 	    #TODO: Main functionality
-	    @matrix = @matrix*scalar
+	    @storage = @storage*scalar
 
 
 
@@ -198,9 +198,7 @@ public
 	end
 
 private
-	@rows
-	@columns
-	@matrix
+	@storage
 
 end
 
@@ -219,7 +217,7 @@ end
 
 # 		# post
 # 		@rows = @columns = size
-# 		@matrix = NMatrix.eye(size) # use factory here ?
+# 		@storage = NMatrix.eye(size) # use factory here ?
 # 		assert self.identity?
 # 	end
 
@@ -239,7 +237,7 @@ end
 # 		# post
 # 		@rows = rows
 # 		@columns = columns
-# 		@matrix = NMatrix.zeros([rows, columns]) # user factory here?
+# 		@storage = NMatrix.zeros([rows, columns]) # user factory here?
 # 		assert self.zero?
 # 	end
 
@@ -260,7 +258,7 @@ end
 
 # 		# post
 # 		@rows = @columns = values.size
-# 		@matrix = NMatrix.diagonal(values) # use factory here?
+# 		@storage = NMatrix.diagonal(values) # use factory here?
 # 		assert self.diagonal?
 # 	end
 
