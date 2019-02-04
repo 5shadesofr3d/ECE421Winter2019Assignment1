@@ -401,8 +401,22 @@ public
 
 	def store_as(storage_type, storage = @storage)
 		assert valid?
-		@factory = symbol_to_factory(storage_type)
+		
+		# pre
+		assert storage_type.is_a? Symbol or storage_type.is_a? StorageFactory
+
+		if storage_type.is_a? Symbol
+			@factory = symbol_to_factory(storage_type)
+		else
+			@factory = storage_type
+		end
+
 		@storage = @factory.create(storage)
+		
+		# post
+		assert @factory.is_a? StorageFactory
+		assert @storage.is_a? SparseStorage
+
 		assert valid?
 	end
 
