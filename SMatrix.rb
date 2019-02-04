@@ -420,6 +420,16 @@ public
 		assert valid?
 	end
 
+	def rows
+		assert valid?
+		@storage.rows
+	end
+
+	def columns
+		assert valid?
+		@storage.columns
+	end
+
 private
 	@storage
 	@factory
