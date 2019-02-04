@@ -399,6 +399,53 @@ public
 		[@storage.rows, @storage.columns]
 	end
 
+	def buildTridiagonal(upper, middle, lower, size)
+		#pre
+		assert size.is_a? Integer
+		assert upper.is_a? Matrix
+		assert middle.is_a? Matrix
+		assert lower.is_a? Matrix
+		assert size > 0
+		#TODO: Implementation
+		#result = ....
+		#post
+		#assert result.tridiagonal?
+	end
+
+	def buildEye(size)
+		#pre
+		assert size.is_a? Integer
+		assert size > 0
+		#TODO: Implementation
+
+		#post
+		#assert result.identity?
+	end
+
+	def buildZero(rows, cols)
+		#pre
+		assert rows.is_a? Integer
+		assert cols.is_a? Integer
+		assert rows > 0 Integer
+		assert cols > 0 Integer
+		#TODO: Implementation
+
+		#post
+		#assert result.identity?
+	end
+
+	def buildRandom(rows, cols)
+		#pre
+		assert rows.is_a? Integer
+		assert cols.is_a? Integer
+		assert rows > 0 Integer
+		assert cols > 0 Integer
+		#TODO: Implementation
+
+		#post
+		#assert result.sparsity <= 0.5
+	end
+
 private
 	@storage
 
