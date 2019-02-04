@@ -162,15 +162,21 @@ public
 
 		#pre
 		assert mat.is_a? SMatrix
-		assert mat.shape == @storage.shape
+		assert mat.shape == self.shape
 
 		#TODO: Main functionality
-		result = @storage - mat
-		@storage = @storage - mat
+		result = SMatrix.new(@storage)
+
+		@storage.each_index do |i, j|
+			result[i, j] -= mat[i, j]
+		end
 
 		#post
-		assert @storage.shape == mat.shape
-		assert result == @storage
+		assert self.shape == result.shape
+		assert result.is_a? SMatrix
+		@storage.each_index do |i, j|
+			assert result[i, j] == self[i, j] - mat[i, j], "#{result[i,j]} #{self[i,j]} #{mat[i,j]}"
+		end
 
 		assert valid?
 	end
