@@ -1,344 +1,393 @@
-require 'nmatrix'
 require 'matrix'
-# require './IMatrix' Fix?
 require 'test/unit'
+
+require './factory/YaleFactory'
+require './factory/DokFactory'
 
 class SMatrix
 	include Test::Unit::Assertions
 	# --- Invariants ---
-	# @rows, @columns are Integers
-	# @rows >= 0
-	# @columns >= 0
-	#
-	# @matrix.is_a? NMatrix
+	# @storage.is_a? SparseStorage
 	# ------------------
 
 public
-
-	# TODO: This method is marked as unreachable code.
-	def initialize(mSize)
-	    ##Create square matrix of size mSize
-	    ##Init full of zeros
-	    #TODO: Factory here to build the matrix
-	    @matrix = NMatrix(mSize, 0)
-	end
-
-	def initialize(rows, columns, *matrix)
+	def initialize(matrix)
 		# constructs a standard matrix
-
 		# pre
-		assert rows.is_a? Integer and columns.is_a? Integer
-		assert rows >= 0 and columns >= 0
-		assert matrix.is_a? Array and matrix.size == rows # will likely replace this
 
 		# post
-		@rows = rows
-		@columns = columns
-		@matrix = NMatrix[*matrix] # we should be using a factory here instead
+		@storage = DokFactory.new.create(matrix)
 
-		for i in 0 .. (rows - 1)
-			for j in 0 .. (columns - 1)
+		@storage.each_index do |i, j|
+			if matrix.is_a? Array
 				assert_same(matrix[i][j], self[i, j])
+			else
+				assert_same(matrix[i, j], self[i, j])
 			end
 		end
 
+		assert valid?
+	end
+
+	def valid?
+		# returns true if all class invariants hold
+		false if not @storage.is_a? SparseStorage
+
+		true
 	end
 
 	def [](i, j)
 		# returns the matrix index at position i, j
 
+		assert valid?
+
 		# pre
 		assert i.is_a? Integer and j.is_a? Integer
-		assert 0 <= i and i < @rows
-		assert 0 <= j and j < @columns
+		assert 0 <= i and i < @storage.rows
+		assert 0 <= j and j < @storage.columns
 
 		# post
-		return @matrix[i, j]
+		assert valid?
+
+		@storage[i, j]
 	end
 
 	def []=(i, j, value)
 		# returns the matrix index at position i, j
-
+		assert valid?
 		# pre
 		assert i.is_a? Integer and j.is_a? Integer
-		assert 0 <= i and i < @rows
-		assert 0 <= j and j < @columns
+		assert 0 <= i and i < @storage.rows
+		assert 0 <= j and j < @storage.columns
 		assert value.is_a? Numeric
 
 		# post
-		@matrix[i, j] = value
+		@storage[i, j] = value
+
+		assert valid?
 	end
 
 	def to_s
 		# converts the matrix into a string
-
+		assert valid?
 		# pre
 		str = ""
 
 		# post
-		for row in @matrix.to_a
-			str += row.to_s + "\n"
-		end
+		col = 0
 
+		@storage.each do |value|
+			str += "#{value} "
+			col += 1
+			if col == @storage.columns
+				col = 0
+				str += "\n"
+			end
+		end
+		
+		assert valid?
 		str
 	end
 
 	def identity?
 		# returns true if the matrix is an identity matrix
-
+		assert valid?
 		# pre
-		false if @columns != @rows
+		false if @storage.columns != @storage.rows
 
 		# post
-		for i in 0 .. (@rows - 1)
-			for j in 0 .. (@columns - 1)
-				false if (i == j and self[i, j] != 1) or (i != j and self[i, j] != 0)
-			end
+		@storage.each_index do |i, j|
+			false if (i == j and self[i, j] != 1) or (i != j and self[i, j] != 0)
 		end
-
+		
+		assert valid?
 		true
 	end
 
 	def zero?
 		# returns true if the matrix is a zero matrix
-
+		assert valid?
 		# pre
 
 		# post
-		for i in 0 .. (@rows - 1)
-			for j in 0 .. (@columns - 1)
-				false if self[i, j] != 0
-			end
+
+		@storage.each_index do |i, j|
+			false if self[i, j] != 0
 		end
 
+		assert valid?
 		true
 	end
 
 	def diagonal?
 		# returns true if the matrix is a diagonal matrix
-
+		assert valid?
 		# pre
 
 		# post
-		Matrix[*@matrix.to_a].diagonal?
+
+		assert valid?
+		Matrix[*@storage.to_a].diagonal?
 	end
 
-	def add(mat)
-	    @matrix.add(mat)
+	#Generic add for all SMatrix types
+	def +(mat)
+		assert valid?
+
+		#pre
+		assert mat.is_a? SMatrix
+		assert mat.shape == self.shape
+
+		#TODO: Main functionality
+		result = SMatrix.new(@storage)
+
+		@storage.each_index do |i, j|
+			result[i, j] += mat[i, j]
+		end
+
+		#post
+		assert self.shape == result.shape
+		assert result.is_a? SMatrix
+		@storage.each_index do |i, j|
+			assert result[i, j] == self[i, j] + mat[i, j]
+		end
+
+		assert valid?
+		result
+	end
+  
+	#Generic sub for all SMatrix types
+	def -(mat)
+		assert valid?
+
+		#pre
+		assert mat.is_a? SMatrix
+		assert mat.shape == self.shape
+
+		#TODO: Main functionality
+		result = SMatrix.new(@storage)
+
+		@storage.each_index do |i, j|
+			result[i, j] -= mat[i, j]
+		end
+
+		#post
+		assert self.shape == result.shape
+		assert result.is_a? SMatrix
+		@storage.each_index do |i, j|
+			assert result[i, j] == self[i, j] - mat[i, j]
+		end
+
+		assert valid?
+		result
 	end
 
-	def subtract(mat)
-	   	@matrix.subtract(mat)
+	#Generic divide for all SMatrix types
+	def /(scalar)
+		assert valid?
+		#pre
+		assert scalar.is_a? Numeric
+		assert scalar != 0
+
+		#TODO: Main functionality
+		result = SMatrix.new(@storage)
+
+		@storage.each_index do |i, j|
+			result[i, j] /= scalar
+		end
+
+		#post
+		assert result.shape == self.shape
+		@storage.each_index do |i, j|
+			assert result[i, j] == self[i, j] / scalar
+		end
+
+		assert valid?
+		result
 	end
 
-	def divide(scalar)
-			@matrix.divide(scalar)
+	#Generic exponent for all SMatrix types
+	def **(scalar)
+		assert valid?
+		#pre
+		assert scalar.is_a? Numeric
+
+		#TODO: Main functionality
+		result = SMatrix.new(@storage)
+
+		@storage.each_index do |i, j|
+			result[i, j] **= scalar
+		end
+
+		#post
+		assert result.shape == self.shape
+		@storage.each_index do |i, j|
+			assert result[i, j] == self[i, j] ** scalar
+		end
+
+		assert valid?
+		result
 	end
 
-	#Element-wise exponent
-	def exponent(scalar)
-			@matrix.exponent(scalar)
-	end
+	#Generic multiply for all SMatrix types
+	def *(scalar)
+		assert valid?
+		#pre
+		assert scalar.is_a? Numeric
 
-	def multiply(scalar)
-			@matrix.multiply(scalar)
+		#TODO: Main functionality
+		result = SMatrix.new(@storage)
+		@storage.each_index do |i, j|
+			result[i, j] *= scalar
+		end
+
+		#post
+		assert result.shape == self.shape
+		@storage.each_index do |i, j|
+			assert result[i, j] == self[i, j] * scalar
+		end
+
+		assert valid?
+		result
 	end
 
 	def dot(mat)
-			@matrix.dot(mat)
+		assert valid?
+		#pre
+		assert mat.is_a? SMatrix
+
+		# TODO Implementation
+
+		#post
+		#@storage = @storage DOT mat
+		assert mat.is_a? SMatrix
+		assert valid?
 	end
 
 	def trace()
-			@matrix.trace()
+		assert valid?
+		#pre
+		#Matrix MUST be square to trace
+		assert @storage.rows == @storage.cols
+
+		@storage.trace
+		assert valid?
 	end
 
 	def rank()
-			@matrix.rank()
+		assert valid?
+		#TODO: Implement
+		#No real assertions here..?
+		assert valid?
 	end
 
 	def row_sum(rowNum)
-			@matrix.row_sum(rowNum)
+		assert valid?
+		assert rowNum.is_a? Integer
+		assert rowNum >= 0
+		assert rowNum < @storage.rows
+		#TODO: Implement
+		assert valid?
 	end
 
 	def col_sum(colNum)
-			@matrix.col_sum(colNum)
+		assert valid?
+		assert colNum.is_a? Integer
+		assert colNum >= 0
+		assert colNum < @storage.cols
+		#TODO: Implement
+		assert valid?
 	end
 
 	def total_sum()
-			@matrix.total_sum()
+		assert valid?
+		#TODO: Implement
+		assert valid?
 	end
 
 	def transpose()
-			@matrix.transpose()
+		assert valid?
+		#pre
+		#matrix to be transposed has been initialized
+		@storage = @storage.transpose()
+		#post
+		#@storage = @storage transposed
+		assert valid?
 	end
 
 	#Raise matrix to a power
 	def power(pow)
-			@matrix.power(pow)
+		assert valid?
+		assert pow.is_a? Integer
+		assert @storage.shape[0] == @storage.shape[1] ##square matrix
+		@storage.pow(pow)
+		assert valid?
 	end
 
 	def inverse()
-			@matrix.inverse()
+		assert valid?
+		#pre
+		assert @storage.shape[0] == @storage.shape[1] #square only
+
+		#TODO:
+		#SMatrix only implements this for dense matricies
+		#so we must convert types then calculate then convert back..
+		#inefficient but necessary for now
+
+		#post
+		# @storage = @storage^-1
+		assert valid?
 	end
 
-	#returns the main diagonal
 	def diagonal()
-			@matrix.diagonal()
+		assert valid?
+		#pre
+
+		@storage.diagonal()
+
+		#post
+		assert valid?
 	end
 
 	def determinant()
-			@matrix.determinant()
+		assert valid?
+		#pre
+		assert @storage.shape[0] == @storage.shape[1] #square
+		@storage.det()
+		#post
+		assert valid?
 	end
 
 	def cholesky()
-			@matrix.cholesky()
+		assert valid?
+		assert @storage.symmetric? #Matrix MUST be symmetric
+		#TODO: Implement SMatrix cholesky factorization
+		assert valid?
 	end
 
 	def luDecomp
-			@matrix.luDecomp()
+		assert valid?
+		#pre
+
+		#TODO: Implement this, this has only been implemented for Dense
+		#matricies in SMatrix so conversions MUST be done
+
+		#post
+		assert valid?
 	end
 
 	def symmetric?
-			@matrix.symmetric?
+		assert valid?
+		@storage.symmetric?
+		assert valid?
 	end
 
-	# Real cast function can take a variable # of arguments.
-	# cast(stype, dtype, default) → NMatrix
-	# cast(stype, dtype) → NMatrix
-	# cast(stype) → NMatrix
-	# cast(options) → NMatrix
-	def cast(*params)
-
-		# TODO: Contract should constrain input.
-		# Pre-conditions
-		assert @matrix.stype == :yale ||
-				  @matrix.stype == :dense ||
-				  @matrix.stype == :list
-
-		#Post
-		return @matrix.cast(*params)
-
-	end
-
-	# TODO: Do these 2 functions violate dry?
-	def upper_triangle(k = 0)
-
-		# Pre-conditions
-		assert k.is_a? Integer and k >= 0
-		assert @matrix.shape.size == 2
-
-		# Post
-		@matrix.upper_triangle(k)
-
-	end
-
-	def upper_triangle!(k = 0)
-
-		# Pre-conditions
-		assert k.is_a? Integer and k >= 0
-		assert @matrix.shape.size == 2
-
-		# Post
-		@matrix.upper_triangle!(k)
-
-	end
-
-	def lower_triangle(k = 0)
-
-		# Pre-conditions
-		assert k.is_a? Integer and k >= 0
-		assert @matrix.shape.size == 2
-
-		# Post
-		@matrix.lower_triangle(k)
-
-	end
-
-	def lower_triangle!(k = 0)
-
-		# Pre-conditions
-		assert k.is_a? Integer and k >= 0
-		assert @matrix.shape.size == 2
-
-		# Post
-		@matrix.lower_triangle!(k)
-
-	end
-
-	def each
-
-		# Pre-conditions
-
-		# Post
-		return @matrix.each
-
+	def shape
+		assert valid?
+		[@storage.rows, @storage.columns]
 	end
 
 private
-	@rows
-	@columns
-	@matrix
-
-end
-
-class IdentityMatrix < SMatrix
-	# --- Invariants ---
-	# @rows == @columns
-	# index [i, i] == 1
-	# index [i, j] == 0 if i =! j
-	# ------------------
-
-	def initialize(size)
-		# constructs an identity matrix
-
-		# pre
-		assert size.is_a? Integer
-
-		# post
-		@rows = @columns = size
-		@matrix = NMatrix.eye(size) # use factory here ?
-		assert self.identity?
-	end
-
-end
-
-class ZeroMatrix < SMatrix
-	# --- Invariants ---
-	# index [i, j] == 0
-	# ------------------
-
-	def initialize(rows, columns)
-		# constructs a zero matrix
-
-		# pre
-		assert rows.is_a? Integer and columns.is_a? Integer
-
-		# post
-		@rows = rows
-		@columns = columns
-		@matrix = NMatrix.zeros([rows, columns]) # user factory here?
-		assert self.zero?
-	end
-
-end
-
-class DiagonalMatrix < SMatrix
-	# --- Invariants ---
-	# index [i, j] == 0 if i != j
-	# ------------------
-
-	def initialize(*values)
-		# constructs a diagonal matrix
-
-		# pre
-		for value in values
-			assert value.is_a? Numeric
-		end
-
-		# post
-		@rows = @columns = values.size
-		@matrix = NMatrix.diagonal(values) # use factory here?
-		assert self.diagonal?
-	end
+	@storage
 
 end
