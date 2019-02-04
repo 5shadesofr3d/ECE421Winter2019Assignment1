@@ -33,8 +33,6 @@ public
 		assert matrix.is_a? Array and matrix.size == rows # will likely replace this
 
 		# post
-		@rows = rows
-		@columns = columns
 		@storage = DokFactory.new.create(matrix)
 
 		for i in 0 .. (rows - 1)
@@ -50,8 +48,8 @@ public
 
 		# pre
 		assert i.is_a? Integer and j.is_a? Integer
-		assert 0 <= i and i < @rows
-		assert 0 <= j and j < @columns
+		assert 0 <= i and i < @storage.rows
+		assert 0 <= j and j < @storage.columns
 
 		# post
 		@storage[i, j]
@@ -62,8 +60,8 @@ public
 
 		# pre
 		assert i.is_a? Integer and j.is_a? Integer
-		assert 0 <= i and i < @rows
-		assert 0 <= j and j < @columns
+		assert 0 <= i and i < @storage.rows
+		assert 0 <= j and j < @storage.columns
 		assert value.is_a? Numeric
 
 		# post
@@ -95,11 +93,11 @@ public
 		# returns true if the matrix is an identity matrix
 
 		# pre
-		false if @columns != @rows
+		false if @storage.columns != @storage.rows
 
 		# post
-		for i in 0 .. (@rows - 1)
-			for j in 0 .. (@columns - 1)
+		for i in 0 .. (@storage.rows - 1)
+			for j in 0 .. (@storage.columns - 1)
 				false if (i == j and self[i, j] != 1) or (i != j and self[i, j] != 0)
 			end
 		end
@@ -113,8 +111,8 @@ public
 		# pre
 
 		# post
-		for i in 0 .. (@rows - 1)
-			for j in 0 .. (@columns - 1)
+		for i in 0 .. (@storage.rows - 1)
+			for j in 0 .. (@storage.columns - 1)
 				false if self[i, j] != 0
 			end
 		end
