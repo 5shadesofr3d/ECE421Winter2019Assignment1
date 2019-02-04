@@ -252,6 +252,15 @@ public
 
 	end
 
+	def each
+
+		# Pre-conditions
+
+		# Post
+		return @matrix.each
+
+	end
+
 private
 	@rows
 	@columns
