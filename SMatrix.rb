@@ -45,9 +45,7 @@ public
 
 	def valid?
 		# returns true if all class invariants hold
-		false if not @storage.is_a? SparseStorage
-		false if @storage.rows < 0
-		false if @storage.cols < 0
+		return false unless (@storage.is_a? SparseStorage or @storage.is_a? NilClass)
 
 		true
 	end
