@@ -1,4 +1,10 @@
 class SList < IMatrix
+  # --- Class Invariants ---
+	# @matrix is of type NMatrix
+  # @matrix is of storage type List
+  # @matrix has columns >= 0
+  # @matrix has rows >= 0
+	# ------------------
   def initialize(mat)
     ##Pass in a matrix built by abstract factory
     assert mat.list?
@@ -7,21 +13,23 @@ class SList < IMatrix
 
   def add(mat)
       #pre
-      assert mat.list? and @matrix.list?
+      assert mat.list?
 
       super
 
       #post
+      #@matrix = @matrix+mat
       assert @matrix.list?
   end
 
   def subtract(mat)
       #pre
-      assert mat.list? and @matrix.list?
+      assert mat.list?
 
       super
 
       #post
+      #@matrix = @matrix-mat
       assert @matrix.list?
   end
 
@@ -33,6 +41,7 @@ class SList < IMatrix
       super
 
       #post
+      #@matrix = @matrix/scalar (element wise)
       assert @matrix.list?
   end
 
@@ -43,6 +52,7 @@ class SList < IMatrix
       super
 
       #post
+      #@matrix = @matrix^scalar (Element wise exponent)
       assert @matrix.list?
   end
 
@@ -53,6 +63,7 @@ class SList < IMatrix
       super
 
       #post
+      #@matrix = @matrix*scalar
       assert @matrix.list?
   end
 
@@ -64,7 +75,7 @@ class SList < IMatrix
 
       #post
       #@matrix = @matrix DOT mat
-      assert mat.list?
+      assert @matrix.list?
   end
 
   def trace()
@@ -100,6 +111,11 @@ class SList < IMatrix
   #Raise matrix to a power
 	def power(pow)
       assert pow.is_a? Integer
+			super
+	end
+
+  def inverse()
+      assert @matrix.shape[0] == @matrix.shape[1] #square
 			super
 	end
 end

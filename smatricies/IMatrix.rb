@@ -5,6 +5,12 @@
 ##This class should not be instantiated directly
 ##Use subclasses
 class IMatrix
+  # --- Class Invariants ---
+	# @matrix is of type NMatrix
+  # @matrix is of storage type Yale or List
+  # @matrix has columns >= 0
+  # @matrix has rows >= 0
+	# ------------------
   def initialize(mat)
     ##Pass in a matrix built by abstract factory
     @matrix = mat
@@ -133,6 +139,20 @@ class IMatrix
   #Raise matrix to a power
 	def power(pow)
       assert pow.is_a? Integer
+      assert @matrix.shape[0] == @matrix.shape[1] ##square matrix
 			@matrix.pow(pow)
+	end
+
+  def inverse()
+      #pre
+      assert @matrix.shape[0] == @matrix.shape[1] #square only
+
+      #TODO:
+      #NMatrix only implements this for dense matricies
+      #so we must convert types then calculate then convert back..
+      #inefficient but necessary for now
+
+      #post
+      # @matrix = @matrix^-1
 	end
 end

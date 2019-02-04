@@ -175,6 +175,10 @@ public
 			@matrix.power(pow)
 	end
 
+	def inverse()
+			@matrix.inverse()
+	end
+
 private
 	@rows
 	@columns

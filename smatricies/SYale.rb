@@ -1,4 +1,10 @@
 class SYale < IMatrix
+  # --- Class Invariants ---
+	# @matrix is of type NMatrix
+  # @matrix is of storage type Yale
+  # @matrix has columns >= 0
+  # @matrix has rows >= 0
+	# ------------------
   def initialize(mat)
     ##Pass in a matrix built by abstract factory
     assert mat.yale?
@@ -93,6 +99,11 @@ class SYale < IMatrix
   #Raise matrix to a power
 	def power(pow)
       assert pow.is_a? Integer
+			super
+	end
+
+  def inverse()
+      assert @matrix.shape[0] == @matrix.shape[1] #square
 			super
 	end
 end
