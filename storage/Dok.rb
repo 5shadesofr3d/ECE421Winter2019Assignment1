@@ -49,11 +49,16 @@ public
 	end
 
 	def each
+		# iterates through each matrix element
+		assert valid?
+
 		for i in 0 .. @rows - 1
 			for j in 0 .. @columns - 1
 				yield self[i, j]
 			end
 		end
+
+		assert valid?
 	end
 
 private
