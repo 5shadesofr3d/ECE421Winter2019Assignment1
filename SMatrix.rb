@@ -626,6 +626,17 @@ public
 		assert valid?
 	end
 
+	def equals(mat)
+		assert valid?
+		assert mat.is_a? SparseStorage
+
+		assert valid?
+	end
+
+	def clone
+		
+	end
+
 private
 	@storage
 	@factory
