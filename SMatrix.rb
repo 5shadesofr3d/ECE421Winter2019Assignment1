@@ -151,7 +151,7 @@ public
 		assert mat.shape == self.shape
 
 		#TODO: Main functionality
-		result = SMatrix.new(@storage)
+		result = SMatrix.new(@storage, @factory)
 
 		@storage.each_index do |i, j|
 			result[i, j] += mat[i, j]
@@ -177,7 +177,7 @@ public
 		assert mat.shape == self.shape
 
 		#TODO: Main functionality
-		result = SMatrix.new(@storage)
+		result = SMatrix.new(@storage, @factory)
 
 		@storage.each_index do |i, j|
 			result[i, j] -= mat[i, j]
@@ -202,7 +202,7 @@ public
 		assert scalar != 0
 
 		#TODO: Main functionality
-		result = SMatrix.new(@storage)
+		result = SMatrix.new(@storage, @factory)
 
 		@storage.each_index do |i, j|
 			result[i, j] /= scalar
@@ -225,7 +225,7 @@ public
 		assert scalar.is_a? Numeric
 
 		#TODO: Main functionality
-		result = SMatrix.new(@storage)
+		result = SMatrix.new(@storage, @factory)
 
 		@storage.each_index do |i, j|
 			result[i, j] **= scalar
@@ -248,7 +248,7 @@ public
 		assert scalar.is_a? Numeric
 
 		#TODO: Main functionality
-		result = SMatrix.new(@storage)
+		result = SMatrix.new(@storage, @factory)
 		@storage.each_index do |i, j|
 			result[i, j] *= scalar
 		end
@@ -403,7 +403,7 @@ public
 		assert valid?
 		
 		# pre
-		assert storage_type.is_a? Symbol or storage_type.is_a? StorageFactory
+		assert (storage_type.is_a? Symbol or storage_type.is_a? StorageFactory)
 
 		if storage_type.is_a? Symbol
 			@factory = symbol_to_factory(storage_type)
