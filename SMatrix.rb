@@ -187,6 +187,24 @@ public
 	    # result = m1 * m2
 	end
 
+	# Real cast function can take a variable # of arguments.
+	# cast(stype, dtype, default) → NMatrix
+	# cast(stype, dtype) → NMatrix
+	# cast(stype) → NMatrix
+	# cast(options) → NMatrix
+	def cast(*params)
+
+		# TODO: Contract should constrain input.
+		# Pre-conditions
+		assert @matrix.stype == :yale ||
+				  @matrix.stype == :dense ||
+				  @matrix.stype == :list
+
+		#Post
+		return @matrix.cast(*params)
+
+	end
+
 private
 	@rows
 	@columns
