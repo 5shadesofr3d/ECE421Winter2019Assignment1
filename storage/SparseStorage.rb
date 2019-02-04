@@ -94,10 +94,10 @@ public
 		end
 
 		assert valid?
-		
+
 		arr
 	end
 
 	attr_reader :rows, :columns
-	
+
 end

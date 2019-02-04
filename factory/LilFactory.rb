@@ -2,7 +2,10 @@ require './factory/StorageFactory'
 
 # NOTE: List of List (LIL)
 class LilFactory < StorageFactory
-
+	# --- Invariants ---
+	# @self.is_a? StorageFactory
+	# ------------------
+	
 	def create(storage)
 		# returns a LILStorage containing the same values of the specified storage
 
@@ -12,7 +15,7 @@ class LilFactory < StorageFactory
 
 		case storage
 		when Yale
-			
+
 		when Dok
 
 		when Lil

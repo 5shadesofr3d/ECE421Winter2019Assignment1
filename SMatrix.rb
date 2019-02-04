@@ -8,6 +8,8 @@ class SMatrix
 	include Test::Unit::Assertions
 	# --- Invariants ---
 	# @storage.is_a? SparseStorage
+	# @storage.rows >= 0
+	# @storage.cols >= 0
 	# ------------------
 
 public
@@ -32,6 +34,8 @@ public
 	def valid?
 		# returns true if all class invariants hold
 		false if not @storage.is_a? SparseStorage
+		false if @storage.rows < 0
+		false if @storage.cols < 0
 
 		true
 	end
@@ -53,7 +57,7 @@ public
 	end
 
 	def []=(i, j, value)
-		# returns the matrix index at position i, j
+		# sets the matrix index at position i, j
 		assert valid?
 		# pre
 		assert i.is_a? Integer and j.is_a? Integer
@@ -84,7 +88,7 @@ public
 				str += "\n"
 			end
 		end
-		
+
 		assert valid?
 		str
 	end
@@ -93,13 +97,13 @@ public
 		# returns true if the matrix is an identity matrix
 		assert valid?
 		# pre
-		false if @storage.columns != @storage.rows
+		false if @storage.cols != @storage.rows
 
 		# post
 		@storage.each_index do |i, j|
 			false if (i == j and self[i, j] != 1) or (i != j and self[i, j] != 0)
 		end
-		
+
 		assert valid?
 		true
 	end
@@ -130,6 +134,26 @@ public
 		Matrix[*@storage.to_a].diagonal?
 	end
 
+	def tridiagonal?
+		#pre
+		assert valid?
+		#TODO: Implement
+		#post
+		assert valid?
+	end
+
+	def symmetric?
+		assert valid?
+		@storage.symmetric?
+		assert valid?
+	end
+
+	def hermitian?
+		assert valid?
+		@storage.hermitian?
+		assert valid?
+	end
+
 	#Generic add for all SMatrix types
 	def +(mat)
 		assert valid?
@@ -155,7 +179,7 @@ public
 		assert valid?
 		result
 	end
-  
+
 	#Generic sub for all SMatrix types
 	def -(mat)
 		assert valid?
@@ -252,10 +276,10 @@ public
 	end
 
 	def dot(mat)
-		assert valid?
 		#pre
+		assert valid?
 		assert mat.is_a? SMatrix
-
+		assert mat.rows == @storage.cols #MxN * NxK
 		# TODO Implementation
 
 		#post
@@ -265,19 +289,18 @@ public
 	end
 
 	def trace()
-		assert valid?
 		#pre
-		#Matrix MUST be square to trace
+		assert valid?
 		assert @storage.rows == @storage.cols
-
+		#Matrix MUST be square to trace
 		@storage.trace
+
 		assert valid?
 	end
 
 	def rank()
 		assert valid?
 		#TODO: Implement
-		#No real assertions here..?
 		assert valid?
 	end
 
@@ -336,6 +359,14 @@ public
 
 		#post
 		# @storage = @storage^-1
+		assert @storage.shape[0] == @storage.shape[1]
+		assert valid?
+	end
+
+	def hessenberg
+		assert valid?
+		assert @storage.rows == @storage.cols
+		@storage.hessenberg
 		assert valid?
 	end
 
@@ -373,12 +404,6 @@ public
 		#matricies in SMatrix so conversions MUST be done
 
 		#post
-		assert valid?
-	end
-
-	def symmetric?
-		assert valid?
-		@storage.symmetric?
 		assert valid?
 	end
 
