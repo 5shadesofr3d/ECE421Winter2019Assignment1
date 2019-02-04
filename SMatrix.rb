@@ -150,10 +150,11 @@ public
 		assert self.shape == result.shape
 		assert result.is_a? SMatrix
 		@storage.each_index do |i, j|
-			assert result[i, j] == self[i, j] + mat[i, j], "#{result[i,j]} #{self[i,j]} #{mat[i,j]}"
+			assert result[i, j] == self[i, j] + mat[i, j]
 		end
 
 		assert valid?
+		result
 	end
 
 	#Generic sub for all SMatrix types
@@ -175,57 +176,80 @@ public
 		assert self.shape == result.shape
 		assert result.is_a? SMatrix
 		@storage.each_index do |i, j|
-			assert result[i, j] == self[i, j] - mat[i, j], "#{result[i,j]} #{self[i,j]} #{mat[i,j]}"
+			assert result[i, j] == self[i, j] - mat[i, j]
 		end
 
 		assert valid?
+		result
 	end
 
 	#Generic divide for all SMatrix types
 	def /(scalar)
 		assert valid?
 		#pre
-		assert scalar.is_a? Integer
+		assert scalar.is_a? Numeric
 		assert scalar != 0
 
 		#TODO: Main functionality
-		result = @storage/scalar
-		@storage = @storage/scalar
+		result = SMatrix.new(@storage)
+
+		@storage.each_index do |i, j|
+			result[i, j] /= scalar
+		end
 
 		#post
-		assert result == @storage
+		assert result.shape == self.shape
+		@storage.each_index do |i, j|
+			assert result[i, j] == self[i, j] / scalar
+		end
 
 		assert valid?
+		result
 	end
 
 	#Generic exponent for all SMatrix types
 	def **(scalar)
 		assert valid?
 		#pre
-		assert scalar.is_a? Integer
+		assert scalar.is_a? Numeric
 
 		#TODO: Main functionality
-		result = @storage**scalar
-		@storage = @storage**scalar
+		result = SMatrix.new(@storage)
+
+		@storage.each_index do |i, j|
+			result[i, j] **= scalar
+		end
 
 		#post
-		assert result == @storage
+		assert result.shape == self.shape
+		@storage.each_index do |i, j|
+			assert result[i, j] == self[i, j] ** scalar
+		end
+
 		assert valid?
+		result
 	end
 
 	#Generic multiply for all SMatrix types
 	def *(scalar)
 		assert valid?
 		#pre
-		assert scalar.is_a? Integer
+		assert scalar.is_a? Numeric
 
 		#TODO: Main functionality
-		result = @storage*scalar
-		@storage = @storage*scalar
+		result = SMatrix.new(@storage)
+		@storage.each_index do |i, j|
+			result[i, j] *= scalar
+		end
 
 		#post
-		assert result == @storage
+		assert result.shape == self.shape
+		@storage.each_index do |i, j|
+			assert result[i, j] == self[i, j] * scalar
+		end
+
 		assert valid?
+		result
 	end
 
 	def dot(mat)
@@ -233,7 +257,7 @@ public
 		#pre
 		assert mat.is_a? SMatrix
 
-		@storage.dot(mat)
+		# TODO Implementation
 
 		#post
 		#@storage = @storage DOT mat

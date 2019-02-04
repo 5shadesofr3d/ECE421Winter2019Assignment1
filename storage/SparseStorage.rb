@@ -49,10 +49,12 @@ public
 		end
 
 		# post
+		assert zero_values >= 0
 		zero_values / total_values
 	end
 
 	def each_index
+		# provides index iterators
 		assert valid?
 
 		for i in 0 .. @rows - 1
@@ -62,6 +64,38 @@ public
 		end
 
 		assert valid?
+	end
+
+	def each
+		# iterates through each matrix element
+		assert valid?
+
+		for i in 0 .. @rows - 1
+			for j in 0 .. @columns - 1
+				yield self[i, j]
+			end
+		end
+
+		assert valid?
+	end
+
+
+	def to_a
+		# converts storage to an array of rows format
+		assert valid?
+
+		arr = []
+		for i in 0 .. @rows - 1
+			row = []
+			for j in 0 .. @columns - 1
+				row << self[i, j]
+			end
+			arr << row
+		end
+
+		assert valid?
+		
+		arr
 	end
 
 	attr_reader :rows, :columns

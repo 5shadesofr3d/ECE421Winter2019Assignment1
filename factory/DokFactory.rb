@@ -14,7 +14,7 @@ class DokFactory < StorageFactory
 		when Yale
 			
 		when Dok
-			created = storage.clone
+			created = from_array(storage.to_a)
 		when Lil
 			
 		when Matrix
