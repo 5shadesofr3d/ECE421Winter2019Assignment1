@@ -1,7 +1,11 @@
 require './storage/SparseStorage'
 
 class Dok < SparseStorage
-
+	# --- Invariants ---
+	# @self.is_a? SparseStorage
+	# @self.rows >= 0
+	# @self.cols >= 0
+	# ------------------
 public
 	def initialize(rows, columns)
 		assert rows.is_a? Integer
