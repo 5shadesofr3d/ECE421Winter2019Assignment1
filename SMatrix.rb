@@ -426,7 +426,7 @@ public
 
 	def store_as(storage_type, storage = @storage)
 		assert valid?
-		
+
 		# pre
 		assert (storage_type.is_a? Symbol or storage_type.is_a? StorageFactory)
 
@@ -437,7 +437,7 @@ public
 		end
 
 		@storage = @factory.create(storage)
-		
+
 		# post
 		assert @factory.is_a? StorageFactory
 		assert @storage.is_a? SparseStorage
@@ -533,6 +533,53 @@ public
 
     assert valid?
   end
+
+	def buildTridiagonal(upper, middle, lower, size)
+		#pre
+		assert size.is_a? Integer
+		assert upper.is_a? Matrix
+		assert middle.is_a? Matrix
+		assert lower.is_a? Matrix
+		assert size > 0
+		#TODO: Implementation
+		#result = ....
+		#post
+		#assert result.tridiagonal?
+	end
+
+	def buildEye(size)
+		#pre
+		assert size.is_a? Integer
+		assert size > 0
+		#TODO: Implementation
+
+		#post
+		#assert result.identity?
+	end
+
+	def buildZero(rows, cols)
+		#pre
+		assert rows.is_a? Integer
+		assert cols.is_a? Integer
+		assert rows > 0
+		assert cols > 0
+		#TODO: Implementation
+
+		#post
+		#assert result.identity?
+	end
+
+	def buildRandom(rows, cols)
+		#pre
+		assert rows.is_a? Integer
+		assert cols.is_a? Integer
+		assert rows > 0
+		assert cols > 0
+		#TODO: Implementation
+
+		#post
+		#assert result.sparsity <= 0.5
+	end
 
 private
 	@storage
