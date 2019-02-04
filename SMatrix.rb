@@ -1,6 +1,6 @@
 require 'nmatrix'
 require 'matrix'
-require './IMatrix'
+# require './IMatrix' Fix?
 require 'test/unit'
 
 class SMatrix
@@ -14,6 +14,8 @@ class SMatrix
 	# ------------------
 
 public
+
+	# TODO: This method is marked as unreachable code.
 	def initialize(mSize)
 	    ##Create square matrix of size mSize
 	    ##Init full of zeros
@@ -198,6 +200,78 @@ public
 
 	def symmetric?
 			@matrix.symmetric?
+	end
+
+	# Real cast function can take a variable # of arguments.
+	# cast(stype, dtype, default) → NMatrix
+	# cast(stype, dtype) → NMatrix
+	# cast(stype) → NMatrix
+	# cast(options) → NMatrix
+	def cast(*params)
+
+		# TODO: Contract should constrain input.
+		# Pre-conditions
+		assert @matrix.stype == :yale ||
+				  @matrix.stype == :dense ||
+				  @matrix.stype == :list
+
+		#Post
+		return @matrix.cast(*params)
+
+	end
+
+	# TODO: Do these 2 functions violate dry?
+	def upper_triangle(k = 0)
+
+		# Pre-conditions
+		assert k.is_a? Integer and k >= 0
+		assert @matrix.shape.size == 2
+
+		# Post
+		@matrix.upper_triangle(k)
+
+	end
+
+	def upper_triangle!(k = 0)
+
+		# Pre-conditions
+		assert k.is_a? Integer and k >= 0
+		assert @matrix.shape.size == 2
+
+		# Post
+		@matrix.upper_triangle!(k)
+
+	end
+
+	def lower_triangle(k = 0)
+
+		# Pre-conditions
+		assert k.is_a? Integer and k >= 0
+		assert @matrix.shape.size == 2
+
+		# Post
+		@matrix.lower_triangle(k)
+
+	end
+
+	def lower_triangle!(k = 0)
+
+		# Pre-conditions
+		assert k.is_a? Integer and k >= 0
+		assert @matrix.shape.size == 2
+
+		# Post
+		@matrix.lower_triangle!(k)
+
+	end
+
+	def each
+
+		# Pre-conditions
+
+		# Post
+		return @matrix.each
+
 	end
 
 private
