@@ -84,7 +84,7 @@ public
 				str += "\n"
 			end
 		end
-		
+
 		assert valid?
 		str
 	end
@@ -99,7 +99,7 @@ public
 		@storage.each_index do |i, j|
 			false if (i == j and self[i, j] != 1) or (i != j and self[i, j] != 0)
 		end
-		
+
 		assert valid?
 		true
 	end
@@ -155,7 +155,7 @@ public
 		assert valid?
 		result
 	end
-  
+
 	#Generic sub for all SMatrix types
 	def -(mat)
 		assert valid?
@@ -252,10 +252,10 @@ public
 	end
 
 	def dot(mat)
-		assert valid?
 		#pre
+		assert valid?
 		assert mat.is_a? SMatrix
-
+		assert mat.rows == @storage.cols #MxN * NxK
 		# TODO Implementation
 
 		#post
@@ -265,12 +265,12 @@ public
 	end
 
 	def trace()
-		assert valid?
 		#pre
-		#Matrix MUST be square to trace
+		assert valid?
 		assert @storage.rows == @storage.cols
-
+		#Matrix MUST be square to trace
 		@storage.trace
+
 		assert valid?
 	end
 
@@ -372,6 +372,14 @@ public
 		#TODO: Implement this, this has only been implemented for Dense
 		#matricies in SMatrix so conversions MUST be done
 
+		#post
+		assert valid?
+	end
+
+	def tridiagonal?
+		#pre
+		assert valid?
+		#TODO: Implement
 		#post
 		assert valid?
 	end
