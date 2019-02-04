@@ -179,6 +179,12 @@ public
 			@matrix.inverse()
 	end
 
+	#returns the main diagonal
+	def diagonal()
+			@matrix.diagonal()
+	end
+
+
 private
 	@rows
 	@columns

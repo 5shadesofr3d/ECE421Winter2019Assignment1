@@ -155,4 +155,12 @@ class IMatrix
       #post
       # @matrix = @matrix^-1
 	end
+
+  def diagonal()
+			#pre
+
+      @matrix.diagonal()
+
+      #post
+	end
 end
