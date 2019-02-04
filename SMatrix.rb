@@ -13,7 +13,7 @@ class SMatrix
 	# @rows >= 0
 	# @columns >= 0
 	#
-	# @storage.is_a? NMatrix
+	# @storage.is_a? SparseStorage
 	# ------------------
 
 public
