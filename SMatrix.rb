@@ -4,6 +4,17 @@ require 'test/unit'
 require './factory/YaleFactory'
 require './factory/DokFactory'
 
+def symbol_to_factory(symbol)
+	case symbol
+	when :dok
+		DokFactory.new
+	when :yale
+		YaleFactory.new
+	when :lil
+		LilFactory.new
+	end
+end
+
 class SMatrix
 	include Test::Unit::Assertions
 	# --- Invariants ---
@@ -13,12 +24,13 @@ class SMatrix
 	# ------------------
 
 public
-	def initialize(matrix)
+	def initialize(matrix, storage_type = :dok)
 		# constructs a standard matrix
+
 		# pre
 
 		# post
-		@storage = DokFactory.new.create(matrix)
+		store_as(storage_type, matrix)
 
 		@storage.each_index do |i, j|
 			if matrix.is_a? Array
@@ -50,7 +62,7 @@ public
 		assert 0 <= i and i < @storage.rows
 		assert 0 <= j and j < @storage.columns
 
-		# post
+		# position
 		assert valid?
 
 		@storage[i, j]
@@ -163,7 +175,7 @@ public
 		assert mat.shape == self.shape
 
 		#TODO: Main functionality
-		result = SMatrix.new(@storage)
+		result = SMatrix.new(@storage, @factory)
 
 		@storage.each_index do |i, j|
 			result[i, j] += mat[i, j]
@@ -189,7 +201,7 @@ public
 		assert mat.shape == self.shape
 
 		#TODO: Main functionality
-		result = SMatrix.new(@storage)
+		result = SMatrix.new(@storage, @factory)
 
 		@storage.each_index do |i, j|
 			result[i, j] -= mat[i, j]
@@ -214,7 +226,7 @@ public
 		assert scalar != 0
 
 		#TODO: Main functionality
-		result = SMatrix.new(@storage)
+		result = SMatrix.new(@storage, @factory)
 
 		@storage.each_index do |i, j|
 			result[i, j] /= scalar
@@ -237,7 +249,7 @@ public
 		assert scalar.is_a? Numeric
 
 		#TODO: Main functionality
-		result = SMatrix.new(@storage)
+		result = SMatrix.new(@storage, @factory)
 
 		@storage.each_index do |i, j|
 			result[i, j] **= scalar
@@ -260,7 +272,7 @@ public
 		assert scalar.is_a? Numeric
 
 		#TODO: Main functionality
-		result = SMatrix.new(@storage)
+		result = SMatrix.new(@storage, @factory)
 		@storage.each_index do |i, j|
 			result[i, j] *= scalar
 		end
@@ -412,7 +424,39 @@ public
 		[@storage.rows, @storage.columns]
 	end
 
+	def store_as(storage_type, storage = @storage)
+		assert valid?
+		
+		# pre
+		assert (storage_type.is_a? Symbol or storage_type.is_a? StorageFactory)
+
+		if storage_type.is_a? Symbol
+			@factory = symbol_to_factory(storage_type)
+		else
+			@factory = storage_type
+		end
+
+		@storage = @factory.create(storage)
+		
+		# post
+		assert @factory.is_a? StorageFactory
+		assert @storage.is_a? SparseStorage
+
+		assert valid?
+	end
+
+	def rows
+		assert valid?
+		@storage.rows
+	end
+
+	def columns
+		assert valid?
+		@storage.columns
+	end
+
 private
 	@storage
+	@factory
 
 end
