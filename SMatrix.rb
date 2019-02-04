@@ -438,7 +438,33 @@ public
 		# @storage.lower_triangle!(k)
 
     assert valid?
-	end
+  end
+
+  def conjugate
+    assert valid?
+
+    # Pre-conditions
+    # assert @storage.type == NMatrix?
+
+    # Post
+    # @storage.conjugate_transpose
+
+    assert valid?
+  end
+
+  def normal?(matrix)
+    assert valid?
+
+    # Pre-conditions
+    # assert @storage.type == NMatrix?
+    # assert @matrix.type == NMatrix?
+
+    # Post
+    # (@storage.conjugate.transpose * @matrix) ==
+    # (@storage * @matrix.conjugate.transpose)
+
+    assert valid?
+  end
 
 private
 	@storage
