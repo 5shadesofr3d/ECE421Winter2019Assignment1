@@ -11,6 +11,24 @@ class SList < IMatrix
     super
   end
 
+  def valid?
+    #checks that the correct storage type is correct
+    false unless @matrix.is_a? NMatrix.class and @matrix.list?
+    false unless @matrix.rows >= 0
+    false unless @matrix.cols >= 0
+
+    true
+  end
+
+  def each
+    # returns the enumeration of each of the indices
+    assert valid?
+
+    yield @matrix.each_with_indices
+
+    assert valid?
+  end
+
   def add(mat)
       #pre
       assert mat.list?

@@ -16,6 +16,16 @@ class IMatrix
     @matrix = mat
   end
 
+  #check if the class invariants are true
+  def valid?
+    # returns true if class invariants hold
+    false unless @matrix.is_a? NMatrix.class
+    false unless @rows >= 0 and @columns >= 0
+    false unless sparsity > 0.5
+
+    true
+  end
+
   #Generic add for all NMatrix types
   def add(mat)
       #pre

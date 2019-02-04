@@ -17,8 +17,10 @@ class Yale < SparseStorage
 		end
 
 		def valid?
-			#TODO: Implement
+			super
 		end
+
+		
 
 		def [](i, j)
 			# returns the matrix index at position i, j
@@ -36,7 +38,7 @@ class Yale < SparseStorage
 		end
 
 		def []=(i, j, value)
-			# returns the matrix index at position i, j
+			# assigning a value the matrix index at position i, j
 			assert valid?
 
 			# pre

@@ -17,7 +17,7 @@ class Lil < SparseStorage
 		end
 
 		def valid?
-			#TODO: Implement
+			super
 		end
 
 		def [](i, j)
