@@ -197,13 +197,13 @@ public
 
 	def symmetric?
 		assert valid?
-		@storage.symmetric?
+		#TODO: Implement
 		assert valid?
 	end
 
 	def hermitian?
 		assert valid?
-		@storage.hermitian?
+		#TODO: Implement
 		assert valid?
 	end
 
@@ -634,7 +634,7 @@ public
 	end
 
 	def clone
-		
+
 	end
 
 private
