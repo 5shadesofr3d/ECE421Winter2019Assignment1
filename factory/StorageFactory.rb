@@ -7,6 +7,9 @@ Yale = NMatrix
 
 class StorageFactory
 	include Test::Unit::Assertions
+	# --- Invariants ---
+	# @self.is_a? StorageFactory
+	# ------------------
 
 	def create(matrix)
 		raise AbstractClassError
