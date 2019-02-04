@@ -4,9 +4,9 @@ require './SMatrix'
 
 def add
 	s = SMatrix.new([
-		[1, 2, 0],
-		[1, 5, 0],
-		[1, 8, 0]
+		[0, 2, 0],
+		[0, 5, 0],
+		[0, 8, 0]
 	])
 	m = SMatrix.new([
 		[0, 2, 0],
