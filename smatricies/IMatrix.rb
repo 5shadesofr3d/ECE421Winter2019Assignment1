@@ -121,4 +121,12 @@ class IMatrix
 	def total_sum()
 			#TODO: Implement
 	end
+
+  def transpose()
+      #pre
+      #matrix to be transposed has been initialized
+			@matrix = @matrix.transpose()
+      #post
+      #@matrix = @matrix transposed
+	end
 end

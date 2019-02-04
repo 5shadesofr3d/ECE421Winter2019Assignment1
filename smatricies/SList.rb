@@ -92,4 +92,8 @@ class SList < IMatrix
 	def total_sum()
 			super
 	end
+
+  def transpose()
+			super
+	end
 end

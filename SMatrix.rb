@@ -165,6 +165,10 @@ public
 			@matrix.total_sum()
 	end
 
+	def transpose()
+			@matrix.transpose()
+	end
+
 private
 	@rows
 	@columns
