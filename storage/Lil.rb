@@ -50,4 +50,20 @@ class Lil < SparseStorage
 			# post
 			assert valid?
 		end
+
+		def each
+			# returning the enumerator for each of the elements in the yield matrix
+
+			#pre
+			assert valid?
+
+			# use the NMatrix each value. It has its own way of going through different
+			# storage types
+			# @matrix.each_with_indices do |element|
+			# => yield element
+			# end
+
+			#post
+			assert valid?
+		end
 end

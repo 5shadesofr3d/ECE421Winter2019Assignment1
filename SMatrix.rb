@@ -84,7 +84,7 @@ public
     assert valid?
   end
 
-	def for_main_diagonal()
+  def for_main_diagonal()
     #pre
     assert @storage.rows == @storage.cols
     assert valid?
