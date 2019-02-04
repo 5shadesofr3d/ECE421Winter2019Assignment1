@@ -28,18 +28,18 @@ public
 
 	def valid?
 		# returns true if class invariants hold
-		false unless @rows.is_a? Integer and @columns.is_a? Integer
-		false unless @rows >= 0 and @columns >= 0
-		false unless sparsity > 0.5
+		return false unless @rows.is_a? Integer and @columns.is_a? Integer
+		return false unless @rows >= 0 and @columns >= 0
+		return false unless sparsity > 0.5
 
-		true
+		return true
 	end
 
 	def sparsity
 		# returns the sparsity of the storage
 
 		# pre
-		zero_values = 0
+		zero_values = 0.0
 		total_values = @rows * @columns
 
 		for i in 0 .. @rows - 1
