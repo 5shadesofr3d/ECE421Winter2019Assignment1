@@ -2,7 +2,10 @@ require './factory/StorageFactory'
 
 # NOTE: Dictionary of Keys (DOK)
 class DokFactory < StorageFactory
-
+	# --- Invariants ---
+	# @self.is_a? StorageFactory
+	# ------------------
+	
 	def create(storage)
 		# returns a DOKStorage containing the same values of the specified storage
 
@@ -12,11 +15,11 @@ class DokFactory < StorageFactory
 
 		case storage
 		when Yale
-			
+
 		when Dok
 			created = from_array(storage.to_a)
 		when Lil
-			
+
 		when Matrix
 
 		when Array
