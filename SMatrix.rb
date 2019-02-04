@@ -1,6 +1,6 @@
 require 'nmatrix'
 require 'matrix'
-require './IMatrix'
+# require './IMatrix' Fix?
 require 'test/unit'
 
 class SMatrix
@@ -14,6 +14,8 @@ class SMatrix
 	# ------------------
 
 public
+
+	# TODO: This method is marked as unreachable code.
 	def initialize(mSize)
 	    ##Create square matrix of size mSize
 	    ##Init full of zeros
@@ -225,6 +227,28 @@ public
 
 		# Post
 		@matrix.upper_triangle!(k)
+
+	end
+
+	def lower_triangle(k = 0)
+
+		# Pre-conditions
+		assert k.is_a? Integer and k >= 0
+		assert @matrix.shape.size == 2
+
+		# Post
+		@matrix.lower_triangle(k)
+
+	end
+
+	def lower_triangle!(k = 0)
+
+		# Pre-conditions
+		assert k.is_a? Integer and k >= 0
+		assert @matrix.shape.size == 2
+
+		# Post
+		@matrix.lower_triangle!(k)
 
 	end
 
