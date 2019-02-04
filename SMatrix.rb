@@ -426,8 +426,8 @@ public
 		#pre
 		assert rows.is_a? Integer
 		assert cols.is_a? Integer
-		assert rows > 0 Integer
-		assert cols > 0 Integer
+		assert rows > 0 
+		assert cols > 0
 		#TODO: Implementation
 
 		#post
@@ -438,8 +438,8 @@ public
 		#pre
 		assert rows.is_a? Integer
 		assert cols.is_a? Integer
-		assert rows > 0 Integer
-		assert cols > 0 Integer
+		assert rows > 0
+		assert cols > 0
 		#TODO: Implementation
 
 		#post
