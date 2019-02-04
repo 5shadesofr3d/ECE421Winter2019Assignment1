@@ -163,4 +163,11 @@ class IMatrix
 
       #post
 	end
+
+  def determinant()
+      #pre
+      assert @matrix.shape[0] == @matrix.shape[1] #square
+			@matrix.det()
+      #post
+	end
 end

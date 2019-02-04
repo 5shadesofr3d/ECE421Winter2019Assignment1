@@ -110,4 +110,9 @@ class SYale < IMatrix
   def diagonal()
   		super
 	end
+
+  def determinant()
+      assert @matrix.shape[0] == @matrix.shape[1] #square
+			super
+	end
 end

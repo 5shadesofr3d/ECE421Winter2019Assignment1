@@ -184,6 +184,10 @@ public
 			@matrix.diagonal()
 	end
 
+	def determinant()
+			@matrix.determinant()
+	end
+
 
 private
 	@rows
