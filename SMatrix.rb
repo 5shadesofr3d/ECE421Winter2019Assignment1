@@ -4,6 +4,17 @@ require 'test/unit'
 require './factory/YaleFactory'
 require './factory/DokFactory'
 
+def symbol_to_factory(symbol)
+	case symbol
+	when :dok
+		DokFactory.new
+	when :yale
+		YaleFactory.new
+	when :lil
+		LilFactory.new
+	end
+end
+
 class SMatrix
 	include Test::Unit::Assertions
 	# --- Invariants ---
@@ -11,12 +22,13 @@ class SMatrix
 	# ------------------
 
 public
-	def initialize(matrix)
+	def initialize(matrix, storage_type = :dok)
 		# constructs a standard matrix
+
 		# pre
 
 		# post
-		@storage = DokFactory.new.create(matrix)
+		store_as(storage_type, matrix)
 
 		@storage.each_index do |i, j|
 			if matrix.is_a? Array
@@ -46,7 +58,7 @@ public
 		assert 0 <= i and i < @storage.rows
 		assert 0 <= j and j < @storage.columns
 
-		# post
+		# position
 		assert valid?
 
 		@storage[i, j]
@@ -387,7 +399,15 @@ public
 		[@storage.rows, @storage.columns]
 	end
 
+	def store_as(storage_type, storage = @storage)
+		assert valid?
+		@factory = symbol_to_factory(storage_type)
+		@storage = @factory.create(storage)
+		assert valid?
+	end
+
 private
 	@storage
+	@factory
 
 end
