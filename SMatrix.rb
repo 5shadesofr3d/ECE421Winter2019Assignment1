@@ -4,6 +4,17 @@ require 'test/unit'
 require './factory/YaleFactory'
 require './factory/DokFactory'
 
+def symbol_to_factory(symbol)
+	case symbol
+	when :dok
+		DokFactory.new
+	when :yale
+		YaleFactory.new
+	when :lil
+		LilFactory.new
+	end
+end
+
 class SMatrix
 	include Test::Unit::Assertions
 	# --- Invariants ---
@@ -13,12 +24,13 @@ class SMatrix
 	# ------------------
 
 public
-	def initialize(matrix)
+	def initialize(matrix, storage_type = :dok)
 		# constructs a standard matrix
+
 		# pre
 
 		# post
-		@storage = DokFactory.new.create(matrix)
+		store_as(storage_type, matrix)
 
 		@storage.each_index do |i, j|
 			if matrix.is_a? Array
@@ -80,7 +92,7 @@ public
 		assert 0 <= i and i < @storage.rows
 		assert 0 <= j and j < @storage.columns
 
-		# post
+		# position
 		assert valid?
 
 		@storage[i, j]
@@ -193,7 +205,7 @@ public
 		assert mat.shape == self.shape
 
 		#TODO: Main functionality
-		result = SMatrix.new(@storage)
+		result = SMatrix.new(@storage, @factory)
 
 		@storage.each_index do |i, j|
 			result[i, j] += mat[i, j]
@@ -219,7 +231,7 @@ public
 		assert mat.shape == self.shape
 
 		#TODO: Main functionality
-		result = SMatrix.new(@storage)
+		result = SMatrix.new(@storage, @factory)
 
 		@storage.each_index do |i, j|
 			result[i, j] -= mat[i, j]
@@ -244,7 +256,7 @@ public
 		assert scalar != 0
 
 		#TODO: Main functionality
-		result = SMatrix.new(@storage)
+		result = SMatrix.new(@storage, @factory)
 
 		@storage.each_index do |i, j|
 			result[i, j] /= scalar
@@ -267,7 +279,7 @@ public
 		assert scalar.is_a? Numeric
 
 		#TODO: Main functionality
-		result = SMatrix.new(@storage)
+		result = SMatrix.new(@storage, @factory)
 
 		@storage.each_index do |i, j|
 			result[i, j] **= scalar
@@ -290,7 +302,7 @@ public
 		assert scalar.is_a? Numeric
 
 		#TODO: Main functionality
-		result = SMatrix.new(@storage)
+		result = SMatrix.new(@storage, @factory)
 		@storage.each_index do |i, j|
 			result[i, j] *= scalar
 		end
@@ -442,7 +454,169 @@ public
 		[@storage.rows, @storage.columns]
 	end
 
+	def store_as(storage_type, storage = @storage)
+		assert valid?
+
+		# pre
+		assert (storage_type.is_a? Symbol or storage_type.is_a? StorageFactory)
+
+		if storage_type.is_a? Symbol
+			@factory = symbol_to_factory(storage_type)
+		else
+			@factory = storage_type
+		end
+
+		@storage = @factory.create(storage)
+
+		# post
+		assert @factory.is_a? StorageFactory
+		assert @storage.is_a? SparseStorage
+
+		assert valid?
+	end
+
+	def rows
+		assert valid?
+		@storage.rows
+	end
+
+	def columns
+		assert valid?
+		@storage.columns
+	end
+
+	# TODO: Do these 2 functions violate dry?
+	def upper_triangle(k = 0)
+    assert valid?
+
+		# Pre-conditions
+		assert k.is_a? Integer and k >= 0
+		assert @storage.shape.size == 2
+
+		# Post
+		# @storage.upper_triangle(k)
+
+    assert valid?
+	end
+
+	def upper_triangle!(k = 0)
+    assert valid?
+
+		# Pre-conditions
+		assert k.is_a? Integer and k >= 0
+		assert @storage.shape.size == 2
+
+		# Post
+    # @storage.upper_triangle!(k)
+
+    assert valid?
+	end
+
+	def lower_triangle(k = 0)
+    assert valid?
+
+		# Pre-conditions
+		assert k.is_a? Integer and k >= 0
+		assert @storage.shape.size == 2
+
+		# Post
+    # @storage.lower_triangle(k)
+
+    assert valid?
+	end
+
+	def lower_triangle!(k = 0)
+    assert valid?
+
+		# Pre-conditions
+		assert k.is_a? Integer and k >= 0
+		assert @storage.shape.size == 2
+
+		# Post
+		# @storage.lower_triangle!(k)
+
+    assert valid?
+  end
+
+  def conjugate
+    assert valid?
+
+    # Pre-conditions
+    # assert @storage.type == NMatrix?
+
+    # Post
+    # @storage.conjugate_transpose
+
+    assert valid?
+  end
+
+  def normal?(matrix)
+    assert valid?
+
+    # Pre-conditions
+    # assert @storage.type == NMatrix?
+    # assert @matrix.type == NMatrix?
+
+    # Post
+    # (@storage.conjugate.transpose * @matrix) ==
+    # (@storage * @matrix.conjugate.transpose)
+
+    assert valid?
+  end
+
+	def buildTridiagonal(upper, middle, lower, size)
+		#pre
+		assert size.is_a? Integer
+		assert upper.is_a? Matrix
+		assert middle.is_a? Matrix
+		assert lower.is_a? Matrix
+		assert size > 0
+		#TODO: Implementation
+		#result = ....
+		#post
+		#assert result.tridiagonal?
+		assert valid?
+	end
+
+	def buildEye(size)
+		#pre
+		assert size.is_a? Integer
+		assert size > 0
+		#TODO: Implementation
+
+		#post
+		#assert result.identity?
+		assert valid?
+	end
+
+	def buildZero(rows, cols)
+		#pre
+		assert rows.is_a? Integer
+		assert cols.is_a? Integer
+		assert rows > 0
+		assert cols > 0
+		#TODO: Implementation
+
+		#post
+		#assert result.identity?
+		assert valid?
+	end
+
+	def buildRandom(rows, cols)
+		#pre
+		assert rows.is_a? Integer
+		assert cols.is_a? Integer
+		assert rows > 0
+		assert cols > 0
+		#TODO: Implementation
+
+		#post
+		#assert result.sparsity <= 0.5
+		assert valid?
+	end
+
 private
 	@storage
+	@factory
 
 end
