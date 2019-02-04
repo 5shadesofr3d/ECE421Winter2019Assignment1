@@ -122,69 +122,82 @@ public
 	end
 
 	def add(mat)
-	    #pre
-	    # mat = sparse yale format matrix
-	    # mat and _matrix must be matricies of the same size
-
-	    #TODO: Main functionality
-
-	    @matrix = @matrix + mat
-
-	    #post
-	    # result = m1 + m2
-	    # result has same dimensions as m1 and m2
+	    @matrix.add(mat)
 	end
 
 	def subtract(mat)
-	    #pre
-	    # mat = sparse yale format matrix
-	    # mat and _matrix must be matricies of the same size
-
-	    #TODO: Main functionality
-
-	    @matrix = @matrix - mat
-
-
-	    #post
-	    # result = m1 - m2
+	   	@matrix.subtract(mat)
 	end
 
 	def divide(scalar)
-	    #pre
-	    # scalar = whole number integer to divide by
-
-	    #TODO: Main functionality
-
-	    @matrix = @matrix/scalar
-
-	    #post
-	    # result = m1 / m2
+			@matrix.divide(scalar)
 	end
 
+	#Element-wise exponent
 	def exponent(scalar)
-	    #pre
-	    # scalar = whole number integer to exponentiate by
-
-	    #TODO: Main functionality
-
-	    @matrix = @matrix**scalar
-
-
-	    #post
-	    # result = m1 ^ m2
+			@matrix.exponent(scalar)
 	end
 
 	def multiply(scalar)
-	    #pre
-	    # scalar = whole number integer to multiply by
+			@matrix.multiply(scalar)
+	end
 
-	    #TODO: Main functionality
-	    @matrix = @matrix*scalar
+	def dot(mat)
+			@matrix.dot(mat)
+	end
 
+	def trace()
+			@matrix.trace()
+	end
 
+	def rank()
+			@matrix.rank()
+	end
 
-	    #post
-	    # result = m1 * m2
+	def row_sum(rowNum)
+			@matrix.row_sum(rowNum)
+	end
+
+	def col_sum(colNum)
+			@matrix.col_sum(colNum)
+	end
+
+	def total_sum()
+			@matrix.total_sum()
+	end
+
+	def transpose()
+			@matrix.transpose()
+	end
+
+	#Raise matrix to a power
+	def power(pow)
+			@matrix.power(pow)
+	end
+
+	def inverse()
+			@matrix.inverse()
+	end
+
+	#returns the main diagonal
+	def diagonal()
+			@matrix.diagonal()
+	end
+
+	def determinant()
+			@matrix.determinant()
+	end
+
+	def cholesky()
+			@matrix.cholesky()
+	end
+
+	def luDecomp
+			@matrix.luDecomp()
+	end
+
+	def symmetric?
+			@matrix.symmetric?
 	end
 
 private
