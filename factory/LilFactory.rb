@@ -25,7 +25,7 @@ class LilFactory < StorageFactory
 
 		# post
 		assert created.is_a? Lil
-
+		created
 	end
 
 end

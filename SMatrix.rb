@@ -1,6 +1,6 @@
 require 'nmatrix'
 require 'matrix'
-require './IMatrix'
+# require './IMatrix'
 require 'test/unit'
 
 class SMatrix

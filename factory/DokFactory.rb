@@ -25,7 +25,7 @@ class DokFactory < StorageFactory
 
 		# post
 		assert created.is_a? Dok
-
+		created
 	end
 
 end

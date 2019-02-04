@@ -28,7 +28,7 @@ class YaleFactory < StorageFactory
 
 		# post
 		assert created.is_a? Yale
-
+		created
 	end
 
 end
