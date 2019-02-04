@@ -1,5 +1,4 @@
 require 'matrix'
-# require './IMatrix'
 require 'test/unit'
 
 require './factory/YaleFactory'
@@ -156,7 +155,7 @@ public
 		assert valid?
 		result
 	end
-
+  
 	#Generic sub for all SMatrix types
 	def -(mat)
 		assert valid?
