@@ -50,8 +50,9 @@ public
 		false if not @storage.is_a? SparseStorage
 		false if @storage.rows < 0
 		false if @storage.cols < 0
+		
+		true if @storage.valid?
 
-		true
 	end
 
   def each
