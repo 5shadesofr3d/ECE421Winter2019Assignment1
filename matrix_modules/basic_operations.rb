@@ -30,4 +30,16 @@ module NMatrixBasicOperations
     result = m1**scalar
     return result
   end
+
+  def trace(m1)
+    assert m1.is_a? NMatrix
+    result = m1.trace()
+    return result
+  end
+
+  def rank(m1)
+    assert m1.is_a? NMatrix
+    result = m1.rank()
+    return result
+  end
 end
