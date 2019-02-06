@@ -19,6 +19,10 @@ public
 		assert valid?
 	end
 
+	def get_matrix
+		return @hash
+	end
+
 	def valid?
 		super and @hash.is_a? Hash
 	end

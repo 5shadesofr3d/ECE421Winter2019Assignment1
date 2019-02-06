@@ -16,6 +16,10 @@ class Yale < SparseStorage
 			assert valid?
 		end
 
+		def get_matrix
+			return @storage
+		end
+
 		def valid?
 			super
 		end
@@ -66,5 +70,8 @@ class Yale < SparseStorage
 			#post
 			assert valid?
 		end
+
+private
+	@storage
 
 end

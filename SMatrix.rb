@@ -17,6 +17,7 @@ end
 
 class SMatrix
 	include Test::Unit::Assertions
+	include NMatrixBasicOperations
 	# --- Invariants ---
 	# @storage.is_a? SparseStorage
 	# @storage.rows >= 0
@@ -50,7 +51,7 @@ public
 		false if not @storage.is_a? SparseStorage
 		false if @storage.rows < 0
 		false if @storage.cols < 0
-		
+
 		true if @storage.valid?
 
 	end
