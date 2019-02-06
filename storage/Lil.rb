@@ -11,7 +11,7 @@ class Lil < NStorage
 			assert rows >= 0
 			assert columns >= 0
 
-			#TODO: Implement
+			super(rows,columns)
 
 			assert valid?
 		end
