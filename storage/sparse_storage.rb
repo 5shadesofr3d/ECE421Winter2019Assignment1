@@ -22,6 +22,10 @@ public
 		raise AbstractClassError
 	end
 
+	def set_matrix(mat)
+		raise AbstractClassError
+	end
+
 	def [](i, j)
 		raise AbstractClassError
 	end

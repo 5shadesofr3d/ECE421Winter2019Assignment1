@@ -23,6 +23,10 @@ public
 		return @hash
 	end
 
+	def set_matrix(mat)
+		@hash = mat
+	end
+
 	def valid?
 		super and @hash.is_a? Hash
 	end

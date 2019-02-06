@@ -219,6 +219,29 @@ public
 
 		#TODO: Main functionality
 		result = SMatrix.new(@storage, @factory)
+		storageMat = @storage.get_matrix
+		matMatrix = mat.get_matrix
+
+		if @storage.is_a? Lil or @storage.is_a? Yale
+			if mat.is_a? Dok
+				#CONVERT THEN DO OP
+			else
+				#Mat is SMatrix of Lil or Yale
+				@storage.set_matrix(NMatrixBasicOperations.add(storageMat,matMatrix))
+			end
+			#TODO: Convert here
+		else
+			#Storage is a DOK... Convert
+			if mat.is_a? Dok
+				#CONVERT THEN DO OP
+				#perform OP
+			else
+				#Mat is SMatrix of Lil or Yale
+				#perform OP
+			end
+		end
+
+
 
 		@storage.each_index do |i, j|
 			result[i, j] += mat[i, j]

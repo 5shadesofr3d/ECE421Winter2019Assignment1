@@ -20,6 +20,10 @@ class Lil < SparseStorage
 			return @storage
 		end
 
+		def set_matrix(mat)
+			@storage = mat
+		end
+
 		def valid?
 			super
 		end
