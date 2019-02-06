@@ -1,4 +1,4 @@
-class Lil < SparseStorage
+class Lil < NStorage
 	# --- Invariants ---
 	# @self.is_a? SparseStorage
 	# @self.rows >= 0
@@ -74,8 +74,4 @@ class Lil < SparseStorage
 			#post
 			assert valid?
 		end
-
-private
-	@storage
-
 end

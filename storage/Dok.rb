@@ -67,6 +67,54 @@ public
 		assert valid?
 	end
 
+	def add(m1)
+		assert m1.is_a? SparseStorage
+		@hash.each_index do |i, j|
+			@hash[i, j] += m1[i, j]
+		end
+	end
+
+	def subtract(m1)
+		assert m1.is_a? SparseStorage
+		@hash.each_index do |i, j|
+			@hash[i, j] -= m1[i, j]
+		end
+	end
+
+	def multiply(scalar)
+		assert scalar.is_a? Numeric
+		@hash.each_index do |i, j|
+			@hash[i, j] *= scalar
+		end
+	end
+
+	def divide(scalar)
+		assert scalar != 0
+		assert scalar.is_a? Numeric
+		@hash.each_index do |i, j|
+			@hash[i, j] /= scalar
+		end
+	end
+
+	def exponent(scalar)
+		assert scalar.is_a? Numeric
+		@hash.each_index do |i, j|
+			@hash[i, j] **= scalar
+		end
+	end
+
+	#For this case, we have the choice of New Implementation,
+	#Conversion to NMatrix, or no implementation at all
+	def trace()
+		raise NotImplementedException
+	end
+
+	#For this case, we have the choice of New Implementation,
+	#Conversion to NMatrix, or no implementation at all
+	def rank()
+		raise NotImplementedException
+	end
+
 private
 	@hash
 

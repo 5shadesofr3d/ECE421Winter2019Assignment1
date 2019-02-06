@@ -211,146 +211,77 @@ public
 
 	#Generic add for all SMatrix types
 	def +(mat)
-		assert valid?
-
 		#pre
+		assert valid?
 		assert mat.is_a? SMatrix
-		assert mat.shape == self.shape
+		assert mat.shape == @storage.shape
 
-		#TODO: Main functionality
-		result = SMatrix.new(@storage, @factory)
-		storageMat = @storage.get_matrix
-		matMatrix = mat.get_matrix
-
-		if @storage.is_a? Lil or @storage.is_a? Yale
-			if mat.is_a? Dok
-				#CONVERT THEN DO OP
-			else
-				#Mat is SMatrix of Lil or Yale
-				@storage.set_matrix(NMatrixBasicOperations.add(storageMat,matMatrix))
-			end
-			#TODO: Convert here
-		else
-			#Storage is a DOK... Convert
-			if mat.is_a? Dok
-				#CONVERT THEN DO OP
-				#perform OP
-			else
-				#Mat is SMatrix of Lil or Yale
-				#perform OP
-			end
-		end
-
-
-
-		@storage.each_index do |i, j|
-			result[i, j] += mat[i, j]
-		end
+		@storage.add(mat)
 
 		#post
-		assert self.shape == result.shape
-		assert result.is_a? SMatrix
-		@storage.each_index do |i, j|
-			assert result[i, j] == self[i, j] + mat[i, j]
-		end
-
+		assert @storage.shape == mat.shape
+		assert @storage.is_a? SMatrix
 		assert valid?
-		result
+		return self
 	end
 
 	#Generic sub for all SMatrix types
 	def -(mat)
-		assert valid?
-
 		#pre
+		assert valid?
 		assert mat.is_a? SMatrix
-		assert mat.shape == self.shape
+		assert mat.shape == @storage.shape
 
-		#TODO: Main functionality
-		result = SMatrix.new(@storage, @factory)
-
-		@storage.each_index do |i, j|
-			result[i, j] -= mat[i, j]
-		end
+		@storage.subtract(mat)
 
 		#post
-		assert self.shape == result.shape
+		assert @storage.shape == mat.shape
 		assert result.is_a? SMatrix
-		@storage.each_index do |i, j|
-			assert result[i, j] == self[i, j] - mat[i, j]
-		end
-
 		assert valid?
-		result
+		return self
 	end
 
 	#Generic divide for all SMatrix types
 	def /(scalar)
-		assert valid?
 		#pre
+		assert valid?
 		assert scalar.is_a? Numeric
 		assert scalar != 0
 
-		#TODO: Main functionality
-		result = SMatrix.new(@storage, @factory)
-
-		@storage.each_index do |i, j|
-			result[i, j] /= scalar
-		end
+		@storage.divide(scalar)
 
 		#post
-		assert result.shape == self.shape
-		@storage.each_index do |i, j|
-			assert result[i, j] == self[i, j] / scalar
-		end
-
+		#assert @storage.shape == self.shape -> assert shape is same
 		assert valid?
-		result
+		return self
 	end
 
 	#Generic exponent for all SMatrix types
 	def **(scalar)
-		assert valid?
 		#pre
+		assert valid?
 		assert scalar.is_a? Numeric
 
-		#TODO: Main functionality
-		result = SMatrix.new(@storage, @factory)
-
-		@storage.each_index do |i, j|
-			result[i, j] **= scalar
-		end
+		@storage.exponent(scalar)
 
 		#post
-		assert result.shape == self.shape
-		@storage.each_index do |i, j|
-			assert result[i, j] == self[i, j] ** scalar
-		end
-
+		#assert result.shape == self.shape -> assert shape is same
 		assert valid?
-		result
+		return self
 	end
 
 	#Generic multiply for all SMatrix types
 	def *(scalar)
-		assert valid?
 		#pre
+		assert valid?
 		assert scalar.is_a? Numeric
 
-		#TODO: Main functionality
-		result = SMatrix.new(@storage, @factory)
-		@storage.each_index do |i, j|
-			result[i, j] *= scalar
-		end
+		@storage.multiply(scalar)
 
 		#post
-		assert result.shape == self.shape
-		@storage.each_index do |i, j|
-			assert result[i, j] == self[i, j] * scalar
-		end
-
+		#assert result.shape == self.shape -> assert shape is same
 		assert valid?
-		result
+		return self
 	end
 
 	def dot(mat)
