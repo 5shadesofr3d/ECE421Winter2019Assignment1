@@ -18,6 +18,10 @@ public
 		assert valid?
 	end
 
+	def get_matrix
+		raise AbstractClassError
+	end
+
 	def [](i, j)
 		raise AbstractClassError
 	end
