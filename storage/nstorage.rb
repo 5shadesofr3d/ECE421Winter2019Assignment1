@@ -75,6 +75,12 @@ class NStorage < SparseStorage
 
   end
 
+  def complex_conjugate
+    assert @storage.is_a? NMatrix
+    result = NMatrix.complex_conjugate(@storage)
+    return result
+  end
+
 protected
   @storage
 end

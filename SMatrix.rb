@@ -370,10 +370,11 @@ public
 		assert valid?
 	end
 
+	#TODO: NMatrix only implements this for 2D, square, dense, floating type matrices.
 	def hessenberg
 		assert valid?
 		assert @storage.rows == @storage.cols
-		#TODO: Implement
+
 		assert valid?
 	end
 
@@ -505,13 +506,11 @@ public
   end
 
   def conjugate
+		# Pre-conditions
     assert valid?
 
-    # Pre-conditions
-    # assert @storage.type == NMatrix?
-
     # Post
-    # @storage.conjugate_transpose
+    @storage.complex_conjugate
 
     assert valid?
   end

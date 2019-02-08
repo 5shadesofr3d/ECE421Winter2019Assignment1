@@ -113,6 +113,10 @@ public
 		raise NotImplementedError
 	end
 
+	def complex_conjugate
+		raise NotImplementedError
+	end
+
 	attr_reader :rows, :columns
 
 end
