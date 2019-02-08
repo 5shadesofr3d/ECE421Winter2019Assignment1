@@ -1,3 +1,5 @@
+require 'test/unit'
+
 class SparseStorage
 	include Test::Unit::Assertions
 
@@ -126,6 +128,10 @@ public
 	end
 
 	def hermitian?
+		raise NotImplementedError
+	end
+
+	def dot(mat)
 		raise NotImplementedError
 	end
 

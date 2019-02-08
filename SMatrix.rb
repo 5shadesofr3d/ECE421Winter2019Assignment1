@@ -285,15 +285,16 @@ public
 		return self
 	end
 
+	# Note: NMatrix only supports the dot product of the
+	# same matrix type.
 	def dot(mat)
 		#pre
 		assert valid?
 		assert mat.is_a? SMatrix
 		assert mat.rows == @storage.cols #MxN * NxK
-		# TODO Implementation
 
 		#post
-		#@storage = @storage DOT mat
+		@storage = @storage.dot(mat)
 		assert mat.is_a? SMatrix
 		assert valid?
 	end

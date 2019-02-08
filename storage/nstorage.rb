@@ -1,4 +1,6 @@
 require 'nmatrix'
+require_relative 'sparse_storage'
+
 class NStorage < SparseStorage
 
   def initialize(rows, columns)
@@ -44,6 +46,13 @@ class NStorage < SparseStorage
   def exponent(scalar)
     assert scalar.is_a? Numeric
     @storage**scalar
+  end
+
+  def dot(m1)
+    assert @storage.is_a? NMatrix
+
+    # NMatrix m1.dot(m2) requires that m1 and m2 are the same stype.
+    @storage.dot(m1.cast(@storage.stype))
   end
 
   def trace
