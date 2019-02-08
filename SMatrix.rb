@@ -1,8 +1,8 @@
 require 'matrix'
 require 'test/unit'
 
-require './factory/YaleFactory'
-require './factory/DokFactory'
+require './factory/yale_factory'
+require './factory/dok_factory'
 
 def symbol_to_factory(symbol)
 	case symbol
@@ -17,7 +17,6 @@ end
 
 class SMatrix
 	include Test::Unit::Assertions
-	include NMatrixBasicOperations
 	# --- Invariants ---
 	# @storage.is_a? SparseStorage
 	# @storage.rows >= 0
@@ -86,7 +85,7 @@ public
     assert valid?
   end
 
-  def for_main_diagonal()
+  def for_main_diagonal
     #pre
     assert @storage.rows == @storage.cols
     assert valid?
@@ -297,7 +296,7 @@ public
 		assert valid?
 	end
 
-	def trace()
+	def trace
 		#pre
 		assert valid?
 		assert @storage.rows == @storage.cols
@@ -306,7 +305,7 @@ public
 		assert valid?
 	end
 
-	def rank()
+	def rank
 		assert valid?
 		#TODO: Implement
 		assert valid?
@@ -330,13 +329,13 @@ public
 		assert valid?
 	end
 
-	def total_sum()
+	def total_sum
 		assert valid?
 		#TODO: Implement
 		assert valid?
 	end
 
-	def transpose()
+	def transpose
 		assert valid?
 		#pre
 		#matrix to be transposed has been initialized
@@ -378,7 +377,7 @@ public
 		assert valid?
 	end
 
-	def diagonal()
+	def diagonal
 		assert valid?
 		#pre
 
@@ -388,7 +387,7 @@ public
 		assert valid?
 	end
 
-	def determinant()
+	def determinant
 		assert valid?
 		#pre
 		assert @storage.shape[0] == @storage.shape[1] #square
@@ -398,14 +397,14 @@ public
 		assert valid?
 	end
 
-	def cholesky()
+	def cholesky
 		assert valid?
 		assert @storage.symmetric? #Matrix MUST be symmetric
 		#TODO: Implement SMatrix cholesky factorization
 		assert valid?
 	end
 
-	def luDecomp
+	def lu_decomposition
 		assert valid?
 		#pre
 

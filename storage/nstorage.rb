@@ -43,18 +43,18 @@ class NStorage < SparseStorage
 
   def exponent(scalar)
     assert scalar.is_a? Numeric
-    result = m1**scalar
+    result = @storage**scalar
     return result
   end
 
-  def trace()
+  def trace
     assert @storage.is_a? NMatrix
     assert @storage.shape[0] == @storage.shape[1]
     result = @storage.trace()
     return result
   end
 
-  def rank()
+  def rank
     assert @storage.is_a? NMatrix
     result = @storage.rank()
     return result
