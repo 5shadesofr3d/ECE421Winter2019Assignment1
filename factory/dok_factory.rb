@@ -21,7 +21,6 @@ class DokFactory < StorageFactory
 		when Lil
 
 		when Matrix
-
 		when Array
 			created = from_array(storage)
 		end
