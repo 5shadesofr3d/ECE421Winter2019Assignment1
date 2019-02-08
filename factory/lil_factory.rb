@@ -1,4 +1,4 @@
-require './factory/StorageFactory'
+require '../factory/storage_factory'
 
 # NOTE: List of List (LIL)
 class LilFactory < StorageFactory

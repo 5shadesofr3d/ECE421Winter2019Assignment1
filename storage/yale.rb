@@ -1,4 +1,4 @@
-class Yale < SparseStorage
+class Yale < NStorage
 	# --- Invariants ---
 	# @self.is_a? SparseStorage
 	# @self.rows >= 0
@@ -11,6 +11,7 @@ class Yale < SparseStorage
 			assert rows >= 0
 			assert columns >= 0
 
+			super(rows,columns)
 			#TODO: Implement
 
 			assert valid?
@@ -74,8 +75,4 @@ class Yale < SparseStorage
 			#post
 			assert valid?
 		end
-
-private
-	@storage
-
 end

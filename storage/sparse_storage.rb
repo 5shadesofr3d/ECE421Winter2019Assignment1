@@ -1,5 +1,3 @@
-
-
 class SparseStorage
 	include Test::Unit::Assertions
 

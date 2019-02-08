@@ -1,4 +1,4 @@
-require './factory/StorageFactory'
+require './factory/storage_factory'
 require 'matrix'
 require 'nmatrix'
 
