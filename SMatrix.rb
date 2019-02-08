@@ -394,8 +394,7 @@ public
 		assert @storage.shape[0] == @storage.shape[1] #square
 
 		#post
-		assert valid?
-		@storage.det
+		return @storage.det
 	end
 
 	def cholesky

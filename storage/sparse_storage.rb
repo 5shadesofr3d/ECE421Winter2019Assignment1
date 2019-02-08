@@ -104,6 +104,11 @@ public
 		arr
 	end
 
+	# Todo: This is how you should make abstract methods>
+	def det
+		raise NotImplementedError
+	end
+
 	attr_reader :rows, :columns
 
 end
