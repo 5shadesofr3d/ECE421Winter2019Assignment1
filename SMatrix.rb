@@ -398,22 +398,35 @@ public
 		return @storage.det
 	end
 
+	# TODO: Returns an upper and lower NMatrix which needs to be wrapped
+	# in a SMatrix.
 	def cholesky
 		assert valid?
-		assert @storage.symmetric? #Matrix MUST be symmetric
-		#TODO: Implement SMatrix cholesky factorization
-		assert valid?
+
+		# Pre
+		assert @storage.symmetric?
+		# assert @storage.hermatian?
+
+		# Post
+		return @storage.cholesky_factorization
+
 	end
 
-	def lu_decomposition
+	# TODO: Implement this, this has only been implemented for Dense
+	# matrices in SMatrix so conversions MUST be done. Additionally,
+	# lu_decomposition is not implemented. The contract must be changed
+	# to implement lu_factorization
+	def lu_factorization
 		assert valid?
-		#pre
 
-		#TODO: Implement this, this has only been implemented for Dense
-		#matricies in SMatrix so conversions MUST be done
+		#pre
+		# TODO: Needs to be a 2D matrix
+
+		@storage = @storage.lu_factorization
 
 		#post
 		assert valid?
+
 	end
 
 	def shape

@@ -43,27 +43,23 @@ class NStorage < SparseStorage
 
   def exponent(scalar)
     assert scalar.is_a? Numeric
-    result = @storage**scalar
-    return result
+    @storage**scalar
   end
 
   def trace
     assert @storage.is_a? NMatrix
     assert @storage.shape[0] == @storage.shape[1]
-    result = @storage.trace()
-    return result
+    @storage.trace
   end
 
   def rank
     assert @storage.is_a? NMatrix
-    result = @storage.rank()
-    return result
+    @storage.rank
   end
 
   def det
     assert @storage.is_a? NMatrix
-    result = NMatrix.det(@storage)
-    return result
+    @storage.det
   end
 
   def invert
@@ -71,14 +67,27 @@ class NStorage < SparseStorage
 
     original_type = @storage.stype
     result = @storage.cast(:dense) # Convert to do inversion.
-    return result.inverse.cast(original_type) # Invert and covert back before returning.
+    result.inverse.cast(original_type) # Invert and convert back before returning.
 
   end
 
   def complex_conjugate
     assert @storage.is_a? NMatrix
-    result = NMatrix.complex_conjugate(@storage)
-    return result
+    @storage.complex_conjugate
+  end
+
+  def lu_factorization
+    assert @storage.is_a? NMatrix
+
+    original_type = @storage.stype
+    result = @storage.cast(:dense) # Convert to do factorization.
+
+    result.factorize_lu.cast(original_type)
+  end
+
+  def cholesky_factorization
+    assert @storage.is_a? NMatrix
+    @storage.factorize_cholesky
   end
 
 protected

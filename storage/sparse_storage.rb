@@ -117,6 +117,14 @@ public
 		raise NotImplementedError
 	end
 
+	def lu_factorization
+		raise NotImplementedError
+	end
+
+	def cholesky_factorization
+		raise NotImplementedError
+	end
+
 	attr_reader :rows, :columns
 
 end
