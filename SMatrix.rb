@@ -203,9 +203,11 @@ public
 	end
 
 	def hermitian?
+		#Pre
 		assert valid?
-		#TODO: Implement
-		assert valid?
+
+		# Post
+		@storage.hermitian?
 	end
 
 	#Generic add for all SMatrix types
@@ -283,15 +285,16 @@ public
 		return self
 	end
 
+	# Note: NMatrix only supports the dot product of the
+	# same matrix type.
 	def dot(mat)
 		#pre
 		assert valid?
 		assert mat.is_a? SMatrix
 		assert mat.rows == @storage.cols #MxN * NxK
-		# TODO Implementation
 
 		#post
-		#@storage = @storage DOT mat
+		@storage = @storage.dot(mat)
 		assert mat.is_a? SMatrix
 		assert valid?
 	end
@@ -345,12 +348,13 @@ public
 		assert valid?
 	end
 
-	#Raise matrix to a power
+	# Raise matrix to a power
 	def power(pow)
 		assert valid?
 		assert pow.is_a? Integer
-		assert @storage.shape[0] == @storage.shape[1] ##square matrix
-		#TODO: Implement
+		assert @storage.shape[0] == @storage.shape[1]
+
+		@storage.pow(pow)
 		assert valid?
 	end
 
@@ -398,22 +402,35 @@ public
 		return @storage.det
 	end
 
+	# TODO: Returns an upper and lower NMatrix which needs to be wrapped
+	# in a SMatrix.
 	def cholesky
 		assert valid?
-		assert @storage.symmetric? #Matrix MUST be symmetric
-		#TODO: Implement SMatrix cholesky factorization
-		assert valid?
+
+		# Pre
+		assert @storage.symmetric?
+		# assert @storage.hermatian?
+
+		# Post
+		return @storage.cholesky_factorization
+
 	end
 
-	def lu_decomposition
+	# TODO: Implement this, this has only been implemented for Dense
+	# matrices in SMatrix so conversions MUST be done. Additionally,
+	# lu_decomposition is not implemented. The contract must be changed
+	# to implement lu_factorization
+	def lu_factorization
 		assert valid?
-		#pre
 
-		#TODO: Implement this, this has only been implemented for Dense
-		#matricies in SMatrix so conversions MUST be done
+		#pre
+		# TODO: Needs to be a 2D matrix
+
+		@storage = @storage.lu_factorization
 
 		#post
 		assert valid?
+
 	end
 
 	def shape

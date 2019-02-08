@@ -1,3 +1,5 @@
+require 'test/unit'
+
 class SparseStorage
 	include Test::Unit::Assertions
 
@@ -114,6 +116,26 @@ public
 	end
 
 	def complex_conjugate
+		raise NotImplementedError
+	end
+
+	def lu_factorization
+		raise NotImplementedError
+	end
+
+	def cholesky_factorization
+		raise NotImplementedError
+	end
+
+	def hermitian?
+		raise NotImplementedError
+	end
+
+	def dot(mat)
+		raise NotImplementedError
+	end
+
+	def power(pow)
 		raise NotImplementedError
 	end
 
