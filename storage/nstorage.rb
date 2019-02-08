@@ -1,4 +1,5 @@
 require 'nmatrix'
+require './sparse_storage.rb'
 class NStorage < SparseStorage
 
   def initialize(rows, columns)

@@ -1,5 +1,6 @@
 class SparseStorage
-	include Test::Unit::Assertions
+	gem 'test-unit'
+	require 'test/unit'
 
 public
 	def initialize(rows, columns)

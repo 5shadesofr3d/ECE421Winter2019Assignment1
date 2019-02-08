@@ -1,4 +1,4 @@
-require 'nstorage'
+require './nstorage'
 
 class Yale < NStorage
 	# --- Invariants ---
