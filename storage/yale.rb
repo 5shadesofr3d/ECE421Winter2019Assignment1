@@ -40,9 +40,10 @@ class Yale < NStorage
 			assert 0 <= j and j < @columns
 
 			#TODO: Implement
+			return @storage[i, j]
 
 			# post
-			assert valid?
+			#assert valid?
 
 		end
 
@@ -57,6 +58,7 @@ class Yale < NStorage
 			assert value.is_a? Numeric
 
 			#TODO: Implement
+			@storage[i, j] = value
 
 			# post
 			assert valid?
