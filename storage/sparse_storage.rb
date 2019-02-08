@@ -4,7 +4,7 @@ class SparseStorage
 
 public
 	def initialize(rows, columns)
-		# constructs a standard matrix
+		# constructs a standard matrix of size row X column with 0s
 
 		# pre
 		assert rows.is_a? Integer and columns.is_a? Integer

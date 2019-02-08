@@ -17,6 +17,22 @@ class NStorage < SparseStorage
 		assert valid?
 	end
 
+  def get_matrix
+		return @storage
+	end
+
+	def set_matrix(mat)
+		@storage = mat
+	end
+
+	def [](i, j)
+    return @storage[i, j]
+	end
+
+	def []=(i, j, value)
+		@storage[i, j] = value
+	end
+
   def add(m1)
     if m1.is_a? Dok
       #TODO: CONVERT and go
