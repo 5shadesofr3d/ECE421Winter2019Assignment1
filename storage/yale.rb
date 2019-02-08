@@ -1,3 +1,5 @@
+require 'nstorage'
+
 class Yale < NStorage
 	# --- Invariants ---
 	# @self.is_a? SparseStorage
