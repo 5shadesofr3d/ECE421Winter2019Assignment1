@@ -17,7 +17,6 @@ end
 
 class SMatrix
 	include Test::Unit::Assertions
-	include NMatrixBasicOperations
 	# --- Invariants ---
 	# @storage.is_a? SparseStorage
 	# @storage.rows >= 0
@@ -297,7 +296,7 @@ public
 		assert valid?
 	end
 
-	def trace()
+	def trace
 		#pre
 		assert valid?
 		assert @storage.rows == @storage.cols
@@ -306,7 +305,7 @@ public
 		assert valid?
 	end
 
-	def rank()
+	def rank
 		assert valid?
 		#TODO: Implement
 		assert valid?
@@ -330,13 +329,13 @@ public
 		assert valid?
 	end
 
-	def total_sum()
+	def total_sum
 		assert valid?
 		#TODO: Implement
 		assert valid?
 	end
 
-	def transpose()
+	def transpose
 		assert valid?
 		#pre
 		#matrix to be transposed has been initialized
@@ -378,7 +377,7 @@ public
 		assert valid?
 	end
 
-	def diagonal()
+	def diagonal
 		assert valid?
 		#pre
 
@@ -399,14 +398,14 @@ public
 		@storage.det
 	end
 
-	def cholesky()
+	def cholesky
 		assert valid?
 		assert @storage.symmetric? #Matrix MUST be symmetric
 		#TODO: Implement SMatrix cholesky factorization
 		assert valid?
 	end
 
-	def luDecomp
+	def lu_decomposition
 		assert valid?
 		#pre
 
