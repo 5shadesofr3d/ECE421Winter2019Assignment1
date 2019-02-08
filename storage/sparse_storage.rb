@@ -104,8 +104,12 @@ public
 		arr
 	end
 
-	# Todo: This is how you should make abstract methods>
+	# TODO: Is this how we should deal with abstract methods? Or should we leave them out?
 	def det
+		raise NotImplementedError
+	end
+
+	def invert
 		raise NotImplementedError
 	end
 

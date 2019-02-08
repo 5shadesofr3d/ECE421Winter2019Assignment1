@@ -354,18 +354,18 @@ public
 		assert valid?
 	end
 
-	def inverse()
+	# TODO:
+	# NMatrix only implements this for dense matrices
+	# so we must convert types then calculate then convert back.
+	# Inefficient but necessary for now.
+	def inverse
 		assert valid?
+
 		#pre
 		assert @storage.shape[0] == @storage.shape[1] #square only
 
-		#TODO:
-		#SMatrix only implements this for dense matricies
-		#so we must convert types then calculate then convert back..
-		#inefficient but necessary for now
-
 		#post
-		# @storage = @storage^-1
+		@storage = @storage.invert
 		assert @storage.shape[0] == @storage.shape[1]
 		assert valid?
 	end

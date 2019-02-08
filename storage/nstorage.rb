@@ -66,6 +66,15 @@ class NStorage < SparseStorage
     return result
   end
 
+  def invert
+    assert @storage.is_a? NMatrix
+
+    original_type = @storage.stype
+    result = @storage.cast(:dense) # Convert to do inversion.
+    return result.inverse.cast(original_type) # Invert and covert back before returning.
+
+  end
+
 protected
   @storage
 end
