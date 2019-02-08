@@ -1,4 +1,4 @@
-require '../factory/storage_factory'
+require_relative 'storage_factory'
 
 # NOTE: Dictionary of Keys (DOK)
 class DokFactory < StorageFactory
@@ -21,7 +21,7 @@ class DokFactory < StorageFactory
 		when Lil
 
 		when Matrix
-
+			# Not implemented here!
 		when Array
 			created = from_array(storage)
 		end

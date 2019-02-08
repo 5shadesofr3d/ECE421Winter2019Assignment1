@@ -354,26 +354,27 @@ public
 		assert valid?
 	end
 
-	def inverse()
+	# TODO:
+	# NMatrix only implements this for dense matrices
+	# so we must convert types then calculate then convert back.
+	# Inefficient but necessary for now.
+	def inverse
 		assert valid?
+
 		#pre
 		assert @storage.shape[0] == @storage.shape[1] #square only
 
-		#TODO:
-		#SMatrix only implements this for dense matricies
-		#so we must convert types then calculate then convert back..
-		#inefficient but necessary for now
-
 		#post
-		# @storage = @storage^-1
+		@storage = @storage.invert
 		assert @storage.shape[0] == @storage.shape[1]
 		assert valid?
 	end
 
+	#TODO: NMatrix only implements this for 2D, square, dense, floating type matrices.
 	def hessenberg
 		assert valid?
 		assert @storage.rows == @storage.cols
-		#TODO: Implement
+
 		assert valid?
 	end
 
@@ -389,12 +390,12 @@ public
 
 	def determinant
 		assert valid?
+
 		#pre
 		assert @storage.shape[0] == @storage.shape[1] #square
-		#TODO: Implement
 
 		#post
-		assert valid?
+		return @storage.det
 	end
 
 	def cholesky
@@ -505,13 +506,11 @@ public
   end
 
   def conjugate
+		# Pre-conditions
     assert valid?
 
-    # Pre-conditions
-    # assert @storage.type == NMatrix?
-
     # Post
-    # @storage.conjugate_transpose
+    @storage.complex_conjugate
 
     assert valid?
   end

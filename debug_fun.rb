@@ -1,18 +1,11 @@
 require './SMatrix'
+require 'matrix'
 
 # Debugging stuff ... will remove later
 
 def add
-	s = SMatrix.new([
-		[0, 2, 0],
-		[0, 5, 0],
-		[0, 8, 0]
-	])
-	m = SMatrix.new([
-		[0, 2, 0],
-		[0, 5, 0],
-		[0, 8, 0]
-	])
+	s = SMatrix.new(Matrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]])
+	m = SMatrix.new(Matrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]])
 
 	a = s + m
 
@@ -100,9 +93,9 @@ def divide
 end
 
 add
-subtract
-multiply
-divide
+# subtract
+# multiply
+# divide
 
 # s[0, 0] = 9
 

@@ -59,6 +59,28 @@ class NStorage < SparseStorage
     result = @storage.rank()
     return result
   end
+
+  def det
+    assert @storage.is_a? NMatrix
+    result = NMatrix.det(@storage)
+    return result
+  end
+
+  def invert
+    assert @storage.is_a? NMatrix
+
+    original_type = @storage.stype
+    result = @storage.cast(:dense) # Convert to do inversion.
+    return result.inverse.cast(original_type) # Invert and covert back before returning.
+
+  end
+
+  def complex_conjugate
+    assert @storage.is_a? NMatrix
+    result = NMatrix.complex_conjugate(@storage)
+    return result
+  end
+
 protected
   @storage
 end

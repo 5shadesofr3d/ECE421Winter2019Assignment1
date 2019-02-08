@@ -1,4 +1,4 @@
-require './storage/sparse_storage'
+require_relative 'sparse_storage'
 
 class Dok < SparseStorage
 	# --- Invariants ---

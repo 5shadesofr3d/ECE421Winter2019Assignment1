@@ -1,3 +1,5 @@
+require_relative 'nstorage'
+
 class Lil < NStorage
 	# --- Invariants ---
 	# @self.is_a? SparseStorage

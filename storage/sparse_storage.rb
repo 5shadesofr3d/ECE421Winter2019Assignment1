@@ -104,6 +104,19 @@ public
 		arr
 	end
 
+	# TODO: Is this how we should deal with abstract methods? Or should we leave them out?
+	def det
+		raise NotImplementedError
+	end
+
+	def invert
+		raise NotImplementedError
+	end
+
+	def complex_conjugate
+		raise NotImplementedError
+	end
+
 	attr_reader :rows, :columns
 
 end
