@@ -59,6 +59,13 @@ class NStorage < SparseStorage
     result = @storage.rank()
     return result
   end
+
+  def det
+    assert @storage.is_a? NMatrix
+    result = NMatrix.det(@storage)
+    return result
+  end
+
 protected
   @storage
 end

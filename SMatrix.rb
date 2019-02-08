@@ -1,8 +1,8 @@
 require 'matrix'
 require 'test/unit'
 
-require './factory/YaleFactory'
-require './factory/DokFactory'
+require './factory/yale_factory'
+require './factory/dok_factory'
 
 def symbol_to_factory(symbol)
 	case symbol
@@ -86,7 +86,7 @@ public
     assert valid?
   end
 
-  def for_main_diagonal()
+  def for_main_diagonal
     #pre
     assert @storage.rows == @storage.cols
     assert valid?
@@ -388,14 +388,15 @@ public
 		assert valid?
 	end
 
-	def determinant()
+	def determinant
 		assert valid?
+
 		#pre
 		assert @storage.shape[0] == @storage.shape[1] #square
-		#TODO: Implement
 
 		#post
 		assert valid?
+		@storage.det
 	end
 
 	def cholesky()
