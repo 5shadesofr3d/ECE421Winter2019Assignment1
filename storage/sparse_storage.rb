@@ -125,6 +125,10 @@ public
 		raise NotImplementedError
 	end
 
+	def hermitian?
+		raise NotImplementedError
+	end
+
 	attr_reader :rows, :columns
 
 end

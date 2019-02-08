@@ -90,6 +90,11 @@ class NStorage < SparseStorage
     @storage.factorize_cholesky
   end
 
+  def hermitian?
+    assert @storage.is_a? NMatrix
+    @storage.hermitian?
+  end
+
 protected
   @storage
 end

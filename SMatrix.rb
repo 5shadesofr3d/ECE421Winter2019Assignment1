@@ -203,9 +203,11 @@ public
 	end
 
 	def hermitian?
+		#Pre
 		assert valid?
-		#TODO: Implement
-		assert valid?
+
+		# Post
+		@storage.hermitian?
 	end
 
 	#Generic add for all SMatrix types
