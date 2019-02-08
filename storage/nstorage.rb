@@ -48,6 +48,11 @@ class NStorage < SparseStorage
     @storage**scalar
   end
 
+  def power(pow)
+    assert @storage.is_a? NMatrix
+    @storage.pow(pow)
+  end
+
   def dot(m1)
     assert @storage.is_a? NMatrix
 

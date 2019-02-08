@@ -135,6 +135,10 @@ public
 		raise NotImplementedError
 	end
 
+	def power(pow)
+		raise NotImplementedError
+	end
+
 	attr_reader :rows, :columns
 
 end

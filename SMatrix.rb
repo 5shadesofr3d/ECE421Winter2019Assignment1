@@ -348,12 +348,13 @@ public
 		assert valid?
 	end
 
-	#Raise matrix to a power
+	# Raise matrix to a power
 	def power(pow)
 		assert valid?
 		assert pow.is_a? Integer
-		assert @storage.shape[0] == @storage.shape[1] ##square matrix
-		#TODO: Implement
+		assert @storage.shape[0] == @storage.shape[1]
+
+		@storage.pow(pow)
 		assert valid?
 	end
 
