@@ -21,13 +21,13 @@ class DokFactory < StorageFactory
 		when Lil
 
 		when Matrix
-			# Not implemented here!
+			created = from_array(storage.to_a)
 		when Array
 			created = from_array(storage)
 		end
 
 		# post
-		assert created.is_a? Dok
+		assert (created.is_a? Dok), "Expected Dok, but got: #{created.class}"
 		created
 	end
 

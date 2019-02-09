@@ -22,12 +22,13 @@ def add
 end
 
 def subtract
-	s = SMatrix.new([
+	s = SMatrix.new(Matrix[
 		[0, 2, 0],
 		[0, 5, 0],
 		[0, 8, 0]
 	])
-	m = SMatrix.new([
+
+	m = SMatrix.new(Matrix[
 		[0, 2, 0],
 		[0, 5, 0],
 		[0, 8, 0]
@@ -49,7 +50,7 @@ end
 
 
 def multiply
-	s = SMatrix.new([
+	s = SMatrix.new(Matrix[
 		[0, 3, 0],
 		[0, 6, 0],
 		[0, 9, 0]
@@ -71,7 +72,7 @@ def multiply
 end
 
 def divide
-	s = SMatrix.new([
+	s = SMatrix.new(Matrix[
 		[0, 3, 0],
 		[0, 6, 0],
 		[0, 9, 0]
@@ -93,9 +94,9 @@ def divide
 end
 
 add
-# subtract
-# multiply
-# divide
+subtract
+multiply
+divide
 
 # s[0, 0] = 9
 
