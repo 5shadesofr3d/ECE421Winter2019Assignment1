@@ -3,8 +3,8 @@ module Iterators
 		# iterates through each matrix element
 		assert valid?
 		
-		for i in 0 .. @rows - 1
-			for j in 0 .. @columns - 1
+		for i in 0 .. self.rows - 1
+			for j in 0 .. self.columns - 1
 				yield self[i, j]
 			end
 		end
@@ -16,8 +16,8 @@ module Iterators
 		# provides index iterators
 		assert valid?
 
-		for i in 0 .. @rows - 1
-			for j in 0 .. @columns - 1
+		for i in 0 .. self.rows - 1
+			for j in 0 .. self.columns - 1
 				yield i, j
 			end
 		end
@@ -27,7 +27,7 @@ module Iterators
 
 	def each_col(col_index)
 		#pre
-		assert @storage.cols >= 0
+		assert self.columns >= 0
 		assert col_index <= @storage.cols
 		assert valid?
 

@@ -21,6 +21,8 @@ def add
 
 	print a.to_s
 	puts
+
+	a
 end
 
 def subtract
@@ -48,6 +50,8 @@ def subtract
 
 	print a.to_s
 	puts
+
+	a
 end
 
 
@@ -71,6 +75,8 @@ def multiply
 
 	print a.to_s
 	puts
+
+	a
 end
 
 def divide
@@ -93,12 +99,21 @@ def divide
 
 	print a.to_s
 	puts
+
+	a
 end
 
-add
+a = add
 subtract
 multiply
 divide
+
+print "As Matrix: \n\t#{a.to_matrix.to_s}\n"
+print "As NMatrix: \n\t#{a.to_nmatrix.to_s}\n"
+print "As Yale: \n#{a.to_yale.to_s}\n"
+print "As Dok: \n#{a.to_dok.to_s}\n"
+print "As Lil: \n#{a.to_lil.to_s}\n"
+print "As float: \n#{a.to_f.to_s}\n"
 
 # s[0, 0] = 9
 
