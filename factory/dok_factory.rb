@@ -12,7 +12,7 @@ class DokFactory < StorageFactory
 		# pre
 		assert valid? storage
 
-		created = from_array(storage.to_a)
+		created = create_instance(storage, :dok)
 
 		# post
 		assert (created.is_a? Dok), "Expected Dok, but got: #{created.class}"

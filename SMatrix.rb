@@ -424,7 +424,7 @@ class SMatrix
 
 	def shape
 		assert valid?
-		[@storage.rows, @storage.columns]
+		@storage.shape
 	end
 
 	def store_as(factory, storage = @storage)

@@ -34,6 +34,11 @@ public
 		raise AbstractClassError
 	end
 
+	def shape
+		assert valid?
+		[@rows, @columns]
+	end
+
 	def valid?
 		# returns true if class invariants hold
 		return false unless @rows.is_a? Integer and @columns.is_a? Integer
