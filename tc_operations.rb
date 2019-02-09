@@ -21,7 +21,7 @@ class TestOperations<Test::Unit::TestCase
     assert_equal(matrix2.shape, matrix1.shape)
 
   end
-
+/*
   def test_subtraction
     #Init matrix1 as 3x3 matrix of all 0's
     matrix1 = Matrix.new(3)
@@ -87,4 +87,5 @@ class TestOperations<Test::Unit::TestCase
     ##Post conditions
     assert_equal(NMatrix.new(3),matrix1)
   end
+  */
 end
