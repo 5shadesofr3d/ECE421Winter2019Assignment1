@@ -127,6 +127,8 @@ a.each_diagonal_element do |value|
 end
 print "diagonal values: \n\t#{diag}\n"
 
+print "sparsity:\n\t#{a.sparsity}\n"
+
 # s[0, 0] = 9
 
 # i = IdentityMatrix.new(3)
