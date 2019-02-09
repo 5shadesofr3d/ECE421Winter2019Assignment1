@@ -6,7 +6,7 @@ class Dok < SparseStorage
 	# @self.rows >= 0
 	# @self.cols >= 0
 	# ------------------
-public
+	public
 	def initialize(rows, columns)
 		assert rows.is_a? Integer
 		assert columns.is_a? Integer
@@ -79,7 +79,14 @@ public
 		raise NotImplementedException
 	end
 
-private
-	@hash
+	def clone
+		instance = self.class.new(@rows, @columns)
+		instance.hash = @hash.clone
+
+		instance
+	end
+
+	protected
+	attr_accessor :hash
 
 end

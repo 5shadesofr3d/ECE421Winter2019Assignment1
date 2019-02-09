@@ -1,33 +1,22 @@
-require '../factory/storage_factory'
+require_relative 'storage_factory'
 
 # NOTE: List of List (LIL)
 class LilFactory < StorageFactory
 	# --- Invariants ---
 	# @self.is_a? StorageFactory
 	# ------------------
-	
+
 	def create(storage)
-		# returns a LILStorage containing the same values of the specified storage
+		# returns a DOKStorage containing the same values of the specified storage
 
 		# pre
 		assert valid? storage
-		created = nil
 
-		case storage
-		when Yale
-
-		when Dok
-
-		when Lil
-			created = storage
-		when Matrix
-
-		when Array
-
-		end
+		type = :lil
+		created = create_instance(storage, type)
 
 		# post
-		assert created.is_a? Lil
+		assert (created.is_a? @@TYPE[type]), "Expected #{@@TYPE[type]}, but got: #{created.class}"
 		created
 	end
 
