@@ -1,5 +1,5 @@
 require 'nmatrix'
-require './sparse_storage.rb'
+require_relative 'sparse_storage'
 class NStorage < SparseStorage
 
   def initialize(rows, columns)
@@ -68,19 +68,16 @@ class NStorage < SparseStorage
   end
 
   def rank
-    assert @storage.is_a? NMatrix
     result = @storage.rank()
     return result
   end
 
   def det
-    assert @storage.is_a? NMatrix
     result = NMatrix.det(@storage)
     return result
   end
 
   def invert
-    assert @storage.is_a? NMatrix
 
     original_type = @storage.stype
     result = @storage.cast(:dense) # Convert to do inversion.
@@ -89,7 +86,6 @@ class NStorage < SparseStorage
   end
 
   def complex_conjugate
-    assert @storage.is_a? NMatrix
     result = NMatrix.complex_conjugate(@storage)
     return result
   end
@@ -106,6 +102,7 @@ class NStorage < SparseStorage
 		end
 
   end
+end
 
 protected
   @storage

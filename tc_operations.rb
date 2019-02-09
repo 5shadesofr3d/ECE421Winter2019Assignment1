@@ -1,11 +1,12 @@
 require './SMatrix'
 require 'test/unit'
 
+
 class TestOperations<Test::Unit::TestCase
   def test_addition
 
     #Init matrix1 as 3x3 matrix of all 0's
-    matrix1 = Matrix.new(3)
+    yaleMatrix = sMatrix.new(Yale.new([3, 3], ))
 
     #Init matrix2 as 3x3 matrix of all
     matrix2 = NMatrix.new(3, [1,2,3,4,5,6,7,8,9])

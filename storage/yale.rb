@@ -1,5 +1,4 @@
-require './nstorage'
-
+require_relative 'nstorage'
 
 class Yale < NStorage
 	# --- Invariants ---
@@ -9,8 +8,6 @@ class Yale < NStorage
 	# ------------------
 	public
 		def initialize(rows, columns)
-
-			if !valid? then return
 			#return nil unless rows.is_a? Integer and columns.is_a? Integer
 			#assert columns.is_a? Integer
 			#assert rows >= 0
@@ -23,11 +20,11 @@ class Yale < NStorage
 		end
 
 		def get_matrix
-			return @storage
+			super
 		end
 
 		def set_matrix(mat)
-			@storage = mat
+			super
 		end
 
 		def valid?
@@ -35,43 +32,18 @@ class Yale < NStorage
 		end
 
 		def [](i, j)
-			# returns the matrix index at position i, j
-
-			# pre
-			assert i.is_a? Integer and j.is_a? Integer
-			assert 0 <= i and i < @rows
-			assert 0 <= j and j < @columns
-
-			#TODO: Implement
-			return @storage[i, j]
-
-			# post
-			#assert valid?
-
+			super
 		end
 
 		def []=(i, j, value)
-			# assigning a value the matrix index at position i, j
-			assert valid?
-
-			# pre
-			assert i.is_a? Integer and j.is_a? Integer
-			assert 0 <= i and i < @rows
-			assert 0 <= j and j < @columns
-			assert value.is_a? Numeric
-
-			#TODO: Implement
-			@storage[i, j] = value
-
-			# post
-			assert valid?
+			super
 		end
 
 		def each
 			# returning the enumerator for each of the elements in the yield matrix
 
 			#pre
-			assert valid?
+			super
 
 			# use the NMatrix each value. It has its own way of going through different
 			# storage types
@@ -80,7 +52,5 @@ class Yale < NStorage
 			# end
 
 			#post
-			assert valid?
 		end
 	end
-end

@@ -1,8 +1,8 @@
 require 'matrix'
 require 'test/unit'
 
-require './factory/yale_factory'
-require './factory/dok_factory'
+require_relative 'factory/yale_factory'
+require_relative 'factory/dok_factory'
 
 def symbol_to_factory(symbol)
 	case symbol
@@ -16,7 +16,7 @@ def symbol_to_factory(symbol)
 end
 
 class SMatrix
-	include Test::Unit::Assertions
+	#include Test::Unit::Assertions
 	# --- Invariants ---
 	# @storage.is_a? SparseStorage
 	# @storage.rows >= 0
@@ -28,8 +28,8 @@ public
 		# constructs a standard matrix
 
 		# pre
-		assert storage_type.is_a? Symbol
-		assert matrix.is_a? Matrix
+		raise TypeError.new("Storage type can only be a DoK, LiL, of Yale") if !storage_type.is_a? Symbol
+		raise TypeError.new("Matrix type must be of type matrix") if !matrix.is_a? Matrix
 
 		# post
 		store_as(storage_type, matrix)

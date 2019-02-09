@@ -1,7 +1,7 @@
 require 'test/unit'
 require 'nmatrix'
-require './storage/dok'
-require './storage/lil'
+require_relative '../storage/dok'
+require_relative '../storage/lil'
 
 Yale = NMatrix
 

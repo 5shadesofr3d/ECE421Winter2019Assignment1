@@ -1,11 +1,11 @@
-require '../factory/storage_factory'
+require_relative 'storage_factory'
 
 # NOTE: List of List (LIL)
 class LilFactory < StorageFactory
 	# --- Invariants ---
 	# @self.is_a? StorageFactory
 	# ------------------
-	
+
 	def create(storage)
 		# returns a LILStorage containing the same values of the specified storage
 
