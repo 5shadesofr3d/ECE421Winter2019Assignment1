@@ -7,7 +7,7 @@ module Conversions
 
 		# post
 		col = 0
-
+		
 		@storage.each do |value|
 			str += "#{value} "
 			col += 1
@@ -22,7 +22,21 @@ module Conversions
 	end
 
 	def to_a
+		# converts storage to an array of rows format
+		assert valid?
 
+		arr = []
+		for i in 0 .. @rows - 1
+			row = []
+			for j in 0 .. @columns - 1
+				row << self[i, j]
+			end
+			arr << row
+		end
+
+		assert valid?
+
+		arr
 	end
 
 	def to_f

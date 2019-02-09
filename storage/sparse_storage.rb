@@ -1,7 +1,14 @@
 require 'test/unit'
 
+require_relative 'storage_modules/default_arithmetic'
+require_relative 'storage_modules/default_operations'
+require_relative 'storage_modules/iterators'
+
 class SparseStorage
 	include Test::Unit::Assertions
+	include DefaultArithmetic
+	include DefaultOperations
+	include Iterators
 
 	public
 	def initialize(row_count, column_count)
@@ -63,154 +70,9 @@ class SparseStorage
 		zero_values / total_values
 	end
 
-	def each_index
-		# provides index iterators
-		assert valid?
-
-		for i in 0 .. @rows - 1
-			for j in 0 .. @columns - 1
-				yield i, j
-			end
-		end
-
-		assert valid?
-	end
-
-	def each
-		# iterates through each matrix element
-		assert valid?
-
-		for i in 0 .. @rows - 1
-			for j in 0 .. @columns - 1
-				yield self[i, j]
-			end
-		end
-
-		assert valid?
-	end
-
-
-	def to_a
-		# converts storage to an array of rows format
-		assert valid?
-
-		arr = []
-		for i in 0 .. @rows - 1
-			row = []
-			for j in 0 .. @columns - 1
-				row << self[i, j]
-			end
-			arr << row
-		end
-
-		assert valid?
-
-		arr
-	end
-
-	def +(m1)
-		assert valid?
-		assert m1.is_a? SparseStorage
-
-		self.each_index do |i, j|
-			self[i, j] += m1[i, j]
-		end
-
-		assert valid?
-
-		self
-	end
-
-	def -(m1)
-		assert valid?
-		assert m1.is_a? SparseStorage
-
-		self.each_index do |i, j|
-			self[i, j] -= m1[i, j]
-		end
-
-		assert valid?
-
-		self
-	end
-
-	def *(scalar)
-		assert valid?
-		assert scalar.is_a? Numeric
-
-		self.each_index do |i, j|
-			self[i, j] *= scalar
-		end
-
-		assert valid?
-
-		self
-	end
-
-	def /(scalar)
-		assert valid?
-		assert scalar != 0
-		assert scalar.is_a? Numeric
-
-		self.each_index do |i, j|
-			self[i, j] /= scalar
-		end
-
-		assert valid?
-
-		self
-	end
-
-	def **(scalar)
-		assert valid?
-		assert scalar.is_a? Numeric
-
-		self.each_index do |i, j|
-			self[i, j] **= scalar
-		end
-
-		assert valid?
-
-		self
-	end
-
-	# TODO: Is this how we should deal with abstract methods? Or should we leave them out?
-	def det
-		raise NotImplementedError
-	end
-
-	def invert
-		raise NotImplementedError
-	end
-
-	def complex_conjugate
-		raise NotImplementedError
-	end
-
-	def lu_factorization
-		raise NotImplementedError
-	end
-
-	def cholesky_factorization
-		raise NotImplementedError
-	end
-
-	def hermitian?
-		raise NotImplementedError
-	end
-
-	def dot(mat)
-		raise NotImplementedError
-	end
-
-	def power(pow)
-		raise NotImplementedError
-	end
-
 	def clone
 		raise AbstractClassError
 	end
 
 	attr_reader :rows, :columns
-
 end

@@ -4,8 +4,8 @@ require 'matrix'
 # Debugging stuff ... will remove later
 
 def add
-	s = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], YaleFactory.new)
-	m = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], LilFactory.new)
+	s = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :yale)
+	m = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :yale)
 
 	a = s + m
 
@@ -26,13 +26,13 @@ def subtract
 		[0, 2, 0],
 		[0, 5, 0],
 		[0, 8, 0]
-	], DokFactory.new)
+	], :dok)
 
 	m = SMatrix.new(Matrix[
 		[0, 2, 0],
 		[0, 5, 0],
 		[0, 8, 0]
-	], LilFactory.new)
+	], :lil)
 
 	a = s - m
 

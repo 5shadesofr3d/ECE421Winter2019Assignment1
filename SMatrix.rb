@@ -7,11 +7,12 @@ require_relative 'factory/lil_factory'
 
 require_relative 'smatrix_modules/arithmetic'
 require_relative 'smatrix_modules/operations'
-require_relative 'smatrix_modules/iterators'
 require_relative 'smatrix_modules/conditionals'
 require_relative 'smatrix_modules/builder'
 require_relative 'smatrix_modules/triangle'
 require_relative 'smatrix_modules/conversions'
+
+require_relative 'storage/storage_modules/iterators'
 
 class SMatrix
 	include Test::Unit::Assertions
@@ -23,22 +24,22 @@ class SMatrix
 	include Triangle
 	include Conversions
 
-	# --- Invariants ---
-	# @storage.is_a? SparseStorage
-	# @storage.rows >= 0
-	# @storage.cols >= 0
-	# ------------------
+	@@FACTORY_MAP = {
+		dok: DokFactory,
+		lil: LilFactory,
+		yale: YaleFactory
+	}
 
 	public
-	def initialize(matrix, storage_factory = DokFactory.new)
+	def initialize(matrix, type = :yale)
 		# constructs a standard matrix
 
 		# pre
-		assert storage_factory.is_a? StorageFactory
+		assert @@FACTORY_MAP.key? type
 		assert StorageFactory.valid? matrix
 
 		# post
-		store_as(storage_factory, matrix)
+		store_as(type, matrix)
 
 		@storage.each_index do |i, j|
 			assert_same(matrix[i, j], self[i, j], "Expected [i, j] = #{matrix[i, j]}, but got #{self[i, j]}")
@@ -90,13 +91,13 @@ class SMatrix
 		@storage.shape
 	end
 
-	def store_as(factory, storage = @storage)
+	def store_as(type, storage = @storage)
 		assert valid?
 
 		# pre
-		assert factory.is_a? StorageFactory
+		assert @@FACTORY_MAP.key? type
 
-		@factory = factory
+		@factory = @@FACTORY_MAP[type].new
 		@storage = @factory.create(storage)
 
 		# post
@@ -104,6 +105,8 @@ class SMatrix
 		assert (@storage.is_a? SparseStorage), "Expected SparseStorage, Got #{@storage.class}"
 
 		assert valid?
+
+		self
 	end
 
 	def rows
@@ -124,7 +127,7 @@ class SMatrix
 	end
 
 	def clone
-		return SMatrix.new(@storage, @factory)
+		return SMatrix.new(@storage, @@FACTORY_MAP.key(@factory.class))
 	end
 
 	protected
