@@ -1,6 +1,8 @@
 require_relative 'nstorage'
+require_relative 'storage_modules/delegate_arithmetic'
 
 class Yale < NStorage
+	include DelegateArithmetic
 	# --- Invariants ---
 	# @self.is_a? SparseStorage
 	# @self.rows >= 0
@@ -23,6 +25,6 @@ class Yale < NStorage
 	end
 
 	def valid?
-		super
+		super and @storage.stype == :yale
 	end
 end

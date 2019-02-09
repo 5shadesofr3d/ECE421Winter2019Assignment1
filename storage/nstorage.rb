@@ -1,12 +1,9 @@
 require 'nmatrix'
 
 require_relative 'sparse_storage'
-require_relative 'storage_modules/delegate_arithmetic'
 require_relative 'storage_modules/delegate_operations'
-require_relative 'storage_modules/iterators'
 
 class NStorage < SparseStorage
-	include DelegateArithmetic
 	include DelegateOperations
 
 	def initialize(row_count, column_count)
@@ -30,6 +27,7 @@ class NStorage < SparseStorage
 
 		# post
 		assert valid?
+		
 		@storage[i, j]
 	end
 
@@ -43,10 +41,9 @@ class NStorage < SparseStorage
 		assert 0 <= j and j < @columns
 		assert value.is_a? Numeric
 
-		#TODO: Implement
-
 		# post
 		assert valid?
+
 		@storage[i, j] = value
 	end
 
