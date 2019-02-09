@@ -1,13 +1,19 @@
 module Conditionals
+	def sparse?
+		assert valid?
+
+		@storage.sparsity > 0.5
+	end
+
 	def identity?
 		# returns true if the matrix is an identity matrix
 		assert valid?
 		# pre
-		false if @storage.cols != @storage.rows
+		return false if @storage.cols != @storage.rows
 
 		# post
 		@storage.each_index do |i, j|
-			false if (i == j and self[i, j] != 1) or (i != j and self[i, j] != 0)
+			return false if (i == j and self[i, j] != 1) or (i != j and self[i, j] != 0)
 		end
 
 		assert valid?
@@ -22,7 +28,7 @@ module Conditionals
 		# post
 
 		@storage.each_index do |i, j|
-			false if self[i, j] != 0
+			return false if self[i, j] != 0
 		end
 
 		assert valid?
@@ -32,12 +38,8 @@ module Conditionals
 	def diagonal?
 		# returns true if the matrix is a diagonal matrix
 		assert valid?
-		# pre
 
-		# post
-
-		assert valid?
-		Matrix[*@storage.to_a].diagonal?
+		self.to_matrix.diagonal?
 	end
 
 	def tridiagonal?
