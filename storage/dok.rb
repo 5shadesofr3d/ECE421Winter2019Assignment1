@@ -79,7 +79,14 @@ public
 		raise NotImplementedException
 	end
 
-private
-	@hash
+	def clone
+    	instance = self.class.new(@rows, @columns)
+    	instance.hash = @hash.clone
+
+	    instance
+	end
+
+protected
+	attr_accessor :hash
 
 end

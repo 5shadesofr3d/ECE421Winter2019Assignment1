@@ -3,20 +3,46 @@ require_relative 'sparse_storage'
 
 class NStorage < SparseStorage
 
-  def initialize(rows, columns)
+  def initialize(row_count, column_count)
 		# constructs a standard matrix
-
-		# pre
-		assert rows.is_a? Integer and columns.is_a? Integer
-		assert rows >= 0 and columns >= 0
-    super(rows, columns)
-    @storage = NMatrix.new([rows,columns])
-		# post
-		@rows = rows
-		@columns = columns
+    super(row_count, column_count)
 
 		assert valid?
 	end
+
+  def valid?
+    super and @storage.is_a? NMatrix
+  end
+
+  def [](i, j)
+      # returns the matrix index at position i, j
+
+      # pre
+      assert i.is_a? Integer and j.is_a? Integer
+      assert 0 <= i and i < @rows
+      assert 0 <= j and j < @columns
+
+      # post
+      assert valid?
+      @storage[i, j]
+  end
+
+  def []=(i, j, value)
+      # assigning a value the matrix index at position i, j
+      assert valid?
+
+      # pre
+      assert i.is_a? Integer and j.is_a? Integer
+      assert 0 <= i and i < @rows
+      assert 0 <= j and j < @columns
+      assert value.is_a? Numeric
+
+      #TODO: Implement
+
+      # post
+      assert valid?
+      @storage[i, j] = value
+  end
 
   def add(m1)
     if m1.is_a? Dok
@@ -109,6 +135,13 @@ class NStorage < SparseStorage
     @storage.hermitian?
   end
 
+  def clone
+    instance = self.class.new(@rows, @columns)
+    instance.storage = @storage.clone
+
+    instance
+  end
+
 protected
-  @storage
+  attr_accessor :storage
 end

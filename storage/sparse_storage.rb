@@ -4,16 +4,16 @@ class SparseStorage
 	include Test::Unit::Assertions
 
 public
-	def initialize(rows, columns)
+	def initialize(row_count, column_count)
 		# constructs a standard matrix
 
 		# pre
-		assert rows.is_a? Integer and columns.is_a? Integer
-		assert rows >= 0 and columns >= 0
+		assert row_count.is_a? Integer and column_count.is_a? Integer
+		assert row_count >= 0 and column_count >= 0
 
 		# post
-		@rows = rows
-		@columns = columns
+		@rows = row_count
+		@columns = column_count
 
 		assert valid?
 	end
@@ -43,7 +43,6 @@ public
 		# returns true if class invariants hold
 		return false unless @rows.is_a? Integer and @columns.is_a? Integer
 		return false unless @rows >= 0 and @columns >= 0
-		return false unless sparsity > 0.5
 
 		return true
 	end
@@ -55,10 +54,8 @@ public
 		zero_values = 0.0
 		total_values = @rows * @columns
 
-		for i in 0 .. @rows - 1
-			for j in 0 .. @columns - 1
-				zero_values += 1 if self[i, j] == 0
-			end
+		self.each do |value|
+			zero_values += 1 if value == 0
 		end
 
 		# post
@@ -208,6 +205,10 @@ public
 
 	def power(pow)
 		raise NotImplementedError
+	end
+
+	def clone
+		raise AbstractClassError
 	end
 
 	attr_reader :rows, :columns

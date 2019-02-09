@@ -1,9 +1,8 @@
 require 'test/unit'
 require 'nmatrix'
-require './storage/dok'
-require './storage/lil'
-
-Yale = NMatrix
+require_relative '../storage/dok'
+require_relative '../storage/lil'
+require_relative '../storage/yale'
 
 class StorageFactory
 	include Test::Unit::Assertions

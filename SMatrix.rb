@@ -1,8 +1,9 @@
 require 'matrix'
 require 'test/unit'
 
-require './factory/yale_factory'
-require './factory/dok_factory'
+require_relative 'factory/yale_factory'
+require_relative 'factory/dok_factory'
+require_relative 'factory/lil_factory'
 
 class SMatrix
 	include Test::Unit::Assertions
@@ -438,7 +439,7 @@ class SMatrix
 
 		# post
 		assert @factory.is_a? StorageFactory
-		assert @storage.is_a? SparseStorage
+		assert (@storage.is_a? SparseStorage), "Expected SparseStorage, Got #{@storage.class}"
 
 		assert valid?
 	end
