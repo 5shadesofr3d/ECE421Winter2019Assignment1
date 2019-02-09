@@ -1,5 +1,6 @@
 require './nstorage'
 
+
 class Yale < NStorage
 	# --- Invariants ---
 	# @self.is_a? SparseStorage
@@ -8,15 +9,17 @@ class Yale < NStorage
 	# ------------------
 	public
 		def initialize(rows, columns)
-			assert rows.is_a? Integer
-			assert columns.is_a? Integer
-			assert rows >= 0
-			assert columns >= 0
+
+			if !valid? then return
+			#return nil unless rows.is_a? Integer and columns.is_a? Integer
+			#assert columns.is_a? Integer
+			#assert rows >= 0
+			#assert columns >= 0
 
 			super(rows,columns)
 			#TODO: Implement
 
-			assert valid?
+			#assert valid?
 		end
 
 		def get_matrix
@@ -79,4 +82,5 @@ class Yale < NStorage
 			#post
 			assert valid?
 		end
+	end
 end

@@ -7,14 +7,17 @@ public
 		# constructs a standard matrix of size row X column with 0s
 
 		# pre
-		assert rows.is_a? Integer and columns.is_a? Integer
-		assert rows >= 0 and columns >= 0
+		raise ArgumentError.new("Row must be of type integer") if !rows.is_a? Integer
+		raise ArgumentError.new("Column must be of type integer") if !columns.is_a? Integer
+		raise ArgumentError.new("Row must be a value greater then 0") if rows <= 0
+		raise ArgumentError.new("Column must be a value greater then 0") if columns <= 0 
+		#assert rows.is_a? Integer and columns.is_a? Integer
+		#assert rows >= 0 and columns >= 0
 
 		# post
 		@rows = rows
 		@columns = columns
 
-		assert valid?
 	end
 
 	def get_matrix
