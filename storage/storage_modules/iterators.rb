@@ -3,10 +3,8 @@ module Iterators
 		# iterates through each matrix element
 		assert valid?
 		
-		for i in 0 .. self.rows - 1
-			for j in 0 .. self.columns - 1
-				yield self[i, j]
-			end
+		self.each_index do |i, j|
+			yield self[i, j]
 		end
 
 		assert valid?
@@ -25,31 +23,81 @@ module Iterators
 		assert valid?
 	end
 
-	def each_col(col_index)
+	def each_non_zero
+		# provides index iterators
+		assert valid?
+
+		self.each_non_zero_index do |i, j|
+			yield self[i, j]
+		end
+
+		assert valid?
+	end
+
+	def each_non_zero_index
+		# provides index iterators
+		assert valid?
+
+		self.each_index do |i, j|
+			yield i, j unless self[i, j] == 0
+		end
+
+		assert valid?
+	end
+
+	def each_column
 		#pre
 		assert self.columns >= 0
-		assert col_index <= @storage.cols
 		assert valid?
 
-
-		#post
-		assert valid?
-	end
-
-	def each_row(row_index)
-		#pre
-		assert @storage.rows >= 0
-		assert row_index <= @storage.rows
-		assert valid?
+		for j in 0 .. self.columns - 1
+			col = []
+			for i in 0 .. self.rows - 1
+				col << self[i, j]
+			end
+			yield col
+		end
 
 		#post
 		assert valid?
 	end
 
-	def for_main_diagonal
+	def each_row
 		#pre
-		assert @storage.rows == @storage.cols
+		assert self.rows >= 0
 		assert valid?
+
+		for i in 0 .. self.rows - 1
+			row = []
+			for j in 0 .. self.columns - 1
+				row << self[i, j]
+			end
+			yield row
+		end
+
+		#post
+		assert valid?
+	end
+
+	def each_diagonal_index
+		#pre
+		assert valid?
+
+		for i in 0 .. [self.rows, self.columns].min - 1
+			yield i, i
+		end
+
+		#post
+		assert valid?
+	end
+
+	def each_diagonal_element
+		#pre
+		assert valid?
+
+		self.each_diagonal_index do |i, j|
+			yield self[i, j]
+		end
 
 		#post
 		assert valid?

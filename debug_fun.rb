@@ -115,6 +115,18 @@ print "As Dok: \n#{a.to_dok.to_s}\n"
 print "As Lil: \n#{a.to_lil.to_s}\n"
 print "As float: \n#{a.to_f.to_s}\n"
 
+nzv = []
+a.each_non_zero do |value|
+	nzv << value
+end
+print "Non zero values: \n\t#{nzv}\n"
+
+diag = []
+a.each_diagonal_element do |value|
+	diag << value
+end
+print "diagonal values: \n\t#{diag}\n"
+
 # s[0, 0] = 9
 
 # i = IdentityMatrix.new(3)

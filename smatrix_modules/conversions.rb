@@ -6,15 +6,8 @@ module Conversions
 		str = ""
 
 		# post
-		col = 0
-		
-		@storage.each do |value|
-			str += "#{value} "
-			col += 1
-			if col == @storage.columns
-				col = 0
-				str += "\n"
-			end
+		self.each_row do |row|
+			str += "#{row}\n"
 		end
 
 		assert valid?
@@ -26,11 +19,7 @@ module Conversions
 		assert valid?
 
 		arr = []
-		for i in 0 .. self.rows - 1
-			row = []
-			for j in 0 .. self.columns - 1
-				row << self[i, j]
-			end
+		self.each_row do |row|
 			arr << row
 		end
 
