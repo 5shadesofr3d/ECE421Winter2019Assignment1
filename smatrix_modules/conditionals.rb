@@ -52,8 +52,15 @@ module Conditionals
 
 	def symmetric?
 		assert valid?
-		#TODO: Implement
+		assert square?
+
+		self.each_index do |i, j|
+			return false unless self[i, j] == self[j, i]
+		end
+
 		assert valid?
+
+		true
 	end
 
 	def hermitian?
@@ -61,20 +68,66 @@ module Conditionals
 		assert valid?
 
 		# Post
-		@storage.hermitian?
+		self.to_matrix.hermitian?
 	end
 
-	def normal?(matrix)
+	def normal?
 		assert valid?
 
-		# Pre-conditions
-		# assert @storage.type == NMatrix?
-		# assert @matrix.type == NMatrix?
+		self.to_matrix.normal?
+	end
 
-		# Post
-		# (@storage.conjugate.transpose * @matrix) ==
-		# (@storage * @matrix.conjugate.transpose)
-
+	def orthogonal?
 		assert valid?
+
+		self.to_matrix.orthogonal?
+	end
+
+	def permutation?
+		assert valid?
+
+		self.to_matrix.permutation?
+	end
+
+	def singular?
+		assert valid?
+
+		self.to_matrix.singular?
+	end
+
+	def regular?
+		assert valid?
+
+		self.to_matrix.regular?
+	end
+
+	def real?
+		assert valid?
+
+		self.to_matrix.real?
+	end
+
+	def square?
+		assert valid?
+
+		self.rows == self.columns
+	end
+
+	def unitary?
+		assert valid?
+
+		self.to_matrix.unitary?
+	end
+
+	def upper_triangular?
+		assert valid?
+
+		self.to_matrix.upper_triangular?
+	end
+
+	def lower_triangular?
+		assert valid?
+
+		self.to_matrix.lower_triangular?
 	end
 end
