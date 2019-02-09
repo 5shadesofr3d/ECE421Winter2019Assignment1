@@ -1,4 +1,9 @@
 module Operations
+	def sparsity
+		assert valid?
+		@storage.sparsity
+	end
+
 	def trace
 		#pre
 		assert valid?
