@@ -1,10 +1,27 @@
 module Iterators
 	def each
-		#pre
+		# iterates through each matrix element
 		assert valid?
-		#@storage.each do |value|
+		
+		for i in 0 .. @rows - 1
+			for j in 0 .. @columns - 1
+				yield self[i, j]
+			end
+		end
 
-		#post
+		assert valid?
+	end
+
+	def each_index
+		# provides index iterators
+		assert valid?
+
+		for i in 0 .. @rows - 1
+			for j in 0 .. @columns - 1
+				yield i, j
+			end
+		end
+
 		assert valid?
 	end
 

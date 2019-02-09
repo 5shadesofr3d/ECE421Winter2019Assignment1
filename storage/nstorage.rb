@@ -1,7 +1,13 @@
 require 'nmatrix'
+
 require_relative 'sparse_storage'
+require_relative 'storage_modules/delegate_arithmetic'
+require_relative 'storage_modules/delegate_operations'
+require_relative 'storage_modules/iterators'
 
 class NStorage < SparseStorage
+	include DelegateArithmetic
+	include DelegateOperations
 
 	def initialize(row_count, column_count)
 		# constructs a standard matrix
@@ -44,90 +50,21 @@ class NStorage < SparseStorage
 		@storage[i, j] = value
 	end
 
-	def add(m1)
-		if m1.is_a? Dok
-			#TODO: CONVERT and go
-		end
-		@storage = @storage+m1
-	end
-
-	def subtract(m1)
-		if m1.is_a? Dok
-			#TODO: CONVERT and go
-		end
-		@storage = @storage-m1
-	end
-
-	def multiply(scalar)
-		assert scalar.is_a? Numeric
-		@storage = @storage*scalar
-	end
-
-	def divide(scalar)
-		assert scalar != 0
-		assert scalar.is_a? Numeric
-		@storage = @storage/scalar
-	end
-
-	def exponent(scalar)
-		assert scalar.is_a? Numeric
-		@storage**scalar
-	end
-
-	def power(pow)
-		assert @storage.is_a? NMatrix
-		@storage.pow(pow)
-	end
-
-	def dot(m1)
-		assert @storage.is_a? NMatrix
-
-		# NMatrix m1.dot(m2) requires that m1 and m2 are the same stype.
-		@storage.dot(m1.cast(@storage.stype))
-	end
-
-	def trace
-		assert @storage.is_a? NMatrix
-		assert @storage.shape[0] == @storage.shape[1]
-		@storage.trace
-	end
-
-	def rank
-		assert @storage.is_a? NMatrix
-		@storage.rank
-	end
-
-	def det
-		assert @storage.is_a? NMatrix
-		@storage.det
-	end
-
 	def invert
-		assert @storage.is_a? NMatrix
+		assert valid?
 
 		original_type = @storage.stype
 		result = @storage.cast(:dense) # Convert to do inversion.
 		result.inverse.cast(original_type) # Invert and convert back before returning.
-
-	end
-
-	def complex_conjugate
-		assert @storage.is_a? NMatrix
-		@storage.complex_conjugate
 	end
 
 	def lu_factorization
-		assert @storage.is_a? NMatrix
+		assert valid?
 
 		original_type = @storage.stype
 		result = @storage.cast(:dense) # Convert to do factorization.
 
 		result.factorize_lu.cast(original_type)
-	end
-
-	def cholesky_factorization
-		assert @storage.is_a? NMatrix
-		@storage.factorize_cholesky
 	end
 
 	def hermitian?

@@ -67,18 +67,6 @@ class Dok < SparseStorage
 		assert valid?
 	end
 
-	#For this case, we have the choice of New Implementation,
-	#Conversion to NMatrix, or no implementation at all
-	def trace
-		raise NotImplementedException
-	end
-
-	#For this case, we have the choice of New Implementation,
-	#Conversion to NMatrix, or no implementation at all
-	def rank
-		raise NotImplementedException
-	end
-
 	def clone
 		instance = self.class.new(@rows, @columns)
 		instance.hash = @hash.clone
