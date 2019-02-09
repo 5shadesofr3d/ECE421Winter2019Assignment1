@@ -35,7 +35,7 @@ class StorageFactory
 		end
 
 		instance = @@TYPE[type].new(rows(storage), columns(storage))
-		
+
 		instance.each_index do |i, j|
 			instance[i, j] = storage[i, j]
 		end

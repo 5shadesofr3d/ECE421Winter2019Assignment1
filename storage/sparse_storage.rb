@@ -3,7 +3,7 @@ require 'test/unit'
 class SparseStorage
 	include Test::Unit::Assertions
 
-public
+	public
 	def initialize(row_count, column_count)
 		# constructs a standard matrix
 

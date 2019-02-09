@@ -7,22 +7,22 @@ class Lil < NStorage
 	# @self.cols >= 0
 	# ------------------
 	public
-		def initialize(row_count, column_count)
-			@storage = NMatrix.new([row_count, column_count], stype: :list)
-			super(row_count, column_count)
+	def initialize(row_count, column_count)
+		@storage = NMatrix.new([row_count, column_count], stype: :list)
+		super(row_count, column_count)
+		
+		assert valid?
+	end
 
-			assert valid?
-		end
+	def get_matrix
+		return @storage
+	end
 
-		def get_matrix
-			return @storage
-		end
+	def set_matrix(mat)
+		@storage = mat
+	end
 
-		def set_matrix(mat)
-			@storage = mat
-		end
-
-		def valid?
-			super
-		end
+	def valid?
+		super
+	end
 end

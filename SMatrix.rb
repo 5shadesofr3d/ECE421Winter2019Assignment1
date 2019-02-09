@@ -239,7 +239,7 @@ class SMatrix
 		#post
 		assert @storage.is_a? SparseStorage
 		assert valid?
-		
+
 		return result
 	end
 
@@ -433,7 +433,7 @@ class SMatrix
 
 		# pre
 		assert factory.is_a? StorageFactory
-		
+
 		@factory = factory
 		@storage = @factory.create(storage)
 

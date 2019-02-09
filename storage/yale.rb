@@ -7,22 +7,22 @@ class Yale < NStorage
 	# @self.cols >= 0
 	# ------------------
 	public
-		def initialize(row_count, column_count)
-			@storage = NMatrix.new([row_count, column_count], stype: :yale)
-			
-			super(row_count, column_count)
-			assert valid?
-		end
+	def initialize(row_count, column_count)
+		@storage = NMatrix.new([row_count, column_count], stype: :yale)
+		
+		super(row_count, column_count)
+		assert valid?
+	end
 
-		def get_matrix
-			return @storage
-		end
+	def get_matrix
+		return @storage
+	end
 
-		def set_matrix(mat)
-			@storage = mat
-		end
+	def set_matrix(mat)
+		@storage = mat
+	end
 
-		def valid?
-			super
-		end
+	def valid?
+		super
+	end
 end
