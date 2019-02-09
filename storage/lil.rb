@@ -6,6 +6,7 @@ class Lil < NStorage
 	# @self.rows >= 0
 	# @self.cols >= 0
 	# ------------------
+
 	public
 	def initialize(row_count, column_count)
 		@storage = NMatrix.new([row_count, column_count], stype: :list)
@@ -23,6 +24,6 @@ class Lil < NStorage
 	end
 
 	def valid?
-		super
+		super and @storage.stype == :list
 	end
 end

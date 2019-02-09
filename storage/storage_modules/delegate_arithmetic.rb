@@ -1,11 +1,15 @@
 module DelegateArithmetic
 	def +(m1)
+		assert @storage.class == m1.storage.class
+		
 		@storage += m1.storage
 
 		self
 	end
 
 	def -(m1)
+		assert @storage.class == m1.storage.class
+
 		@storage -= m1.storage
 
 		self
