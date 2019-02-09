@@ -15,7 +15,11 @@ class StorageFactory
 		raise AbstractClassError
 	end
 
-	def valid?(storage)
+	def self.valid?(storage)
 		return (storage.is_a? Yale or storage.is_a? Dok or storage.is_a? Lil or storage.is_a? Matrix or storage.is_a? Array)
+	end
+
+	def valid?(storage)
+		return StorageFactory.valid? storage
 	end
 end

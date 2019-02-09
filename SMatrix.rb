@@ -4,17 +4,6 @@ require 'test/unit'
 require './factory/yale_factory'
 require './factory/dok_factory'
 
-def symbol_to_factory(symbol)
-	case symbol
-	when :dok
-		DokFactory.new
-	when :yale
-		YaleFactory.new
-	when :lil
-		LilFactory.new
-	end
-end
-
 class SMatrix
 	include Test::Unit::Assertions
 	# --- Invariants ---
@@ -23,23 +12,19 @@ class SMatrix
 	# @storage.cols >= 0
 	# ------------------
 
-public
-	def initialize(matrix, storage_type = :dok)
+	public
+	def initialize(matrix, storage_factory = DokFactory.new)
 		# constructs a standard matrix
 
 		# pre
-		assert storage_type.is_a? Symbol
-		assert matrix.is_a? Matrix
+		assert storage_factory.is_a? StorageFactory
+		assert StorageFactory.valid? matrix
 
 		# post
-		store_as(storage_type, matrix)
+		store_as(storage_factory, matrix)
 
 		@storage.each_index do |i, j|
-			if matrix.is_a? Array
-				assert_same(matrix[i][j], self[i, j])
-			else
-				assert_same(matrix[i, j], self[i, j])
-			end
+			assert_same(matrix[i, j], self[i, j], "Expected [i, j] = #{matrix[i, j]}, but got #{self[i, j]}")
 		end
 
 		assert valid?
@@ -47,52 +32,49 @@ public
 
 	def valid?
 		# returns true if all class invariants hold
-		false if not @storage.is_a? SparseStorage
-		false if @storage.rows < 0
-		false if @storage.cols < 0
+		return false unless (@storage.is_a? SparseStorage) or (@storage.is_a? NilClass)
 
-		true if @storage.valid?
-
+		true
 	end
 
-  def each
-    #pre
-    assert valid?
-    #@storage.each do |value|
+	def each
+		#pre
+		assert valid?
+		#@storage.each do |value|
 
-    #post
-    assert valid?
-  end
+		#post
+		assert valid?
+	end
 
-  def each_col(col_index)
-    #pre
-    assert @storage.cols >= 0
-    assert col_index <= @storage.cols
-    assert valid?
+	def each_col(col_index)
+		#pre
+		assert @storage.cols >= 0
+		assert col_index <= @storage.cols
+		assert valid?
 
 
-    #post
-    assert valid?
-  end
+		#post
+		assert valid?
+	end
 
-  def each_row(row_index)
-    #pre
-    assert @storage.rows >= 0
-    assert row_index <= @storage.rows
-    assert valid?
+	def each_row(row_index)
+		#pre
+		assert @storage.rows >= 0
+		assert row_index <= @storage.rows
+		assert valid?
 
-    #post
-    assert valid?
-  end
+		#post
+		assert valid?
+	end
 
-  def for_main_diagonal
-    #pre
-    assert @storage.rows == @storage.cols
-    assert valid?
+	def for_main_diagonal
+		#pre
+		assert @storage.rows == @storage.cols
+		assert valid?
 
-    #post
-    assert valid?
-  end
+		#post
+		assert valid?
+	end
 
 	def [](i, j)
 		# returns the matrix index at position i, j
@@ -215,15 +197,16 @@ public
 		#pre
 		assert valid?
 		assert mat.is_a? SMatrix
-		assert mat.shape == @storage.shape
+		assert mat.shape == self.shape
 
-		@storage.add(mat)
+		result = self.clone
+		result.storage += mat.storage
 
 		#post
-		assert @storage.shape == mat.shape
-		assert @storage.is_a? SMatrix
+		assert mat.shape == self.shape
+		assert @storage.is_a? SparseStorage
 		assert valid?
-		return self
+		return result
 	end
 
 	#Generic sub for all SMatrix types
@@ -231,15 +214,16 @@ public
 		#pre
 		assert valid?
 		assert mat.is_a? SMatrix
-		assert mat.shape == @storage.shape
+		assert mat.shape == self.shape
 
-		@storage.subtract(mat)
+		result = self.clone
+		result.storage -= mat.storage
 
 		#post
-		assert @storage.shape == mat.shape
-		assert result.is_a? SMatrix
+		assert mat.shape == self.shape
+		assert @storage.is_a? SparseStorage
 		assert valid?
-		return self
+		return result
 	end
 
 	#Generic divide for all SMatrix types
@@ -247,14 +231,15 @@ public
 		#pre
 		assert valid?
 		assert scalar.is_a? Numeric
-		assert scalar != 0
 
-		@storage.divide(scalar)
+		result = self.clone
+		result.storage /= scalar
 
 		#post
-		#assert @storage.shape == self.shape -> assert shape is same
+		assert @storage.is_a? SparseStorage
 		assert valid?
-		return self
+		
+		return result
 	end
 
 	#Generic exponent for all SMatrix types
@@ -263,12 +248,14 @@ public
 		assert valid?
 		assert scalar.is_a? Numeric
 
-		@storage.exponent(scalar)
+		result = self.clone
+		result.storage **= scalar
 
 		#post
-		#assert result.shape == self.shape -> assert shape is same
+		assert @storage.is_a? SparseStorage
 		assert valid?
-		return self
+
+		return result
 	end
 
 	#Generic multiply for all SMatrix types
@@ -277,12 +264,14 @@ public
 		assert valid?
 		assert scalar.is_a? Numeric
 
-		@storage.multiply(scalar)
+		result = self.clone
+		result.storage *= scalar
 
 		#post
-		#assert result.shape == self.shape -> assert shape is same
+		assert @storage.is_a? SparseStorage
 		assert valid?
-		return self
+
+		return result
 	end
 
 	# Note: NMatrix only supports the dot product of the
@@ -438,18 +427,13 @@ public
 		[@storage.rows, @storage.columns]
 	end
 
-	def store_as(storage_type, storage = @storage)
+	def store_as(factory, storage = @storage)
 		assert valid?
 
 		# pre
-		assert (storage_type.is_a? Symbol or storage_type.is_a? StorageFactory)
-
-		if storage_type.is_a? Symbol
-			@factory = symbol_to_factory(storage_type)
-		else
-			@factory = storage_type
-		end
-
+		assert factory.is_a? StorageFactory
+		
+		@factory = factory
 		@storage = @factory.create(storage)
 
 		# post
@@ -471,7 +455,7 @@ public
 
 	# TODO: Do these 2 functions violate dry?
 	def upper_triangle(k = 0)
-    assert valid?
+		assert valid?
 
 		# Pre-conditions
 		assert k.is_a? Integer and k >= 0
@@ -480,37 +464,37 @@ public
 		# Post
 		# @storage.upper_triangle(k)
 
-    assert valid?
+		assert valid?
 	end
 
 	def upper_triangle!(k = 0)
-    assert valid?
+		assert valid?
 
 		# Pre-conditions
 		assert k.is_a? Integer and k >= 0
 		assert @storage.shape.size == 2
 
 		# Post
-    # @storage.upper_triangle!(k)
+		# @storage.upper_triangle!(k)
 
-    assert valid?
+		assert valid?
 	end
 
 	def lower_triangle(k = 0)
-    assert valid?
+		assert valid?
 
 		# Pre-conditions
 		assert k.is_a? Integer and k >= 0
 		assert @storage.shape.size == 2
 
 		# Post
-    # @storage.lower_triangle(k)
+		# @storage.lower_triangle(k)
 
-    assert valid?
+		assert valid?
 	end
 
 	def lower_triangle!(k = 0)
-    assert valid?
+		assert valid?
 
 		# Pre-conditions
 		assert k.is_a? Integer and k >= 0
@@ -519,32 +503,32 @@ public
 		# Post
 		# @storage.lower_triangle!(k)
 
-    assert valid?
-  end
+		assert valid?
+	end
 
-  def conjugate
+	def conjugate
 		# Pre-conditions
-    assert valid?
+		assert valid?
 
-    # Post
-    @storage.complex_conjugate
+		# Post
+		@storage.complex_conjugate
 
-    assert valid?
-  end
+		assert valid?
+	end
 
-  def normal?(matrix)
-    assert valid?
+	def normal?(matrix)
+		assert valid?
 
-    # Pre-conditions
-    # assert @storage.type == NMatrix?
-    # assert @matrix.type == NMatrix?
+		# Pre-conditions
+		# assert @storage.type == NMatrix?
+		# assert @matrix.type == NMatrix?
 
-    # Post
-    # (@storage.conjugate.transpose * @matrix) ==
-    # (@storage * @matrix.conjugate.transpose)
+		# Post
+		# (@storage.conjugate.transpose * @matrix) ==
+		# (@storage * @matrix.conjugate.transpose)
 
-    assert valid?
-  end
+		assert valid?
+	end
 
 	def buildTridiagonal(upper, middle, lower, size)
 		#pre
@@ -605,11 +589,9 @@ public
 	end
 
 	def clone
-
+		return SMatrix.new(@storage, @factory)
 	end
 
-private
-	@storage
-	@factory
-
+	protected
+	attr_accessor :storage, :factory
 end
