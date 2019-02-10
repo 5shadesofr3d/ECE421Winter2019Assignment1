@@ -74,6 +74,10 @@ class Dok < SparseStorage
 		instance
 	end
 
+	def type
+		return Dok
+	end
+
 	protected
 	attr_accessor :hash
 

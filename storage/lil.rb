@@ -26,4 +26,9 @@ class Lil < NStorage
 	def valid?
 		super and @storage.stype == :list
 	end
+
+	def type
+		return Lil
+	end
+
 end

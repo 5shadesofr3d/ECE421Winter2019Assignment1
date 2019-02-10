@@ -27,18 +27,19 @@ class TestOperations<Test::Unit::TestCase
       end
     end
 
-    sMatrix4 = sMatrix1 + sMatrix2 + sMatrix3 #should be of type Yale
+    #assert sMatrix3 == sMatrix1 * 2
+    sMatrix4 = sMatrix1 + sMatrix2 + sMatrix3 # + sMatrix3 #should be of type Yale
     sMatrix5 = sMatrix2 + sMatrix3 + sMatrix1 #should be of type DoK
     sMatrix6 = sMatrix3 + sMatrix1 + sMatrix2 #should be of type Lil
 
-    assert_equal(sMatrixSum, sMatrix4) #yale addition works
-    assert(sMatrix4.storage.is_a? Yale) #still a yale
+    assert(sMatrixSum.equals(sMatrix4)) #yale addition works
+    assert(sMatrix4.type == Yale) #still a yale
 
-    assert_equal(sMatrixSum, sMatrix5) #Dok addition works
-    assert(sMatrix4.storage.is_a? DoK) #still a Dok
+    assert(sMatrixSum.equals(sMatrix5)) #Dok addition works
+    assert(sMatrix5.type == Dok) #still a Dok
 
-    assert_equal(sMatrixSum, sMatrix6) #Lil addition works
-    assert(sMatrix4.storage.is_a? Lil) #still a Lil
+    assert(sMatrixSum.equals(sMatrix6)) #Lil addition works
+    assert(sMatrix6.type == Lil) #still a Lil
 
   end
 

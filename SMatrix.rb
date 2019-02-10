@@ -91,6 +91,11 @@ class SMatrix
 		@storage.shape
 	end
 
+	def type
+		assert valid?
+		return @storage.type
+	end
+
 	def store_as(type, storage = @storage)
 		assert valid?
 
@@ -121,7 +126,18 @@ class SMatrix
 
 	def equals(mat)
 		assert valid?
-		assert mat.is_a? SparseStorage
+		print mat.shape
+		print self.shape
+		#assert mat.is_a? SparseStorage
+
+		for i in 0..self.rows - 1
+			for j in 0..self.columns - 1
+				if self[i, j] != mat[i, j]
+					return false
+				end
+			end
+		end
+		return true
 
 		assert valid?
 	end
