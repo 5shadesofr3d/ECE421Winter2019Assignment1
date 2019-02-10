@@ -1,26 +1,34 @@
 module Builder
+	def self.I(size)
+		self.eye(size)
+	end
+
 	def self.eye(size)
 		#pre
 		assert size.is_a? Integer
 		assert size > 0
-		#TODO: Implementation
+
+		result = SMatrix.new(Matrix.I(size))
 
 		#post
-		#assert result.identity?
-		assert valid?
+		assert result.identity?
+
+		result
 	end
 
-	def self.zero(rows, cols)
+	def self.zero(rows, cols = rows)
 		#pre
 		assert rows.is_a? Integer
 		assert cols.is_a? Integer
 		assert rows > 0
 		assert cols > 0
-		#TODO: Implementation
+		
+		result = SMatrix.new(Matrix.zero(rows, cols))
 
 		#post
-		#assert result.identity?
-		assert valid?
+		assert result.zero?
+
+		result
 	end
 
 	def self.random(rows, cols)
@@ -29,11 +37,12 @@ module Builder
 		assert cols.is_a? Integer
 		assert rows > 0
 		assert cols > 0
-		#TODO: Implementation
+
+		matrix = Matrix.build(rows, cols) { rand }
+		result = SMatrix.new(matrix)
 
 		#post
-		#assert result.sparsity <= 0.5
-		assert valid?
+		result
 	end
 
 	def self.tridiagonal(upper, middle, lower, size)
