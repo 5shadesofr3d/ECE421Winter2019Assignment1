@@ -20,9 +20,9 @@ class SMatrix
 	include Operations
 	include Iterators
 	include Conditionals
-	include Builder
 	include Triangle
 	include Conversions
+	extend Builder
 
 	@@FACTORY_MAP = {
 		dok: DokFactory,

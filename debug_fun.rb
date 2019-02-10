@@ -141,6 +141,8 @@ print "zeros:\n#{SMatrix.zero(5).to_s}\n"
 
 print "identity:\n#{SMatrix.I(5).to_s}\n"
 
+print "random:\n#{SMatrix.random(5).to_s}\n"
+
 # s[0, 0] = 9
 
 # i = IdentityMatrix.new(3)
