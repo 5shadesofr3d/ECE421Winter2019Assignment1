@@ -190,4 +190,48 @@ class TestOperations<Test::Unit::TestCase
     assert(sMatrix6.type == Lil) #still a Lil
   end
 
+  def test_dot
+    sMatrix1 = SMatrix.new(Yale.new(3, 3))
+    sMatrix2 = SMatrix.new(Dok.new(3, 3), :dok)
+    sMatrix3 = SMatrix.new(Lil.new(3, 3), :lil)
+
+    sMatrixDot = SMatrix.new(Yale.new(3, 3))
+
+    value = 1
+
+    for i in 0..2 do
+      for j in 0..2 do
+        sMatrix1[i, j] = value
+        sMatrix2[i, j] = value
+        sMatrix3[i, j] = value
+
+        value += 1
+      end
+    end
+
+    sMatrixDot[0, 0] = 468
+    sMatrixDot[0, 1] = 576
+    sMatrixDot[0, 2] = 684
+    sMatrixDot[1, 0] = 1062
+    sMatrixDot[1, 1] = 1305
+    sMatrixDot[1, 2] = 1548
+    sMatrixDot[2, 0] = 1656
+    sMatrixDot[2, 1] = 2034
+    sMatrixDot[2, 2] = 2412
+
+    #assert sMatrix3 == sMatrix1 * 2
+    sMatrix4 = sMatrix1.dot(sMatrix2).dot(sMatrix3) #should be of type Yale
+    sMatrix5 = sMatrix2.dot(sMatrix3).dot(sMatrix1)#should be of type DoK
+    sMatrix6 = sMatrix3.dot(sMatrix1).dot(sMatrix2)#should be of type Lil
+
+    assert(sMatrixDot.equals(sMatrix4)) #yale addition works
+    assert(sMatrix4.type == Yale) #still a yale
+
+    assert(sMatrixDot.equals(sMatrix5)) #Dok addition works
+    assert(sMatrix5.type == Dok) #still a Dok
+
+    assert(sMatrixDot.equals(sMatrix6)) #Lil addition works
+    assert(sMatrix6.type == Lil) #still a Lil
+  end
+
 end
