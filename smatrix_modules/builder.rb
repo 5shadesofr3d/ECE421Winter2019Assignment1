@@ -1,71 +1,74 @@
 module Builder
-	def self.eye(size)
+	include Test::Unit::Assertions
+
+	def I(size)
+		self.eye(size)
+	end
+
+	def eye(size)
 		#pre
 		assert size.is_a? Integer
 		assert size > 0
-		#TODO: Implementation
+
+		result = SMatrix.new(Matrix.I(size))
 
 		#post
-		#assert result.identity?
-		assert valid?
+		assert result.identity?
+
+		result
 	end
 
-	def self.zero(rows, cols)
+	def zero(rows, cols = rows)
 		#pre
 		assert rows.is_a? Integer
 		assert cols.is_a? Integer
 		assert rows > 0
 		assert cols > 0
-		#TODO: Implementation
+		
+		result = SMatrix.new(Matrix.zero(rows, cols))
 
 		#post
-		#assert result.identity?
-		assert valid?
+		assert result.zero?
+
+		result
 	end
 
-	def self.random(rows, cols)
+	def random(rows, cols = rows)
 		#pre
 		assert rows.is_a? Integer
 		assert cols.is_a? Integer
 		assert rows > 0
 		assert cols > 0
-		#TODO: Implementation
+
+		matrix = Matrix.build(rows, cols) { rand * 1000 }
+		result = SMatrix.new(matrix)
 
 		#post
-		#assert result.sparsity <= 0.5
-		assert valid?
+		result
 	end
 
-	def self.tridiagonal(upper, middle, lower, size)
+	def tridiagonal(upper, middle, lower)
 		#pre
 		assert size.is_a? Integer
-		assert upper.is_a? Matrix
-		assert middle.is_a? Matrix
-		assert lower.is_a? Matrix
-		assert size > 0
-		#TODO: Implementation
-		#result = ....
-		#post
-		#assert result.tridiagonal?
-		assert valid?
-	end
+		assert upper.is_a? Array and middle.is_a? Array and lower.is_a? Array
+		assert (upper.length == middle.length - 1) and (upper.length == lower.length)
+		assert middle.length >= 3
 
-	def partition(rows = [0, self.rows], columns = [0, self.columns])
-		assert valid?
-		assert (rows.is_a? Array) and (columns.is_a? Array)
-		assert (rows[0] < rows[1]) and (columns[0] < columns[1])
-		assert (rows[1] <= self.rows) and (columns[1] <= self.columns)
+		result = SMatrix.zero(middle.length)
 
-		row_count = rows[1] - rows[0]
-		column_count = columns[1] - columns[0]
-
-		matrix = Matrix.zero(row_count, column_count)
-		part = SMatrix.new(matrix)
-
-		part.each_index do |i, j|
-			part[i, j] = self[i + rows[0], j + columns[0]]
+		result.each_diagonal_index(1) do |i, j|
+			result[i, j] = upper.shift
+		end
+		result.each_diagonal_index(0) do |i, j|
+			result[i, j] = middle.shift
+		end
+		result.each_diagonal_index(-1) do |i, j|
+			result[i, j] = lower.shift
 		end
 
-		part
+		#post
+		assert result.tridiagonal?
+
+		result
 	end
 end

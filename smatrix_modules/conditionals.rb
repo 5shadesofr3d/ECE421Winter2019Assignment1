@@ -9,7 +9,7 @@ module Conditionals
 		# returns true if the matrix is an identity matrix
 		assert valid?
 		# pre
-		return false if @storage.cols != @storage.rows
+		return false unless square?
 
 		# post
 		@storage.each_index do |i, j|

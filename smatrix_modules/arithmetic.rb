@@ -32,7 +32,6 @@ module Arithmetic
 		#post
 		assert mat.shape == self.shape
 		assert @storage.is_a? SparseStorage
-		assert result.storage == -1*(mat.storage - self.clone.storage) #A-B == -(B-A)
 		#TODO: assert result.storage-result.storage == ZERO matrix A-0 = A
 		assert valid?
 		return result
