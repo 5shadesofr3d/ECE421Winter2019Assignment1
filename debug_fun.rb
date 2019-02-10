@@ -5,7 +5,7 @@ require 'matrix'
 
 def add
 	s = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :yale)
-	m = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :yale)
+	m = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :lil)
 	# s = NMatrix.new([3, 3], stype: :list)
 	# m = s.clone
 
