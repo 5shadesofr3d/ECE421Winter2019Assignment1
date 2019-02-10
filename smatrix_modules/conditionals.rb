@@ -9,7 +9,7 @@ module Conditionals
 		# returns true if the matrix is an identity matrix
 		assert valid?
 		# pre
-		return false if @storage.cols != @storage.rows
+		return false unless square?
 
 		# post
 		@storage.each_index do |i, j|
@@ -131,5 +131,20 @@ module Conditionals
 		assert valid?
 
 		self.to_matrix.lower_triangular?
+	end
+
+	def equals?(mat)
+		assert valid?
+		assert self.shape == mat.shape
+
+		self.each_index do |i, j|
+			return false unless self[i, j] == mat[i, j]
+		end
+		
+		return true
+	end
+
+	def ==(mat)
+		equals?(mat)
 	end
 end

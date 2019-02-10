@@ -5,7 +5,7 @@ require 'matrix'
 
 def add
 	s = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :yale)
-	m = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :yale)
+	m = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :dok)
 	# s = NMatrix.new([3, 3], stype: :list)
 	# m = s.clone
 
@@ -79,6 +79,30 @@ def multiply
 	a
 end
 
+def dot
+	a = SMatrix.new(Matrix[
+		[0, 3, 0],
+		[0, 6, 0],
+		[0, 9, 0]
+	])
+	i = SMatrix.I(3)
+
+	c = i % a
+
+	print "dot ---"
+	puts
+	print a.to_s
+	puts
+
+	print i.to_s
+	puts
+
+	print c.to_s
+	puts
+
+	c
+end
+
 def divide
 	s = SMatrix.new(Matrix[
 		[0, 3, 0],
@@ -106,6 +130,7 @@ end
 a = add
 subtract
 multiply
+dot
 divide
 
 print "As Matrix: \n\t#{a.to_matrix.to_s}\n"
@@ -114,6 +139,7 @@ print "As Yale: \n#{a.to_yale.to_s}\n"
 print "As Dok: \n#{a.to_dok.to_s}\n"
 print "As Lil: \n#{a.to_lil.to_s}\n"
 print "As float: \n#{a.to_f.to_s}\n"
+print "As transpose:\n#{a.t.to_s}\n"
 
 nzv = []
 a.each_non_zero do |value|
@@ -127,7 +153,6 @@ a.each_diagonal_element do |value|
 end
 print "diagonal values: \n\t#{diag}\n"
 
-
 print "lower values: \n\t#{a.lower_triangle}\n"
 
 print "upper values: \n\t#{a.upper_triangle}\n"
@@ -136,7 +161,14 @@ print "sparsity:\n\t#{a.sparsity}\n"
 
 print "partition:\n#{a.partition([1, a.rows], [1, a.columns])}\n"
 
-print "tridiagonal: #{a.tridiagonal?}\n"
+print "tridiagonal:\n\t#{a.tridiagonal?}\n"
+
+print "zeros:\n#{SMatrix.zero(5).to_s}\n"
+
+print "identity:\n#{SMatrix.I(5).to_s}\n"
+
+print "random:\n#{SMatrix.random(5).to_s}\n"
+
 
 # s[0, 0] = 9
 

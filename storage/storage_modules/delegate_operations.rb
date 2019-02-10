@@ -5,6 +5,11 @@ module DelegateOperations
 		@storage.trace
 	end
 
+	def transpose
+		assert valid?
+		@storage.transpose
+	end
+
 	def rank
 		assert valid?
 		@storage.rank

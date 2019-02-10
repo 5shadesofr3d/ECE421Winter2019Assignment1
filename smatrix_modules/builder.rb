@@ -1,71 +1,81 @@
 module Builder
-	def self.eye(size)
+	include Test::Unit::Assertions
+
+	def I(size)
+		self.eye(size)
+	end
+
+	def eye(size)
 		#pre
 		assert size.is_a? Integer
-		assert size > 0
-		#TODO: Implementation
+		assert size >= 0
 
-		#post
-		#assert result.identity?
-		assert valid?
-	end
-
-	def self.zero(rows, cols)
-		#pre
-		assert rows.is_a? Integer
-		assert cols.is_a? Integer
-		assert rows > 0
-		assert cols > 0
-		#TODO: Implementation
-
-		#post
-		#assert result.identity?
-		assert valid?
-	end
-
-	def self.random(rows, cols)
-		#pre
-		assert rows.is_a? Integer
-		assert cols.is_a? Integer
-		assert rows > 0
-		assert cols > 0
-		#TODO: Implementation
-
-		#post
-		#assert result.sparsity <= 0.5
-		assert valid?
-	end
-
-	def self.tridiagonal(upper, middle, lower, size)
-		#pre
-		assert size.is_a? Integer
-		assert upper.is_a? Matrix
-		assert middle.is_a? Matrix
-		assert lower.is_a? Matrix
-		assert size > 0
-		#TODO: Implementation
-		#result = ....
-		#post
-		#assert result.tridiagonal?
-		assert valid?
-	end
-
-	def partition(rows = [0, self.rows], columns = [0, self.columns])
-		assert valid?
-		assert (rows.is_a? Array) and (columns.is_a? Array)
-		assert (rows[0] < rows[1]) and (columns[0] < columns[1])
-		assert (rows[1] <= self.rows) and (columns[1] <= self.columns)
-
-		row_count = rows[1] - rows[0]
-		column_count = columns[1] - columns[0]
-
-		matrix = Matrix.zero(row_count, column_count)
-		part = SMatrix.new(matrix)
-
-		part.each_index do |i, j|
-			part[i, j] = self[i + rows[0], j + columns[0]]
+		result = SMatrix.new(Dok.new(size, size))
+		result.each_diagonal_index do |i, j|
+			result[i, j] = 1
 		end
 
-		part
+		#post
+		assert result.identity?
+
+		result
+	end
+
+	def zero(rows, cols = rows)
+		#pre
+		assert rows.is_a? Integer
+		assert cols.is_a? Integer
+		assert rows >= 0
+		assert cols >= 0
+		
+		result = SMatrix.new(Dok.new(rows, cols))
+
+		#post
+		assert result.zero?
+
+		result
+	end
+
+	def random(rows, cols = rows, non_zero_factor = 0.3, spread = 1000)
+		#pre
+		assert (rows.is_a? Integer), "rows not an integer"
+		assert (cols.is_a? Integer), "cols not an integer"
+		assert rows >= 0
+		assert cols >= 0
+
+		result = SMatrix.zero(rows, cols)
+		result.each_index do |i, j|
+			if rand <= non_zero_factor
+				result[i, j] = rand * spread
+			end
+		end
+
+		#post
+		result
+	end
+
+	def tridiagonal(upper, middle, lower)
+		#pre
+		assert size.is_a? Integer
+		assert upper.is_a? Array and middle.is_a? Array and lower.is_a? Array
+		assert (upper.length == middle.length - 1) and (upper.length == lower.length)
+		assert middle.length >= 3
+
+		result = SMatrix.zero(middle.length)
+
+		result.each_diagonal_index(1) do |i, j|
+			result[i, j] = upper.shift
+		end
+		result.each_diagonal_index(0) do |i, j|
+			result[i, j] = middle.shift
+		end
+		result.each_diagonal_index(-1) do |i, j|
+			result[i, j] = lower.shift
+		end
+
+		#post
+		assert result.tridiagonal?
+
+		result
 	end
 end
