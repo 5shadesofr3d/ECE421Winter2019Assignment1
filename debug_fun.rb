@@ -127,6 +127,17 @@ a.each_diagonal_element do |value|
 end
 print "diagonal values: \n\t#{diag}\n"
 
+
+print "lower values: \n\t#{a.lower_triangle}\n"
+
+print "upper values: \n\t#{a.upper_triangle}\n"
+
+print "sparsity:\n\t#{a.sparsity}\n"
+
+print "partition:\n#{a.partition([1, a.rows], [1, a.columns])}\n"
+
+print "tridiagonal: #{a.tridiagonal?}\n"
+
 # s[0, 0] = 9
 
 # i = IdentityMatrix.new(3)
