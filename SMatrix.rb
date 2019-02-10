@@ -125,8 +125,8 @@ class SMatrix
 		print self.shape
 		#assert mat.is_a? SparseStorage
 
-		for i in 0..self.rows
-			for j in 0..self.columns
+		for i in 0..self.rows - 1
+			for j in 0..self.columns - 1
 				if self[i, j] != mat[i, j]
 					return false
 				end
