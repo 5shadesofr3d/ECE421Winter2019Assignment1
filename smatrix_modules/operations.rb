@@ -51,7 +51,8 @@ module Operations
 		assert valid?
 		#pre
 		#matrix to be transposed has been initialized
-		result = @storage.transpose
+		result = SMatrix.new(@storage.transpose, self.ftype)
+
 		#post
 		assert valid?
 		assert result.shape[0] == @storage.shape[1]
@@ -67,12 +68,11 @@ module Operations
 		assert valid?
 
 		#pre
-		assert @storage.det != 0 #det != 0
-		assert @storage.shape[0] == @storage.shape[1] #square only
-
+		assert regular?, "Not a regular matrix (thus not invertible)."
 		#post
-		@storage = @storage.invert
-		assert @storage.shape[0] == @storage.shape[1]
+		store_as(self.ftype, self.to_matrix.inverse)
+		
+		assert square?
 		assert valid?
 	end
 
@@ -80,7 +80,7 @@ module Operations
   # Should we discard this feature?
 	def hessenberg
 		assert valid?
-		assert @storage.rows == @storage.cols
+		assert square?
 
 		assert valid?
 	end
@@ -163,5 +163,20 @@ module Operations
 		end
 
 		part
+	end
+
+	def ~
+		assert valid?
+		result = self.clone
+		result.inverse
+		assert valid?
+
+		return result
+	end
+
+	def t
+		assert valid?
+
+		return self.transpose
 	end
 end

@@ -31,7 +31,7 @@ class SMatrix
 	}
 
 	public
-	def initialize(matrix, type = :yale)
+	def initialize(matrix, type = :dok)
 		# constructs a standard matrix
 
 		# pre
@@ -96,6 +96,11 @@ class SMatrix
 		return @storage.type
 	end
 
+	def ftype
+		assert valid?
+		@@FACTORY_MAP.key(@factory.class)
+	end
+
 	def store_as(type, storage = @storage)
 		assert valid?
 
@@ -147,7 +152,7 @@ class SMatrix
 	end
 
 	def clone
-		return SMatrix.new(@storage, @@FACTORY_MAP.key(@factory.class))
+		return SMatrix.new(@storage, self.ftype)
 	end
 
 	protected

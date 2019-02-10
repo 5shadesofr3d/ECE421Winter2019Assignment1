@@ -6,6 +6,14 @@ module DefaultOperations
 		return temp.det
 	end
 
+	def transpose
+		result = self.class.new(self.columns, self.rows)
+		result.each_index do |i, j|
+			result[i, j] = self[j, i]
+		end
+		return result
+	end
+
 	def invert
 		assert result.is_a? Dok
 		yFactory = YaleFactory.new

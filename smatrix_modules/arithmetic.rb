@@ -37,6 +37,16 @@ module Arithmetic
 		return result
 	end
 
+	def -@
+		assert valid?
+
+		result = SMatrix.zero(self.rows, self.columns)
+		result.storage -= self.storage
+
+		assert valid?
+		return result
+	end
+
 	#Generic divide for all SMatrix types
 	def /(scalar)
 		#pre
@@ -90,20 +100,24 @@ module Arithmetic
 	# same matrix type.
 	def dot(mat)
 		#pre
-		assert valid?
-		assert mat.is_a? SMatrix
-		assert mat.rows == @storage.cols #MxN * NxK
+		assert valid?, "class invariants failed [begin]"
+		assert (mat.is_a? SMatrix), "rhs is not a SMatrix"
+		assert self.rows == mat.columns
 
-		result = self.clone
-		result.storage = @storage.dot(mat)
+		result = SMatrix.new(self.to_matrix * mat.to_matrix, self.ftype)
+		# result.storage.dot(mat.storage) TODO: DOES NOT WORK... NMATRIX SUX
+
 		#post
-		assert mat.is_a? SMatrix
-		assert result.storage == mat.storage.dot(@storage) #AB == BA
+		assert (mat.is_a? SMatrix), "rhs is no longer an SMatrix"
 		#TODO: assert result.storage * result.storage.transpose == EYE A*A^-1 = I
 		#TODO: assert @storage*EYE == @storage #AI = A
 		#TODO: assert EYE*@storage == @storage #IA = A
-		assert valid?
+		assert valid?, "class invariants failed [end]"
 		return result
+	end
+
+	def %(mat)
+		dot(mat)
 	end
 
 	# Raise matrix to a power

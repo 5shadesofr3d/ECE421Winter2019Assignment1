@@ -8,7 +8,7 @@ module Builder
 	def eye(size)
 		#pre
 		assert size.is_a? Integer
-		assert size > 0
+		assert size >= 0
 
 		result = SMatrix.new(Matrix.I(size))
 
@@ -22,8 +22,8 @@ module Builder
 		#pre
 		assert rows.is_a? Integer
 		assert cols.is_a? Integer
-		assert rows > 0
-		assert cols > 0
+		assert rows >= 0
+		assert cols >= 0
 		
 		result = SMatrix.new(Matrix.zero(rows, cols))
 
@@ -35,10 +35,10 @@ module Builder
 
 	def random(rows, cols = rows, non_zero_factor = 0.3, spread = 1000)
 		#pre
-		assert rows.is_a? Integer
-		assert cols.is_a? Integer
-		assert rows > 0
-		assert cols > 0
+		assert (rows.is_a? Integer), "rows not an integer"
+		assert (cols.is_a? Integer), "cols not an integer"
+		assert rows >= 0
+		assert cols >= 0
 
 		matrix = Matrix.build(rows, cols) do
 			if rand <= non_zero_factor
@@ -47,6 +47,7 @@ module Builder
 				0
 			end
 		end
+
 		result = SMatrix.new(matrix)
 
 		#post
