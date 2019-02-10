@@ -4,8 +4,8 @@ require 'matrix'
 # Debugging stuff ... will remove later
 
 def add
-	s = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]])
-	m = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]])
+	s = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :yale)
+	m = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :dok)
 	# s = NMatrix.new([3, 3], stype: :list)
 	# m = s.clone
 
@@ -79,6 +79,30 @@ def multiply
 	a
 end
 
+def dot
+	a = SMatrix.new(Matrix[
+		[0, 3, 0],
+		[0, 6, 0],
+		[0, 9, 0]
+	])
+	i = SMatrix.I(3)
+
+	c = i % a
+
+	print "dot ---"
+	puts
+	print a.to_s
+	puts
+
+	print i.to_s
+	puts
+
+	print c.to_s
+	puts
+
+	c
+end
+
 def divide
 	s = SMatrix.new(Matrix[
 		[0, 3, 0],
@@ -106,6 +130,7 @@ end
 a = add
 subtract
 multiply
+dot
 divide
 
 print "As Matrix: \n\t#{a.to_matrix.to_s}\n"

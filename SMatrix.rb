@@ -42,7 +42,7 @@ class SMatrix
 	}
 
 	public
-	def initialize(matrix, type = :dok)
+	def initialize(matrix, type = :yale)
 		# constructs a standard matrix
 
 		# pre

@@ -66,15 +66,15 @@ module DefaultArithmetic
 	end
 
 	def dot(mat)
-		#Note: dot product not defined for DOK data structure,
-		# Converting to YALE format then performing the operation
-		assert mat.is_a? SparseStorage
-		yFactory = YaleFactory.new()
-		dFactory = DokFactory.new()
-		tempYaleSelf = yFactory.create(self)
-		tempYaleArg = yFactory.create(mat)
-		result = dFactory.create(tempYaleSelf.dot(tempYaleArg))
-		assert result.is_a? Dok
+		assert self.columns == mat.rows
+
+		result = self.class.new(self.rows, mat.columns)
+		result.each_index do |i, j|
+			for k in 0 .. self.columns - 1
+				result[i, j] += self[i, k] * mat[k, j]
+			end
+		end
+		
 		return result
 	end
 
