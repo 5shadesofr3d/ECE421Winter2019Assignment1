@@ -234,4 +234,32 @@ class TestOperations<Test::Unit::TestCase
     assert(sMatrix6.type == Lil) #still a Lil
   end
 
+  def test_power
+    #test the power functions from the SMatrixes
+    #create the matrices required
+    sMatrix1 = SMatrix.new(Yale.new(3, 3))
+    sMatrix2 = SMatrix.new(Dok.new(3, 3) :dok)
+    sMatrix3 = SMatrix.new(Lil.new(3, 3), :lil)
+
+    eMatrix1 = SMatrix.new(Yale.new(3, 3))
+
+
+    #fill in the 3 matrices with desired values
+    #TODO: this will have to be randomly generated everytime
+
+
+    ##ENTER CODE HERE
+
+
+    #Do the operations
+    rMatrix1 = sMatrix1.pow(2)
+    rMatrix2 = sMatrix2.pow(2)
+    rMatrix3 = sMatrix3.pow(2)
+
+    # run the assertions
+
+    ## ENTER THE CODE FOR ASSERTIONS
+
+  end
+
 end
