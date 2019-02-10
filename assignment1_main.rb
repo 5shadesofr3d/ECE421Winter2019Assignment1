@@ -3,7 +3,7 @@
 # - Rizwan Qureshi
 # - Jose Ramirez
 # - Jori Romans
-# - Curits Goud
+# - Curtis Goud
 
 #RUNTIME REQUIREMENTS: ....
 
