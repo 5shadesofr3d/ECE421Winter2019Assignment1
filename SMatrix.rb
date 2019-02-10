@@ -126,6 +126,10 @@ class SMatrix
 		assert valid?
 	end
 
+	def storage
+		@storage
+	end
+
 	def clone
 		return SMatrix.new(@storage, @@FACTORY_MAP.key(@factory.class))
 	end
