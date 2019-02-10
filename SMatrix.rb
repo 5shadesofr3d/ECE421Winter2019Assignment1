@@ -91,6 +91,11 @@ class SMatrix
 		@storage.shape
 	end
 
+	def type
+		assert valid?
+		return @storage.type
+	end
+
 	def store_as(type, storage = @storage)
 		assert valid?
 

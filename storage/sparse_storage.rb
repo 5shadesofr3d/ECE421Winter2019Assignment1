@@ -74,5 +74,9 @@ class SparseStorage
 		raise AbstractClassError
 	end
 
+	def type
+		raise AbstractClassError
+	end
+
 	attr_reader :rows, :columns
 end

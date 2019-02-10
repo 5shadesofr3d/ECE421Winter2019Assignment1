@@ -27,4 +27,8 @@ class Yale < NStorage
 	def valid?
 		super and @storage.stype == :yale
 	end
+
+	def type
+		return Yale
+	end
 end
