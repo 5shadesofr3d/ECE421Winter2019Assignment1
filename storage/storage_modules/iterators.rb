@@ -79,12 +79,26 @@ module Iterators
 		assert valid?
 	end
 
-	def each_diagonal_index
+	def each_diagonal_index(offset = 0)
+		# if offset < 0, below main diagonal
+		# if offset > 0, above main diagonal
+		# if offset = 0, main diagonal
+
 		#pre
 		assert valid?
 
-		for i in 0 .. [self.rows, self.columns].min - 1
-			yield i, i
+		if (offset > 0)
+			for i in 0 .. [self.rows - offset, self.columns - offset].min - 1
+				yield i, i + offset
+			end
+		elsif (offset < 0)
+			for i in 0 .. [self.rows + offset, self.columns + offset].min - 1
+				yield i - offset, i
+			end
+		else
+			for i in 0 .. [self.rows, self.columns].min - 1
+				yield i, i
+			end
 		end
 
 		#post
@@ -100,6 +114,24 @@ module Iterators
 		end
 
 		#post
+		assert valid?
+	end
+
+	def each_lower_index
+		assert valid?
+		for o in 1 .. self.rows - 1
+			self.each_diagonal_index(-o) do |i, j|
+				yield i, j
+			end
+		end
+		assert valid?
+	end
+
+	def each_lower
+		assert valid?
+		self.each_lower_index do |i, j|
+			yield self[i, j]
+		end
 		assert valid?
 	end
 end

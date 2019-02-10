@@ -45,9 +45,11 @@ module Conditionals
 	def tridiagonal?
 		#pre
 		assert valid?
-		#TODO: Implement
-		#post
-		assert valid?
+
+		upper = partition([0, self.rows - 1], [1, self.columns])
+		lower = partition([1, self.rows], [0, self.columns - 1])
+
+		
 	end
 
 	def symmetric?

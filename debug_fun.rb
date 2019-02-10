@@ -127,7 +127,15 @@ a.each_diagonal_element do |value|
 end
 print "diagonal values: \n\t#{diag}\n"
 
+lower = []
+a.each_lower do |value|
+	lower << value
+end
+print "lower values: \n\t#{lower}\n"
+
 print "sparsity:\n\t#{a.sparsity}\n"
+
+print "partition:\n#{a.partition([1, a.rows], [1, a.columns])}\n"
 
 # s[0, 0] = 9
 
