@@ -52,17 +52,12 @@ module DelegateArithmetic
 	end
 
 	def dot(m1)
+		assert valid?
 		assert m1.is_a? SparseStorage
-		yFactory = YaleFactory.new
-		lFactory = LilFactory.new
-		if @storage.is_a? Yale
-			m1 = yFactory.create(m1)
-			@storage.dot(m1)
-		else #Lil
-			m1 = lFactory.create(m1)
-			@storage.dot(m1)
-		end
-		assert @storage.is_a? SparseStorage
+
+		@storage.dot(m1)
+
+		assert valid?
 		self
 	end
 end

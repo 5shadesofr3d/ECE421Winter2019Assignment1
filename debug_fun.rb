@@ -114,6 +114,7 @@ print "As Yale: \n#{a.to_yale.to_s}\n"
 print "As Dok: \n#{a.to_dok.to_s}\n"
 print "As Lil: \n#{a.to_lil.to_s}\n"
 print "As float: \n#{a.to_f.to_s}\n"
+print "As transpose:\n#{a.t.to_s}\n"
 
 nzv = []
 a.each_non_zero do |value|
@@ -142,6 +143,7 @@ print "zeros:\n#{SMatrix.zero(5).to_s}\n"
 print "identity:\n#{SMatrix.I(5).to_s}\n"
 
 print "random:\n#{SMatrix.random(5).to_s}\n"
+
 
 # s[0, 0] = 9
 

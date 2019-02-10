@@ -132,4 +132,19 @@ module Conditionals
 
 		self.to_matrix.lower_triangular?
 	end
+
+	def equals?(mat)
+		assert valid?
+		assert self.shape == mat.shape
+
+		self.each_index do |i, j|
+			return false unless self[i, j] == mat[i, j]
+		end
+		
+		return true
+	end
+
+	def ==(mat)
+		equals?(mat)
+	end
 end
