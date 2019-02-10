@@ -38,7 +38,7 @@ module Arithmetic
 		#post
 		assert mat.shape == self.shape
 		assert @storage.is_a? SparseStorage
-		
+
 		#TODO: assert result.storage-result.storage == ZERO matrix A-0 = A
 		assert valid?
 		return result
@@ -137,7 +137,7 @@ module Arithmetic
 		assert @storage.shape[0] == @storage.shape[1]
 
 		result = self.clone
-		result.storage = @storage.pow(pow)
+		result.storage = @storage.power(pow)
 
 		assert
 		assert valid?
