@@ -25,7 +25,7 @@ module Operations
 		assert rowNum.is_a? Integer
 		assert rowNum >= 0
 		assert rowNum < @storage.rows
-		result = @storage.row_sum
+		result = @storage.row_sum(rowNum)
 		assert valid?
 		result
 	end
@@ -34,8 +34,8 @@ module Operations
 		assert valid?
 		assert colNum.is_a? Integer
 		assert colNum >= 0
-		assert colNum < @storage.cols
-		result = @storage.col_sum
+		assert colNum < @storage.columns
+		result = @storage.col_sum(colNum)
 		assert valid?
 		result
 	end

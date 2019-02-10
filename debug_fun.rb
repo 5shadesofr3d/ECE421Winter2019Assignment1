@@ -4,8 +4,8 @@ require 'matrix'
 # Debugging stuff ... will remove later
 
 def add
-	s = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :yale)
-	m = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :lil)
+	s = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :dok)
+	m = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :dok)
 	# s = NMatrix.new([3, 3], stype: :list)
 	# m = s.clone
 
@@ -162,3 +162,21 @@ print "random:\n#{SMatrix.random(5).to_s}\n"
 # puts
 
 # f = StorageFactory.new
+#
+
+s = SMatrix.new(NMatrix[[1, 2, 3], [0, 5, 0], [0, 8, 0]], :yale)
+m = SMatrix.new(NMatrix[[1, 2, 3], [0, 5, 0], [0, 8, 0]], :lil)
+p = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :dok)
+
+puts "Total Sum Test:"
+# puts p.total_sum Doesn't work for dok, the dok is a nilclass error!
+puts m.total_sum
+puts s.total_sum
+
+puts s.row_sum(2)
+# puts m.row_sum(2) Doesn't work for lil? Possible bug.
+# puts p.row_sum(2) Same nilclass error as above!
+
+puts s.col_sum(1)
+# puts m.col_sum(1) Doesn't work for lil? Possible bug.
+# puts p.col_sum(1)

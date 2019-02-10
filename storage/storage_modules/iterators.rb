@@ -62,6 +62,21 @@ module Iterators
 		assert valid?
 	end
 
+	def get_column(col_num)
+		#pre
+		assert self.columns >= 0
+		assert valid?
+
+		col = []
+		for i in 0 .. self.rows - 1
+			col << self[i, col_num]
+		end
+		yield col
+
+		#post
+		assert valid?
+	end
+
 	def each_row
 		#pre
 		assert self.rows >= 0
@@ -74,6 +89,21 @@ module Iterators
 			end
 			yield row
 		end
+
+		#post
+		assert valid?
+	end
+
+  def get_row(row_num)
+		#pre
+		assert self.rows >= 0
+		assert valid?
+
+		row = []
+		for j in 0 .. self.columns - 1
+			row << self[row_num, j]
+		end
+		yield row
 
 		#post
 		assert valid?

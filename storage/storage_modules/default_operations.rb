@@ -49,15 +49,27 @@ module DefaultOperations
 		return temp.hermitian?
 	end
 
-	def col_sum(colNum)
-		raise NotImplementedError
+	def col_sum(col_num)
+		sum = 0
+		@storage.get_column(col_num) do |x|
+			sum += x
+		end
+		return sum
 	end
 
-	def row_sum(rowNum)
-		raise NotImplementedError
+	def row_sum(row_num)
+		sum = 0
+		@storage.get_row(row_num) do |x|
+			sum += x
+		end
+		return sum
 	end
 
 	def total_sum
-		raise NotImplementedError
+		sum = 0
+		@storage.each_non_zero do |x| # @Storage is NIL, need help.
+			sum += x
+		end
+		return sum
 	end
 end
