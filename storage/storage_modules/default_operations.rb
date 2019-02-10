@@ -1,6 +1,3 @@
-require "factory/yale_factory"
-require "factory/dok_factory"
-
 module DefaultOperations
 	# TODO: Is this how we should deal with abstract methods? Or should we leave them out?
 	def det

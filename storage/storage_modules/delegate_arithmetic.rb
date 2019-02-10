@@ -1,6 +1,3 @@
-require 'factory/yale_factory'
-require 'factory/lil_factory'
-
 module DelegateArithmetic
 	def +(m1)
 		assert m1.is_a? SparseStorage

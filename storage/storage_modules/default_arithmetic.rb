@@ -1,6 +1,3 @@
-require "factory/dok_factory"
-require "factory/yale_factory"
-
 module DefaultArithmetic
 	def +(m1)
 		assert valid?
