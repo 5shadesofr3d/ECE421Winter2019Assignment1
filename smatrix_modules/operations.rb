@@ -8,14 +8,14 @@ module Operations
 		#pre
 		assert valid?
 		assert @storage.rows == @storage.cols
-		#Matrix MUST be square to trace
+		@storage.trace
 		#TODO: Implement
 		assert valid?
 	end
 
 	def rank
 		assert valid?
-		#TODO: Implement
+		@storage.rank
 		assert valid?
 	end
 
@@ -24,7 +24,7 @@ module Operations
 		assert rowNum.is_a? Integer
 		assert rowNum >= 0
 		assert rowNum < @storage.rows
-		#TODO: Implement
+		@storage.row_sum
 		assert valid?
 	end
 
@@ -33,13 +33,13 @@ module Operations
 		assert colNum.is_a? Integer
 		assert colNum >= 0
 		assert colNum < @storage.cols
-		#TODO: Implement
+		@storage.col_sum
 		assert valid?
 	end
 
 	def total_sum
 		assert valid?
-		#TODO: Implement
+		@storage.total_sum
 		assert valid?
 	end
 
