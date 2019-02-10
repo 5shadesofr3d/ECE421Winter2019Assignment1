@@ -14,6 +14,17 @@ require_relative 'smatrix_modules/conversions'
 
 require_relative 'storage/storage_modules/iterators'
 
+# UNCOMMENT TO DISABLE ASSERT
+# module Test
+# 	module Unit
+# 		module Assertions
+# 			def assert(arg, msg = "")
+
+# 			end
+# 		end
+# 	end
+# end
+
 class SMatrix
 	include Test::Unit::Assertions
 	include Arithmetic
@@ -31,7 +42,7 @@ class SMatrix
 	}
 
 	public
-	def initialize(matrix, type = :dok)
+	def initialize(matrix, type = :yale)
 		# constructs a standard matrix
 
 		# pre
@@ -42,7 +53,7 @@ class SMatrix
 		store_as(type, matrix)
 
 		@storage.each_index do |i, j|
-			assert_same(matrix[i, j], self[i, j], "Expected [i, j] = #{matrix[i, j]}, but got #{self[i, j]}")
+			assert(self[i, j] == matrix[i, j], "Expected [i, j] = #{matrix[i, j]}, but got #{self[i, j]}")
 		end
 
 		assert valid?

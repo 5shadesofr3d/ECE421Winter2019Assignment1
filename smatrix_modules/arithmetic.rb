@@ -6,8 +6,11 @@ module Arithmetic
 		assert mat.is_a? SMatrix
 		assert mat.shape == self.shape
 
+		mat_factory = mat.ftype
+		mat.store_as(self.ftype) # convert the matrix to the same type as lhs
 		result = self.clone
 		result.storage += mat.storage
+		mat.store_as(mat_factory) # convert the matrix to original type
 
 		#post
 		assert mat.shape == self.shape
@@ -26,8 +29,11 @@ module Arithmetic
 		assert mat.is_a? SMatrix
 		assert mat.shape == self.shape
 
+		mat_factory = mat.ftype
+		mat.store_as(self.ftype) # convert the matrix to the same type as lhs
 		result = self.clone
 		result.storage -= mat.storage
+		mat.store_as(mat_factory) # convert the matrix to original type
 
 		#post
 		assert mat.shape == self.shape
@@ -41,6 +47,7 @@ module Arithmetic
 		assert valid?
 
 		result = SMatrix.zero(self.rows, self.columns)
+		result.store_as(self.ftype)
 		result.storage -= self.storage
 
 		assert valid?
@@ -104,8 +111,10 @@ module Arithmetic
 		assert (mat.is_a? SMatrix), "rhs is not a SMatrix"
 		assert self.rows == mat.columns
 
-		result = SMatrix.new(self.to_matrix * mat.to_matrix, self.ftype)
-		# result.storage.dot(mat.storage) TODO: DOES NOT WORK... NMATRIX SUX
+		mat_factory = mat.ftype
+		mat.store_as(self.ftype)
+		result = SMatrix.new(self.storage.dot(mat.storage), self.ftype)
+		mat.store_as(mat_factory)
 
 		#post
 		assert (mat.is_a? SMatrix), "rhs is no longer an SMatrix"
