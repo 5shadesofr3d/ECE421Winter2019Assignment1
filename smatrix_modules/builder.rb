@@ -45,18 +45,29 @@ module Builder
 		result
 	end
 
-	def self.tridiagonal(upper, middle, lower, size)
+	def self.tridiagonal(upper, middle, lower)
 		#pre
 		assert size.is_a? Integer
-		assert upper.is_a? Matrix
-		assert middle.is_a? Matrix
-		assert lower.is_a? Matrix
-		assert size > 0
-		#TODO: Implementation
-		#result = ....
+		assert upper.is_a? Array and middle.is_a? Array and lower.is_a? Array
+		assert upper.length == middle.length - 1 == lower.length
+		assert middle.length >= 3
+
+		result = SMatrix.zero(middle.length)
+
+		result.each_diagonal_index(1) do |i, j|
+			result[i, j] = upper.shift
+		end
+		result.each_diagonal_index(0) do |i, j|
+			result[i, j] = middle.shift
+		end
+		result.each_diagonal_index(-1) do |i, j|
+			result[i, j] = lower.shift
+		end
+
 		#post
-		#assert result.tridiagonal?
-		assert valid?
+		assert result.tridiagonal?
+
+		result
 	end
 
 	def partition(rows = [0, self.rows], columns = [0, self.columns])
