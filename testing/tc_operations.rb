@@ -87,7 +87,7 @@ class TestOperations<Test::Unit::TestCase
     sMatrix2 = SMatrix.new(Dok.new(3, 3), :dok)
     sMatrix3 = SMatrix.new(Lil.new(3, 3), :lil)
 
-    sMatrixDifference = SMatrix.new(Yale.new(3, 3))
+    sMatrixQuotient = SMatrix.new(Yale.new(3, 3))
 
     value = 3
 
@@ -97,7 +97,7 @@ class TestOperations<Test::Unit::TestCase
         sMatrix2[i, j] = value
         sMatrix3[i, j] = value
 
-        sMatrixDifference[i, j] = value / 3
+        sMatrixQuotient[i, j] = value / 3
         value += 3
       end
     end
@@ -107,30 +107,51 @@ class TestOperations<Test::Unit::TestCase
     sMatrix5 = sMatrix2 / 3 #should be of type DoK
     sMatrix6 = sMatrix3 / 3 #should be of type Lil
 
-    assert(sMatrixDifference.equals(sMatrix4)) #yale addition works
+    assert(sMatrixQuotient.equals(sMatrix4)) #yale addition works
     assert(sMatrix4.type == Yale) #still a yale
 
-    assert(sMatrixDifference.equals(sMatrix5)) #Dok addition works
+    assert(sMatrixQuotient.equals(sMatrix5)) #Dok addition works
     assert(sMatrix5.type == Dok) #still a Dok
 
-    assert(sMatrixDifference.equals(sMatrix6)) #Lil addition works
+    assert(sMatrixQuotient.equals(sMatrix6)) #Lil addition works
     assert(sMatrix6.type == Lil) #still a Lil
   end
 
   #TODO: Improve this
   def test_exponentiation
-    #Init matrix1 as 3x3 matrix of all 0's
-    matrix1 = Matrix.new(3)
 
-    #Init matrix2 as 3x3 matrix of all
-    ##Pre conditions
+    sMatrix1 = SMatrix.new(Yale.new(3, 3))
+    sMatrix2 = SMatrix.new(Dok.new(3, 3), :dok)
+    sMatrix3 = SMatrix.new(Lil.new(3, 3), :lil)
 
-    #perform operation
-    scalar = 2
-    matrix1.exponent(scalar)
+    sMatrixExponent = SMatrix.new(Yale.new(3, 3))
 
-    ##Post conditions
-    assert_equal(NMatrix.new(3),matrix1)
+    value = 1
+
+    for i in 0..2 do
+      for j in 0..2 do
+        sMatrix1[i, j] = value
+        sMatrix2[i, j] = value
+        sMatrix3[i, j] = value
+
+        sMatrixExponent[i, j] = value ** 4
+        value += 1
+      end
+    end
+
+    #assert sMatrix3 == sMatrix1 * 2
+    sMatrix4 = sMatrix1 ** 4 #should be of type Yale
+    sMatrix5 = sMatrix2 ** 4 #should be of type DoK
+    sMatrix6 = sMatrix3 ** 4#should be of type Lil
+
+    assert(sMatrixExponent.equals(sMatrix4)) #yale addition works
+    assert(sMatrix4.type == Yale) #still a yale
+
+    assert(sMatrixExponent.equals(sMatrix5)) #Dok addition works
+    assert(sMatrix5.type == Dok) #still a Dok
+
+    assert(sMatrixExponent.equals(sMatrix6)) #Lil addition works
+    assert(sMatrix6.type == Lil) #still a Lil
   end
 
   #TODO: Improve this
