@@ -1,15 +1,24 @@
+require 'factory/yale_factory'
+require 'factory/lil_factory'
+
 module DelegateArithmetic
 	def +(m1)
-		assert @storage.class == m1.storage.class
-		
+		assert m1.is_a? SparseStorage
+		if m1.is_a? Dok
+			yFactory = yFactory.new
+			m1 = yFactory.create(m1)
+		end
 		@storage += m1.storage
 
 		self
 	end
 
 	def -(m1)
-		assert @storage.class == m1.storage.class
-
+		assert m1.is_a? SparseStorage
+		if m1.is_a? Dok
+			yFactory = yFactory.new
+			m1 = yFactory.create(m1)
+		end
 		@storage -= m1.storage
 
 		self
@@ -38,15 +47,24 @@ module DelegateArithmetic
 	end
 
 	def power(pow)
-		assert @storage.is_a? NMatrix
+		assert pow.is_a? Numeric
 		@storage.pow(pow)
 
 		self
 	end
 
 	def dot(m1)
-		@storage.dot(m1.cast(@storage.stype))
-
+		assert m1.is_a? SparseStorage
+		yFactory = YaleFactory.new
+		lFactory = LilFactory.new
+		if @storage.is_a? Yale
+			m1 = yFactory.create(m1)
+			@storage.dot(m1)
+		else #Lil
+			m1 = lFactory.create(m1)
+			@storage.dot(m1)
+		end
+		assert @storage.is_a? SparseStorage
 		self
 	end
 end

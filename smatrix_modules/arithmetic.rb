@@ -1,5 +1,5 @@
 module Arithmetic
-	#Generic add for all SMatrix types
+	#Generic add for all SMatrix storage types
 	def +(mat)
 		#pre
 		assert valid?

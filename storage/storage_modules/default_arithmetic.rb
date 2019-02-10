@@ -1,3 +1,6 @@
+require "factory/dok_factory"
+require "factory/yale_factory"
+
 module DefaultArithmetic
 	def +(m1)
 		assert valid?
@@ -66,10 +69,25 @@ module DefaultArithmetic
 	end
 
 	def dot(mat)
-		raise NotImplementedError
+		#Note: dot product not defined for DOK data structure,
+		# Converting to YALE format then performing the operation
+		assert mat.is_a? SparseStorage
+		yFactory = YaleFactory.new()
+		dFactory = DokFactory.new()
+		tempYaleSelf = yFactory.create(self)
+		tempYaleArg = yFactory.create(mat)
+		result = dFactory.create(tempYaleSelf.dot(tempYaleArg))
+		assert result.is_a? Dok
+		return result
 	end
 
 	def power(pow)
-		raise NotImplementedError
+		assert mat.is_a? SparseStorage
+		yFactory = YaleFactory.new()
+		dFactory = DokFactory.new()
+		tempYaleSelf = yFactory.create(self)
+		result = dFactory.create(tempYaleSelf.pow(pow))
+		assert result.is_a? Dok
+		return result
 	end
 end
