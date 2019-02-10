@@ -49,7 +49,7 @@ module Conditionals
 		upper = partition([0, self.rows - 1], [1, self.columns])
 		lower = partition([1, self.rows], [0, self.columns - 1])
 
-		
+		return ((upper.upper_triangle.all? {|value| value == 0}) and (lower.lower_triangle.all? {|value| value == 0}))
 	end
 
 	def symmetric?

@@ -8,9 +8,14 @@ module Triangle
 		assert @storage.shape.size == 2
 
 		# Post
-		# @storage.upper_triangle(k)
+		upper = []
+		self.each_upper do |value|
+			upper << value
+		end
 
 		assert valid?
+
+		upper
 	end
 
 	def upper_triangle!(k = 0)
@@ -34,9 +39,15 @@ module Triangle
 		assert @storage.shape.size == 2
 
 		# Post
-		# @storage.lower_triangle(k)
+		# TODO: Not sure what the k means ...
+		lower = []
+		self.each_lower do |value|
+			lower << value
+		end
 
 		assert valid?
+
+		lower
 	end
 
 	def lower_triangle!(k = 0)

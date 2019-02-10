@@ -134,4 +134,22 @@ module Iterators
 		end
 		assert valid?
 	end
+
+	def each_upper_index
+		assert valid?
+		for o in 1 .. self.rows - 1
+			self.each_diagonal_index(o) do |i, j|
+				yield i, j
+			end
+		end
+		assert valid?
+	end
+
+	def each_upper
+		assert valid?
+		self.each_upper_index do |i, j|
+			yield self[i, j]
+		end
+		assert valid?
+	end
 end

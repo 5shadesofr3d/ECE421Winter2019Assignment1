@@ -54,6 +54,7 @@ module Builder
 		assert valid?
 		assert (rows.is_a? Array) and (columns.is_a? Array)
 		assert (rows[0] < rows[1]) and (columns[0] < columns[1])
+		assert (rows[1] <= self.rows) and (columns[1] <= self.columns)
 
 		row_count = rows[1] - rows[0]
 		column_count = columns[1] - columns[0]
