@@ -3,7 +3,7 @@ module DefaultArithmetic
 		assert valid?
 		assert m1.is_a? SparseStorage
 
-		self.each_index do |i, j|
+		self.each_common_index(m1) do |i, j|
 			self[i, j] += m1[i, j]
 		end
 
@@ -16,7 +16,7 @@ module DefaultArithmetic
 		assert valid?
 		assert m1.is_a? SparseStorage
 
-		self.each_index do |i, j|
+		self.each_common_index(m1) do |i, j|
 			self[i, j] -= m1[i, j]
 		end
 

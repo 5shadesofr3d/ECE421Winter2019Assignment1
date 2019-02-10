@@ -8,8 +8,8 @@ module DefaultOperations
 
 	def transpose
 		result = self.class.new(self.columns, self.rows)
-		result.each_index do |i, j|
-			result[i, j] = self[j, i]
+		self.each_non_zero_index do |i, j|
+			result[j, i] = self[i, j]
 		end
 		return result
 	end
