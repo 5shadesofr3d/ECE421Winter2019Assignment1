@@ -32,7 +32,7 @@ class TestOperations<Test::Unit::TestCase
     sMatrix5 = sMatrix2 + sMatrix3 + sMatrix1 #should be of type DoK
     sMatrix6 = sMatrix3 + sMatrix1 + sMatrix2 #should be of type Lil
 
-    assert_equal(sMatrixSum, sMatrix4) #yale addition works
+    assert(sMatrixSum.equals(sMatrix4)) #yale addition works
     assert(sMatrix4.storage.is_a? Yale) #still a yale
 
     assert_equal(sMatrixSum, sMatrix5) #Dok addition works

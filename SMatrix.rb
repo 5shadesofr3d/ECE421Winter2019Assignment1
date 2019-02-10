@@ -121,7 +121,18 @@ class SMatrix
 
 	def equals(mat)
 		assert valid?
-		assert mat.is_a? SparseStorage
+		print mat.shape
+		print self.shape
+		#assert mat.is_a? SparseStorage
+
+		for i in 0..self.rows
+			for j in 0..self.columns
+				if self[i, j] != mat[i, j]
+					return false
+				end
+			end
+		end
+		return true
 
 		assert valid?
 	end
