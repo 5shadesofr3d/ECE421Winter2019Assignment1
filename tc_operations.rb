@@ -6,6 +6,7 @@ require_relative 'storage/lil'
 require 'matrix'
 
 class TestOperations<Test::Unit::TestCase
+
   def test_addition
 
     sMatrix1 = SMatrix.new(Yale.new(3, 3))
@@ -82,17 +83,38 @@ class TestOperations<Test::Unit::TestCase
   #TODO:Improve this
   def test_division
     #Init matrix1 as 3x3 matrix of all 0's
-    matrix1 = Matrix.new(3)
+    sMatrix1 = SMatrix.new(Yale.new(3, 3))
+    sMatrix2 = SMatrix.new(Dok.new(3, 3), :dok)
+    sMatrix3 = SMatrix.new(Lil.new(3, 3), :lil)
 
-    #Init matrix2 as 3x3 matrix of all
-    ##Pre conditions
+    sMatrixDifference = SMatrix.new(Yale.new(3, 3))
 
-    #perform operation
-    scalar = 2
-    matrix1.divide(scalar)
+    value = 3
 
-    ##Post conditions
-    assert_equal(NMatrix.new(3),matrix1)
+    for i in 0..2 do
+      for j in 0..2 do
+        sMatrix1[i, j] = value
+        sMatrix2[i, j] = value
+        sMatrix3[i, j] = value
+
+        sMatrixDifference[i, j] = value / 3
+        value += 3
+      end
+    end
+
+    #assert sMatrix3 == sMatrix1 * 2
+    sMatrix4 = sMatrix1 / 3 #should be of type Yale
+    sMatrix5 = sMatrix2 / 3 #should be of type DoK
+    sMatrix6 = sMatrix3 / 3 #should be of type Lil
+
+    assert(sMatrixDifference.equals(sMatrix4)) #yale addition works
+    assert(sMatrix4.type == Yale) #still a yale
+
+    assert(sMatrixDifference.equals(sMatrix5)) #Dok addition works
+    assert(sMatrix5.type == Dok) #still a Dok
+
+    assert(sMatrixDifference.equals(sMatrix6)) #Lil addition works
+    assert(sMatrix6.type == Lil) #still a Lil
   end
 
   #TODO: Improve this
