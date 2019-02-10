@@ -33,14 +33,14 @@ module Builder
 		result
 	end
 
-	def random(rows, cols = rows)
+	def random(rows, cols = rows, spread = 1000)
 		#pre
 		assert rows.is_a? Integer
 		assert cols.is_a? Integer
 		assert rows > 0
 		assert cols > 0
 
-		matrix = Matrix.build(rows, cols) { rand * 1000 }
+		matrix = Matrix.build(rows, cols) { rand * spread }
 		result = SMatrix.new(matrix)
 
 		#post
