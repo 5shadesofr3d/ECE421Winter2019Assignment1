@@ -12,8 +12,8 @@ module Arithmetic
 		#post
 		assert mat.shape == self.shape
 		assert @storage.is_a? SparseStorage
-		assert result.storage+result.storage == (2*result.storage) #A+A = 2A
-		assert result.storage == self.clone.storage + mat.storage #A+B = B+A
+		#assert result.storage + result.storage == (2*result.storage) #A+A = 2A
+		#assert result.storage == self.clone.storage + mat.storage #A+B = B+A
 		#TODO: assert result.storage+ZEROMATRIX == result.storage A+0 = A
 		assert valid?
 		return result

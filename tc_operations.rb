@@ -27,7 +27,8 @@ class TestOperations<Test::Unit::TestCase
       end
     end
 
-    sMatrix4 = sMatrix1 + sMatrix2 + sMatrix3 #should be of type Yale
+    #assert sMatrix3 == sMatrix1 * 2
+    sMatrix4 = sMatrix1 + sMatrix2 + sMatrix3 # + sMatrix3 #should be of type Yale
     sMatrix5 = sMatrix2 + sMatrix3 + sMatrix1 #should be of type DoK
     sMatrix6 = sMatrix3 + sMatrix1 + sMatrix2 #should be of type Lil
 
