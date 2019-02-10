@@ -238,7 +238,7 @@ class TestArithmetic<Test::Unit::TestCase
     #test the power functions from the SMatrixes
     #create the matrices required
     sMatrix1 = SMatrix.new(Yale.new(3, 3))
-    sMatrix2 = SMatrix.new(Dok.new(3, 3) :dok)
+    sMatrix2 = SMatrix.new(Dok.new(3, 3), :dok)
     sMatrix3 = SMatrix.new(Lil.new(3, 3), :lil)
 
     eMatrix1 = SMatrix.new(Yale.new(3, 3))
@@ -246,20 +246,35 @@ class TestArithmetic<Test::Unit::TestCase
 
     #fill in the 3 matrices with desired values
     #TODO: this will have to be randomly generated everytime
+    value = 1
 
+    for i in 0..2 do
+      for j in 0..2 do
+        sMatrix1[i, j] = value
+        sMatrix2[i, j] = value
+        sMatrix3[i, j] = value
 
-    ##ENTER CODE HERE
+        value += 1
+      end
+    end
+
+    
 
 
     #Do the operations
-    rMatrix1 = sMatrix1.pow(2)
-    rMatrix2 = sMatrix2.pow(2)
-    rMatrix3 = sMatrix3.pow(2)
+    rMatrix1 = sMatrix1.power(2) #should return a Yale matrix type
+    rMatrix2 = sMatrix2.power(-1) #should return a DoK matrix type
+    rMatrix3 = sMatrix3.power(3) #should return a Lil matrix type
 
     # run the assertions
+    assert(rMatrix1.equals(sMatrix1 * sMatrix1))
+    assert(rMatrix1.type == Yale)
 
-    ## ENTER THE CODE FOR ASSERTIONS
+    assert(rMatrix2.equals(1 / sMatrix2))
+    assert(rMatrix2.type == Dok)
 
+    assert(rMatrix3.equals(sMatrix3 * sMatrix3 * sMatrix3))
+    assert(rMatrix3.type == Lil)
   end
 
 end
