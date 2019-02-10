@@ -45,20 +45,38 @@ class TestOperations<Test::Unit::TestCase
 
   def test_subtraction
     #Init matrix1 as 3x3 matrix of all 0's
-    matrix1 = Matrix.new(3)
+    sMatrix1 = SMatrix.new(Yale.new(3, 3))
+    sMatrix2 = SMatrix.new(Dok.new(3, 3), :dok)
+    sMatrix3 = SMatrix.new(Lil.new(3, 3), :lil)
 
-    #Init matrix2 as 3x3 matrix of all
-    matrix2 = NMatrix.new(3, [1,2,3,4,5,6,7,8,9])
+    sMatrixDifference = SMatrix.new(Yale.new(3, 3))
 
-    ##Pre conditions
-    assert_equal(matrix1.shape, matrix2.shape) ##Ensure they are same size
+    value = 1
 
-    #perform operation
-    matrix1.subtract(matrix2)
+    for i in 0..2 do
+      for j in 0..2 do
+        sMatrix1[i, j] = value
+        sMatrix2[i, j] = value
+        sMatrix3[i, j] = value
 
-    ##Post conditions
-    assert_equal(NMatrix.new(3,[-1,-2,-3,-4,-5,-6,-7,-8,-9]),matrix1)
-    assert_equal(matrix2.shape, matrix1.shape)
+        sMatrixDifference[i, j] = value * -1
+        value += 1
+      end
+    end
+
+    #assert sMatrix3 == sMatrix1 * 2
+    sMatrix4 = sMatrix1 - sMatrix2 - sMatrix3 #should be of type Yale
+    sMatrix5 = sMatrix2 - sMatrix3 - sMatrix1 #should be of type DoK
+    sMatrix6 = sMatrix3 - sMatrix1 - sMatrix2 #should be of type Lil
+
+    assert(sMatrixDifference.equals(sMatrix4)) #yale addition works
+    assert(sMatrix4.type == Yale) #still a yale
+
+    assert(sMatrixDifference.equals(sMatrix5)) #Dok addition works
+    assert(sMatrix5.type == Dok) #still a Dok
+
+    assert(sMatrixDifference.equals(sMatrix6)) #Lil addition works
+    assert(sMatrix6.type == Lil) #still a Lil
   end
 
   #TODO:Improve this
