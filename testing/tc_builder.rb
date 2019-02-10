@@ -8,7 +8,8 @@ require 'matrix'
 class TestBuilder<Test::Unit::TestCase
 	# this is to test all of the functions in the builder module for smatrix
 
-	def test_eye
+	def test_I
+		# This test will cover both the "I" and the "Eye" functions in the module
 
 	end
 
