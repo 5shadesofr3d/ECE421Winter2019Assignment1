@@ -5,7 +5,7 @@ require_relative '../storage/dok'
 require_relative '../storage/lil'
 require 'matrix'
 
-class TestOperations<Test::Unit::TestCase
+class TestArithmetic<Test::Unit::TestCase
 
   def test_addition
 
