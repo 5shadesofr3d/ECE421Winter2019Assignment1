@@ -8,15 +8,16 @@ module Operations
 		#pre
 		assert valid?
 		assert @storage.rows == @storage.cols
-		@storage.trace
-		#TODO: Implement
+		result = @storage.trace
 		assert valid?
+		result
 	end
 
 	def rank
 		assert valid?
-		@storage.rank
+		result = @storage.rank
 		assert valid?
+		result
 	end
 
 	def row_sum(rowNum)
@@ -24,8 +25,9 @@ module Operations
 		assert rowNum.is_a? Integer
 		assert rowNum >= 0
 		assert rowNum < @storage.rows
-		@storage.row_sum
+		result = @storage.row_sum
 		assert valid?
+		result
 	end
 
 	def col_sum(colNum)
@@ -33,24 +35,28 @@ module Operations
 		assert colNum.is_a? Integer
 		assert colNum >= 0
 		assert colNum < @storage.cols
-		@storage.col_sum
+		result = @storage.col_sum
 		assert valid?
+		result
 	end
 
 	def total_sum
 		assert valid?
-		@storage.total_sum
+		result = @storage.total_sum
 		assert valid?
+		result
 	end
 
 	def transpose
 		assert valid?
 		#pre
 		#matrix to be transposed has been initialized
-		#TODO: Implement
+		result = @storage.transpose
 		#post
-		#@storage = @storage transposed
 		assert valid?
+		assert result.shape[0] == @storage.shape[1]
+		assert result.shape[1] == @storage.shape[0]
+		result
 	end
 
 	# TODO:
@@ -61,6 +67,7 @@ module Operations
 		assert valid?
 
 		#pre
+		assert @storage.det != 0 #det != 0
 		assert @storage.shape[0] == @storage.shape[1] #square only
 
 		#post
@@ -70,6 +77,7 @@ module Operations
 	end
 
 	#TODO: NMatrix only implements this for 2D, square, dense, floating type matrices.
+  # Should we discard this feature?
 	def hessenberg
 		assert valid?
 		assert @storage.rows == @storage.cols
@@ -77,6 +85,8 @@ module Operations
 		assert valid?
 	end
 
+
+  #TODO: What is this to do?
 	def diagonal
 		assert valid?
 		#pre
@@ -97,44 +107,41 @@ module Operations
 		return @storage.det
 	end
 
-	# TODO: Returns an upper and lower NMatrix which needs to be wrapped
 	# in a SMatrix.
 	def cholesky
-		assert valid?
-
+		yFactory = YaleFactory.new
 		# Pre
-		assert @storage.symmetric?
-		# assert @storage.hermatian?
-
+		assert valid?
+		assert @storage.symmetric? or @storage.hermitian?
+		result = @storage.cholesky_factorization
 		# Post
-		return @storage.cholesky_factorization
+		# We need to wrap returned matrices as an SMatrix
+		return [yFactory.create(result[0]),yFactory.create(result[1])]
 
 	end
 
 	# TODO: Implement this, this has only been implemented for Dense
-	# matrices in SMatrix so conversions MUST be done. Additionally,
-	# lu_decomposition is not implemented. The contract must be changed
-	# to implement lu_factorization
+	# matrices in SMatrix so conversions MUST be done.
 	def lu_factorization
-		assert valid?
-
+		yFactory = YaleFactory.new
 		#pre
+		assert valid?
+		assert @storage.shape[0] == @storage.shape[1]
 		# TODO: Needs to be a 2D matrix
-
-		@storage = @storage.lu_factorization
+		result = @storage.lu_factorization
 
 		#post
-		assert valid?
-
+		# We need to wrap returned matrices as an SMatrix
+		return [yFactory.create(result[0]),yFactory.create(result[1])]
 	end
 
 	def conjugate
 		# Pre-conditions
+		yFactory = YaleFactory.new
 		assert valid?
 
 		# Post
-		@storage.complex_conjugate
-
-		assert valid?
+		# We need to wrap returned matrix as an SMatrix
+		return yFactory.create(@storage.complex_conjugate)
 	end
 end

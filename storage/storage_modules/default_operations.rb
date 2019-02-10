@@ -48,4 +48,16 @@ module DefaultOperations
 		temp = yFactory.create(@storage)
 		return temp.hermitian?
 	end
+
+	def col_sum(colNum)
+		raise NotImplementedError
+	end
+
+	def row_sum(rowNum)
+		raise NotImplementedError
+	end
+
+	def total_sum
+		raise NotImplementedError
+	end
 end
