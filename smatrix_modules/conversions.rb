@@ -7,7 +7,9 @@ module Conversions
 
 		# post
 		self.each_row do |row|
-			str += "#{row}\n"
+			str += "[ "
+			row.each {|v| str += "%8.2f ".rjust(5) % v}
+			str += "]\n"
 		end
 
 		assert valid?
