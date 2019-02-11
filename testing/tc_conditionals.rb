@@ -140,7 +140,43 @@ class TestConditionals<Test::Unit::TestCase
 	end
 
 	def test_tridiagonal
+		#setup
 
+		yaleMatrix = SMatrix.new(Yale.new(4, 4))
+		dokMatrix = SMatrix.new(Dok.new(4, 4), :dok)
+		lilMatrix = SMatrix.new(Lil.new(4, 4), :lil)
+
+		for i in 0..3 do
+			for j in 0..3 do
+				if i == j or i == j - 1 or i - 1 == j
+					value = i + 1
+				else
+					value = 0
+				end
+
+				yaleMatrix[i, j] = value
+				dokMatrix[i, j] = value
+				lilMatrix[i, j] = value
+
+			end
+		end
+
+		#Ensure all are tridiagonal
+
+		assert(yaleMatrix.tridiagonal?)
+		assert(dokMatrix.tridiagonal?)
+		assert(lilMatrix.tridiagonal?)
+
+		#Add an extra 1 elsewhere
+
+		yaleMatrix[0,2] = 1
+		dokMatrix[1,3] = 1
+		lilMatrix[3,1] = 1
+
+		assert(!yaleMatrix.tridiagonal?)
+		assert(!dokMatrix.tridiagonal?)
+		assert(!lilMatrix.tridiagonal?)
+		
 	end
 
 	def test_symmetry
