@@ -169,17 +169,10 @@ print "identity:\n#{SMatrix.I(5).to_s}\n"
 
 print "random:\n#{SMatrix.random(5).to_s}\n"
 
-testrand = SMatrix.random(30, 30)
-
-for i in 0..29 do
-	for j in 0..29 do
-		print "#{testrand[i, j]}\n"
-		# check that the value is an integer which is valid
-		# NOTE: will complex numbers be a factor in the future?
-		#assert(@rand[i, j].is_a? Integer) || assert(@rand[i, j].is_a? Numeric)
-	end
-end
-
+a = SMatrix.random(3).to_i.to_yale
+print "matrix_a:\n#{a.to_s}\n"
+print "multiply:\n#{(a % a).to_s}\n"
+print "square:\n#{(a ^ 0).to_s}\n"
 
 # s[0, 0] = 9
 
@@ -192,7 +185,7 @@ end
 
 # print i.to_s
 # puts
-
+#
 # print z.to_s
 # puts
 
@@ -200,3 +193,22 @@ end
 # puts
 
 # f = StorageFactory.new
+
+s = SMatrix.new(NMatrix[[1, 2, 3], [0, 5, 0], [0, 8, 0]], :yale)
+m = SMatrix.new(NMatrix[[1, 2, 3], [0, 5, 0], [0, 8, 0]], :lil)
+p = SMatrix.new(NMatrix[[1, 2, 0], [0, 5, 0], [0, 8, 3]], :dok)
+
+puts "Total Sum Test:"
+puts p.total_sum
+puts m.total_sum
+puts s.total_sum
+
+puts "Row Sum Test:"
+puts s.row_sum(2)
+puts m.row_sum(2)
+puts p.row_sum(2)
+
+puts "Col Sum Test:"
+puts s.col_sum(1)
+puts m.col_sum(1)
+puts p.col_sum(0)

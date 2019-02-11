@@ -131,15 +131,23 @@ module Arithmetic
 	end
 
 	# Raise matrix to a power
+	def ^(pow)
+		power(pow)
+	end
+
+	# Raise matrix to a power
 	def power(pow)
 		assert valid?
 		assert pow.is_a? Integer
-		assert @storage.shape[0] == @storage.shape[1]
+		assert square?
+
+		if (pow == 0)
+			return SMatrix.I(self.rows)
+		end
 
 		result = self.clone
-		result.storage = @storage.power(pow)
+		result.storage = result.storage.power(pow)
 
-		#assert
 		assert valid?
 		return result
 	end
