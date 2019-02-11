@@ -24,9 +24,8 @@ module DelegateOperations
 		assert valid?
 		yFactory = YaleFactory.new
 		temp = yFactory.create(self)
-		temp = temp.complex_conjugate
+		temp = temp.storage.complex_conjugate
 		result = yFactory.create(temp)
-		assert result.is_a? Yale
 		return result
 	end
 
