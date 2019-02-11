@@ -43,7 +43,7 @@ module DelegateArithmetic
 	def power(pow)
 		assert pow.is_a? Numeric
 		
-		@storage.pow(pow)
+		@storage = @storage.pow(pow)
 
 		self
 	end

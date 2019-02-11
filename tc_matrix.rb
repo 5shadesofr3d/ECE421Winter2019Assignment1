@@ -5,7 +5,7 @@ S = SMatrix
 
 class TestOperations<Test::Unit::TestCase
     # THESE ARE RANDOM TEST CASES BASED OFF THE DOCUMENT FROM CLASS
-    @@max_size = 50
+    @@max_size = 10
 
     def setup
         @row = @col = (rand * @@max_size).to_i
@@ -78,6 +78,11 @@ class TestOperations<Test::Unit::TestCase
 
     def test_multiply6
         assert_equal((-@a) % @b, -(@a % @b))
+    end
+
+    def test_multiply7
+        assert_equal(@a % @a, @a^2)
+        assert_equal(@a^0, @i)
     end
 
     def test_joint1

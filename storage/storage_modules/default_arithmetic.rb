@@ -66,6 +66,7 @@ module DefaultArithmetic
 	end
 
 	def dot(mat)
+		assert valid?
 		assert self.columns == mat.rows
 
 		result = self.class.new(self.rows, mat.columns)
@@ -75,16 +76,26 @@ module DefaultArithmetic
 			end
 		end
 		
+		assert valid?
+
 		return result
 	end
 
 	def power(pow)
-		assert mat.is_a? SparseStorage
-		yFactory = YaleFactory.new()
-		dFactory = DokFactory.new()
-		tempYaleSelf = yFactory.create(self)
-		result = dFactory.create(tempYaleSelf.pow(pow))
-		assert result.is_a? Dok
+		assert valid?
+
+		result = self.clone
+		if (pow < 0)
+			pow = -pow
+			result = result.invert
+		end
+
+		while (pow > 1)
+			result = result.dot(result)
+			pow -= 1
+		end
+
+		assert valid?
 		return result
 	end
 end
