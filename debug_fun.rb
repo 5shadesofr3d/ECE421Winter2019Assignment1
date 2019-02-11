@@ -169,6 +169,10 @@ print "identity:\n#{SMatrix.I(5).to_s}\n"
 
 print "random:\n#{SMatrix.random(5).to_s}\n"
 
+a = SMatrix.random(3).to_i.to_yale
+print "matrix_a:\n#{a.to_s}\n"
+print "multiply:\n#{(a % a).to_s}\n"
+print "square:\n#{(a ^ 0).to_s}\n"
 
 # s[0, 0] = 9
 
