@@ -233,7 +233,7 @@ class TestConditionals<Test::Unit::TestCase
 	def test_orthoganal
 
 		yaleMatrix = SMatrix.new(Yale.new(2, 2))
-		dokMatrix = SMatrix.new(Dok.new(2, 2), :lil)
+		dokMatrix = SMatrix.new(Dok.new(2, 2), :dok)
 		lilMatrix = SMatrix.new(Lil.new(2, 2), :lil)
 
 		for i in 0..1 do
@@ -268,14 +268,151 @@ class TestConditionals<Test::Unit::TestCase
 	end
 
 	def test_permutation
+		yaleMatrix = SMatrix.new(Yale.new(3, 3))
+		dokMatrix = SMatrix.new(Dok.new(3, 3), :dok)
+		lilMatrix = SMatrix.new(Lil.new(3, 3), :lil)
+
+		valueOne = rand(3)
+		valueTwo = rand(3)
+		until valueTwo != valueOne do
+			valueTwo = rand(3)
+		end
+		if valueOne != 0 and valueTwo != 0
+			valueThree = 0
+		elsif valueOne != 1 and valueTwo != 1
+			valueThree = 1
+		else
+			valueThree = 2
+		end
+
+		for i in 0..2 do
+			for j in 0..2 do
+				if (i == 0 and j == valueOne) or (i == 1 and j == valueTwo) or (i == 2 and j == valueThree)
+					yaleMatrix[i,j] = 1
+					dokMatrix[i,j] = 1
+					lilMatrix[i,j] = 1
+				end
+				yaleMatrix[i, j] = 0
+				dokMatrix[i, j] = 0
+				lilMatrix[i, j] = 0
+			end
+		end
+
+		#assert(yaleMatrix.permutation?)
+		#assert(dokMatrix.permutation?)
+		#assert(lilMatrix.permutation?)
+
+		value = rand(2)
+		if yaleMatrix[0, value] == 1
+			yaleMatrix[1, value] = 1
+		else
+			yaleMatrix[0, value] = 1
+		end
+
+		value = rand(2)
+		if dokMatrix[0, value] == 1
+			dokMatrix[1, value] = 1
+		else
+			dokMatrix[0, value] = 1
+		end
+
+		value = rand(2)
+		if lilMatrix[0, value] == 1
+			lilMatrix[1, value] = 1
+		else
+			lilMatrix[0, value] = 1
+		end
+
+		assert(!yaleMatrix.permutation?)
+		assert(!dokMatrix.permutation?)
+		assert(!lilMatrix.permutation?)
 
 	end
 
 	def test_singular
+		yaleMatrix = SMatrix.new(Yale.new(2, 2))
+		dokMatrix = SMatrix.new(Dok.new(2, 2), :dok)
+		lilMatrix = SMatrix.new(Lil.new(2, 2), :lil)
+
+		invertedValues = [1, 0.5, 0.25, 0.125, 0.0625]
+		values = [1, 2, 4, 8, 16]
+		random = rand(5)
+		invertedValue = invertedValues[random]
+		value = values[random]
+
+
+
+		yaleMatrix[0, 0] = 1
+		yaleMatrix[0, 1] = invertedValue
+		yaleMatrix[1, 0] = value
+		yaleMatrix[1, 1] = 1
+
+		dokMatrix[0, 0] = 1
+		dokMatrix[0, 1] = invertedValue
+		dokMatrix[1, 0] = value
+		dokMatrix[1, 1] = 1
+
+		lilMatrix[0, 0] = 1
+		lilMatrix[0, 1] = invertedValue
+		lilMatrix[1, 0] = value
+		lilMatrix[1, 1] = 1
+
+		assert(yaleMatrix.singular?)
+		assert(dokMatrix.singular?)
+		assert(lilMatrix.singular?)
+
+		randomX = rand(2)
+		randomY = rand(2)
+		randomValue = rand(100)
+		until randomValue > 16 do
+			randomValue = rand(100)
+		end
+
+		yaleMatrix[randomX, randomY] = randomValue
+		dokMatrix[randomX, randomY] = randomValue
+		lilMatrix[randomX, randomY] = randomValue
+
+		assert(!yaleMatrix.singular?)
+		assert(!dokMatrix.singular?)
+		assert(!lilMatrix.singular?)
+
 
 	end
 
 	def test_regular
+		yaleMatrix = SMatrix.new(Yale.new(2, 2))
+		dokMatrix = SMatrix.new(Dok.new(2, 2), :dok)
+		lilMatrix = SMatrix.new(Lil.new(2, 2), :lil)
+
+
+
+		yaleMatrix[0, 0] = 0.5
+		yaleMatrix[0, 1] = 0.5
+		yaleMatrix[1, 0] = 0.3
+		yaleMatrix[1, 1] = 0.7
+
+		dokMatrix[0, 0] = 0.5
+		dokMatrix[0, 1] = 0.5
+		dokMatrix[1, 0] = 0.3
+		dokMatrix[1, 1] = 0.7
+
+		lilMatrix[0, 0] = 0.5
+		lilMatrix[0, 1] = 0.5
+		lilMatrix[1, 0] = 0.3
+		lilMatrix[1, 1] = 0.7
+
+		assert(yaleMatrix.regular?)
+		assert(dokMatrix.regular?)
+		assert(lilMatrix.regular?)
+
+		yaleMatrix[0, 0] = -5
+		dokMatrix[0, 0] = -5
+		lilMatrix[0, 0] = -5
+
+		assert(!yaleMatrix.regular?)
+		assert(!dokMatrix.regular?)
+		assert(!lilMatrix.regular?)
+
 
 	end
 
