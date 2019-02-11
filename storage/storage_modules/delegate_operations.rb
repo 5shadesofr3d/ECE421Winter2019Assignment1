@@ -22,7 +22,12 @@ module DelegateOperations
 
 	def complex_conjugate
 		assert valid?
-		@storage.complex_conjugate
+		yFactory = YaleFactory.new
+		temp = yFactory.create(self)
+		temp = temp.complex_conjugate
+		result = yFactory.create(temp)
+		assert result.is_a? Yale
+		return result
 	end
 
   def lu_factorization
