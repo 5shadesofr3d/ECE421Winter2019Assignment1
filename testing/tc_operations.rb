@@ -340,4 +340,29 @@ class TestOperations<Test::Unit::TestCase
   def test_conjugate
 
   end
+
+  def test_partition
+    yaleMatrix = SMatrix.new(Yale.new(3, 3))
+    dokMatrix = SMatrix.new(Dok.new(3, 3), :dok)
+    lilMatrix = SMatrix.new(Lil.new(3, 3), :lil)
+    resultMatrix = SMatrix.new(Yale.new(2, 2))
+
+    value = rand(10)
+    for i in 0..2 do
+      for j in 0..2 do
+        yaleMatrix[i, j] = value
+        dokMatrix[i, j] = value
+        lilMatrix[i, j] = value
+        if i != 2 and j != 2
+          resultMatrix[i, j] = value
+        end
+      end
+    end
+
+    assert(yaleMatrix.partition([0, 1], [0, 1]).equals(resultMatrix))
+    assert(dokMatrix.partition([0, 1], [0, 1]).equals(resultMatrix))
+    assert(lilMatrix.partition([0, 1], [0, 1]).equals(resultMatrix))
+
+  end
+
 end
