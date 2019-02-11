@@ -71,10 +71,10 @@ module Operations
 		assert square?
 		assert regular?, "Not a regular matrix (thus not invertible)."
 		#post
-		store_as(self.ftype, self.to_matrix.inverse)
-
 		assert square?
 		assert valid?
+
+		SMatrix.new(self.to_matrix.inverse, self.ftype)
 	end
 
 	def determinant
@@ -157,11 +157,8 @@ module Operations
 
 	def ~
 		assert valid?
-		result = self.clone
-		result.inverse
-		assert valid?
 
-		return result
+		return self.inverse
 	end
 
 	def t
