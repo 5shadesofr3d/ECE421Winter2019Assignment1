@@ -90,4 +90,59 @@ class TestOperations<Test::Unit::TestCase
 
   end
 
+  def test_colsum
+    yaleMatrix= SMatrix.new(Yale.new(3, 3))
+    dokMatrix = SMatrix.new(Dok.new(3, 3), :dok)
+    lilMatrix = SMatrix.new(Lil.new(3, 3), :lil)
+
+    randomSum = 0
+    randomCol = rand(3)
+
+    for i in 0..2 do
+      for j in 0..2 do
+        value = rand(10)
+
+        yaleMatrix[i, j] = value
+        dokMatrix[i, j] = value
+        lilMatrix[i, j] = value
+
+        if j == randomCol
+          randomSum += value
+        end
+      end
+    end
+
+    assert(yaleMatrix.col_sum(randomCol) == randomSum)
+    assert(dokMatrix.col_sum(randomCol) == randomSum)
+    assert(lilMatrix.col_sum(randomCol) == randomSum)
+
+  end
+
+  def test_totalsum
+    yaleMatrix= SMatrix.new(Yale.new(3, 3))
+    dokMatrix = SMatrix.new(Dok.new(3, 3), :dok)
+    lilMatrix = SMatrix.new(Lil.new(3, 3), :lil)
+
+    randomSum = 0
+
+    for i in 0..2 do
+      for j in 0..2 do
+        value = rand(10)
+
+        yaleMatrix[i, j] = value
+        dokMatrix[i, j] = value
+        lilMatrix[i, j] = value
+
+        randomSum += value
+      end
+    end
+
+    assert(yaleMatrix.total_sum == randomSum)
+    assert(dokMatrix.total_sum == randomSum)
+    assert(lilMatrix.total_sum == randomSum)
+
+  end
+
+
+
 end
