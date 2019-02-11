@@ -15,9 +15,8 @@ module Operations
 
 	def rank
 		assert valid?
-		result = @storage.rank
-		assert valid?
-		result
+
+		return self.to_matrix.rank
 	end
 
 	def row_sum(rowNum)
@@ -78,27 +77,6 @@ module Operations
 		assert valid?
 	end
 
-	#TODO: NMatrix only implements this for 2D, square, dense, floating type matrices.
-  # Should we discard this feature?
-	def hessenberg
-		assert valid?
-		assert square?
-
-		assert valid?
-	end
-
-
-  #TODO: What is this to do?
-	def diagonal
-		assert valid?
-		#pre
-
-		#TODO: Implement
-
-		#post
-		assert valid?
-	end
-
 	def determinant
 		assert valid?
 
@@ -106,7 +84,7 @@ module Operations
 		assert square? #square
 
 		#post
-		return @storage.det
+		return self.to_matrix.determinant
 	end
 
 	# in a SMatrix.
@@ -122,9 +100,8 @@ module Operations
 
 	end
 
-	# TODO: Implement this, this has only been implemented for Dense
-	# matrices in SMatrix so conversions MUST be done.
 	def lu_factorization
+		# matrices in SMatrix so conversions MUST be done.
 		yFactory = YaleFactory.new
 		#pre
 		assert valid?

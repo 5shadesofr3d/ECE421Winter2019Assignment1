@@ -421,7 +421,21 @@ class TestConditionals<Test::Unit::TestCase
 	end
 
 	def test_square
+		yaleMatrix = SMatrix.new(Yale.new(2, 2))
+		dokMatrix = SMatrix.new(Dok.new(2, 2), :dok)
+		lilMatrix = SMatrix.new(Lil.new(2, 2), :lil)
+		assert yaleMatrix.square?
+		assert dokMatrix.square?
+		assert lilMatrix.square?
 
+		yaleMatrix2 = SMatrix.new(Yale.new(2, 3))
+		dokMatrix2 = SMatrix.new(Dok.new(2, 3), :dok)
+		lilMatrix2 = SMatrix.new(Lil.new(2, 3), :lil)
+
+
+		assert !yaleMatrix2.square?
+		assert !dokMatrix2.square?
+		assert !lilMatrix2.square?
 	end
 
 	def test_unitary
