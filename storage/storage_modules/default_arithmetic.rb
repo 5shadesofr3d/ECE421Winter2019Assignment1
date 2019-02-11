@@ -91,7 +91,7 @@ module DefaultArithmetic
 			result = result.dot(self)
 			pow -= 1
 		end
-
+		
 		assert valid?
 		return result
 	end
