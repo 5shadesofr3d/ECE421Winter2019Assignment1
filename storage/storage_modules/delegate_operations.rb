@@ -10,10 +10,10 @@ module DelegateOperations
 		@storage.transpose
 	end
 
-	def rank
-		assert valid?
-		@storage.rank
-	end
+	#def rank
+	#	assert valid?
+	#	@storage.rank
+	#end
 
 	def det
 		assert valid?
