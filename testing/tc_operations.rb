@@ -208,7 +208,22 @@ class TestOperations<Test::Unit::TestCase
   end
 
   def test_conjugate
+    yaleMatrix = SMatrix.new(Yale.new(3, 3))
+    dokMatrix = SMatrix.new(Dok.new(3, 3), :dok)
+    lilMatrix = SMatrix.new(Lil.new(3, 3), :lil)
 
+    for i in 0..2 do
+      for j in 0..2 do
+        value = Complex(rand(5),rand(5))
+        yaleMatrix[i, j] = value
+        dokMatrix[i, j] = value
+        lilMatrix[i, j] = value
+      end
+    end
+
+    yaleMatrix.conjugate
+    dokMatrix.conjugate
+    lilMatrix.conjugate
   end
 
   def test_partition
