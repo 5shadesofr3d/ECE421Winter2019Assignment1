@@ -467,9 +467,42 @@ class TestConditionals<Test::Unit::TestCase
 		assert(!lilMatrix2.square?)
 	end
 
-	# def test_unitary
-	#
-	# end
+	def test_unitary
+		yaleMatrix = SMatrix.new(Yale.new(2, 2))
+		dokMatrix = SMatrix.new(Dok.new(2, 2), :dok)
+		lilMatrix = SMatrix.new(Lil.new(2, 2), :lil)
+
+		yaleMatrix[0, 0] = Complex(1, 1)/2
+		dokMatrix[0, 0] = Complex(1, 1)/2
+		lilMatrix[0, 0] = Complex(1, 1)/2
+
+		yaleMatrix[0, 1] = Complex(1, -1)/2
+		dokMatrix[0, 1] = Complex(1, -1)/2
+		lilMatrix[0, 1] = Complex(1, -1)/2
+
+		yaleMatrix[1, 0] = Complex(1, -1)/2
+		dokMatrix[1, 0] = Complex(1, -1)/2
+		lilMatrix[1, 0] = Complex(1, -1)/2
+
+		yaleMatrix[1, 1] = Complex(1, 1)/2
+		dokMatrix[1, 1] = Complex(1, 1)/2
+		lilMatrix[1, 1] = Complex(1, 1)/2
+
+		assert(yaleMatrix.unitary?)
+		assert(dokMatrix.unitary?)
+		assert(lilMatrix.unitary?)
+
+		row = rand(2)
+		column = rand(2)
+
+		yaleMatrix[row, column] = 0
+		dokMatrix[row, column] = 0
+		lilMatrix[row, column] = 0
+
+		assert(!yaleMatrix.unitary?)
+		assert(!dokMatrix.unitary?)
+		assert(!lilMatrix.unitary?)
+	end
 
 	def test_upper_triangular
 		yaleMatrix = SMatrix.new(Yale.new(3, 3))

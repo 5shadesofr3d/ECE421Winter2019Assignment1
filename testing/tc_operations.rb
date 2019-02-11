@@ -336,9 +336,42 @@ class TestOperations<Test::Unit::TestCase
   #
   #
   # end
+  def test_eigen
+    yaleMatrix = SMatrix.new(Yale.new(3, 3))
+    dokMatrix = SMatrix.new(Dok.new(3, 3), :dok)
+    lilMatrix = SMatrix.new(Lil.new(3, 3), :lil)
 
-  def test_conjugate
+    yaleMatrix[0, 0] = 1
+    yaleMatrix[0, 1] = -3
+    yaleMatrix[0, 2] = 3
+    yaleMatrix[1, 0] = 3
+    yaleMatrix[1, 1] = -5
+    yaleMatrix[1, 2] = 3
+    yaleMatrix[2, 0] = 6
+    yaleMatrix[2, 1] = -6
+    yaleMatrix[2, 2] = 4
 
+    dokMatrix[0, 0] = 1
+    dokMatrix[0, 1] = -3
+    dokMatrix[0, 2] = 3
+    dokMatrix[1, 0] = 3
+    dokMatrix[1, 1] = -5
+    dokMatrix[1, 2] = 3
+    dokMatrix[2, 0] = 6
+    dokMatrix[2, 1] = -6
+    dokMatrix[2, 2] = 4
+
+    lilMatrix[0, 0] = 1
+    lilMatrix[0, 1] = -3
+    lilMatrix[0, 2] = 3
+    lilMatrix[1, 0] = 3
+    lilMatrix[1, 1] = -5
+    lilMatrix[1, 2] = 3
+    lilMatrix[2, 0] = 6
+    lilMatrix[2, 1] = -6
+    lilMatrix[2, 2] = 4
+
+    assert(yaleMatrix.eig)
   end
 
   def test_partition
