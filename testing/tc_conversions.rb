@@ -8,7 +8,10 @@ require 'matrix'
 STest = SMatrix
 
 class TestConversions<Test::Unit::TestCase
-	# this is to test all of the functions in the builder module for smatrix
+
+	# this is to test all of the functions in the conversions module for smatrix
+	# NOTE: for each of these tests, we will run the conversions from all of the different types
+	# => of storage]
 	@@maxsize = 60
 
 	def setup
@@ -16,6 +19,48 @@ class TestConversions<Test::Unit::TestCase
 		# NOTE: some of these "to_i" must be confirmed in another test
 		@row = @col = (rand * @@maxsize).to_i
 		@sample = STest.random(@row, @col)
+		@yaleSample = STest.random(@row, @col).to_yale
+		@dokSample = STest.random(@row, @col).to_dok
+		@lilSample = STest.random(@row, @col).to_lil
+	end
+
+	def test_to_yale
+		#Ensure that the converted SMatrix is of type yale
+
+		#Get the converted yale matrix
+		yaleMatrix = @sample.to_yale
+		fromDok = @dokSample.to_yale
+		fromLil = @lilSample.to_yale
+
+		assert(yaleMatrix.type == Yale)
+		assert(fromDok.type == Yale)
+		assert(fromLil.type == Yale)
+	end
+
+	def test_to_lil
+		#Ensure that the converted SMatrix is of type Lil
+
+		#Get the converted Lil matrix
+		lilMatrix = @sample.to_lil
+		fromYale = @yaleSample.to_lil
+		fromDok = @dokSample.to_lil
+
+		assert(lilMatrix.type == Lil)
+		assert(fromYale.type == Lil)
+		assert(fromDok.type == Lil)
+	end
+
+	def test_to_dok
+		#Ensure that the converted SMatrix is of type Dok
+
+		#Get the converted Dok matrix
+		dokMatrix = @sample.to_dok
+		fromYale = @yaleSample.to_dok
+		fromLil = @lilSample.to_dok
+
+		assert(dokMatrix.type == Dok)
+		assert(fromYale.type == Dok)
+		assert(fromLil.type == Dok)
 	end
 
 	def test_to_string
@@ -77,8 +122,14 @@ class TestConversions<Test::Unit::TestCase
 
 		# Get the converted array
 		resultMatrix = @sample.to_matrix
+		resultFromYale = @yaleSample.to_matrix
+		resultFromDok = @dokSample.to_matrix
+		resultFromLil = @lilSample.to_matrix
 
 		assert(resultMatrix.is_a? Matrix)
+		assert(resultFromYale.is_a? Matrix)
+		assert(resultFromDok.is_a? Matrix)
+		assert(resultFromLil.is_a? Matrix)
 	end
 
 	def test_to_nmatrix
@@ -86,35 +137,14 @@ class TestConversions<Test::Unit::TestCase
 
 		#Get the converted array
 		resultMatrix = @sample.to_nmatrix
+		resultFromYale = @yaleSample.to_nmatrix
+		resultFromDok = @dokSample.to_nmatrix
+		resultFromLil = @lilSample.to_nmatrix
 
 		assert(resultMatrix.is_a? NMatrix)
-	end
-
-	def test_to_yale
-		#Ensure that the converted SMatrix is of type yale
-
-		#Get the converted yale matrix
-		yaleMatrix = @sample.to_yale
-
-		assert(yaleMatrix.type == Yale)
-	end
-
-	def test_to_lil
-		#Ensure that the converted SMatrix is of type Lil
-
-		#Get the converted Lil matrix
-		lilMatrix = @sample.to_lil
-
-		assert(lilMatrix.type == Lil)
-	end
-
-	def test_to_dok
-		#Ensure that the converted SMatrix is of type Dok
-
-		#Get the converted Dok matrix
-		dokMatrix = @sample.to_dok
-
-		assert(dokMatrix.type == Dok)
+		assert(resultFromYale.is_a? NMatrix)
+		assert(resultFromDok.is_a? NMatrix)
+		assert(resultFromLil.is_a? NMatrix)
 	end
 
 end
