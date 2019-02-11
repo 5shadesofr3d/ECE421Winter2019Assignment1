@@ -94,6 +94,19 @@ module Iterators
 		col
 	end
 
+	def column(col_num)
+		#pre
+		assert self.columns >= 0
+		assert valid?
+
+		for i in 0 .. self.rows - 1
+			yield self[i, col_num]
+		end
+
+		#post
+		assert valid?
+	end
+
 	def each_row
 		#pre
 		assert self.rows >= 0
@@ -124,6 +137,19 @@ module Iterators
 		#post
 		assert valid?
 		row
+	end
+
+	def row(row_num)
+		#pre
+		assert self.rows >= 0
+		assert valid?
+
+		for j in 0 .. self.columns - 1
+			yield self[row_num, j]
+		end
+
+		#post
+		assert valid?
 	end
 
 	def each_diagonal_index(offset = 0)

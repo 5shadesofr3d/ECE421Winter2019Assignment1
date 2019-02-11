@@ -53,6 +53,7 @@ class NStorage < SparseStorage
 		original_type = @storage.stype
 		result = @storage.cast(:dense) # Convert to do inversion.
 		result.inverse.cast(original_type) # Invert and convert back before returning.
+		@storage.cast(original_type, :object)
 	end
 
 	def lu_factorization
@@ -60,7 +61,7 @@ class NStorage < SparseStorage
 
 		original_type = @storage.stype
 		result = @storage.cast(:dense) # Convert to do factorization.
-
+		@storage.cast(original_type, :object)
 		result.factorize_lu.cast(original_type)
 	end
 

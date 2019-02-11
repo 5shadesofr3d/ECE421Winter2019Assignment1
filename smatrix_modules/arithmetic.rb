@@ -146,8 +146,13 @@ module Arithmetic
 		end
 
 		result = self.clone
+		if (pow < 0)
+			pow = -pow
+			result = ~result
+		end
 		result.storage = result.storage.power(pow)
 
+		assert (result.storage.is_a? SparseStorage), "Resulting storage is not a SparseStorage"
 		assert valid?
 		return result
 	end

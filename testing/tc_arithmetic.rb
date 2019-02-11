@@ -265,55 +265,44 @@ class TestArithmetic<Test::Unit::TestCase
     rMatrix3 = sMatrix3.power(3) #should return a Lil matrix type
 
     # run the assertions
-    assert(rMatrix1.equals(sMatrix1.dot(sMatrix1)))
-    assert(rMatrix1.type == Yale)
+    assert_equal(rMatrix1, sMatrix1 % sMatrix1)
+    assert_equal(rMatrix1.type, Yale)
 
-    assert(rMatrix2.equals(sMatrix2))
-    assert(rMatrix2.type == Dok)
+    assert_equal(rMatrix2, sMatrix2)
+    assert_equal(rMatrix2.type, Dok)
 
-    sMatrix3_squared = sMatrix3.dot(sMatrix3)
-    assert(rMatrix3.equals(sMatrix3_squared.dot(sMatrix3)))
-    assert(rMatrix3.type == Lil)
+    sMatrix3_squared = sMatrix3 % sMatrix3
+    assert_equal(rMatrix3, sMatrix3_squared % sMatrix3)
+    assert_equal(rMatrix3.type, Lil)
   end
 
   def test_inverse_pow
     #testing the power function to see if it will handle negative powers (inversing)
     # NOTE: This is expected to fail so let it fail till a solution arises
     #create the matrices required
-    sMatrix1 = SMatrix.new(Yale.new(3, 3))
-    sMatrix2 = SMatrix.new(Dok.new(3, 3), :dok)
-    sMatrix3 = SMatrix.new(Lil.new(3, 3), :lil)
-
-
-    #fill in the 3 matrices with desired values
-    #TODO: this will have to be randomly generated everytime
-    value = 1
-
-    for i in 0..2 do
-      for j in 0..2 do
-        sMatrix1[i, j] = value
-        sMatrix2[i, j] = value
-        sMatrix3[i, j] = value
-
-        value += 1
-      end
-    end
+    sMatrix1 = SMatrix.new(Matrix[
+        [3, 0, -2],
+        [2, 0, -2],
+        [0, 1, 1]
+    ], :yale)
+    sMatrix2 = sMatrix1.to_dok
+    sMatrix3 = sMatrix1.to_lil
 
     rMatrix1 = sMatrix1.power(-1)
     rMatrix2 = sMatrix2.power(-2)
     rMatrix3 = sMatrix3.power(-3)
+    dMatrix3 = ~sMatrix3 % ~sMatrix3 % ~sMatrix3
 
 
     #Create the assertions
-    assert(rMatrix1.equals(1 / sMatrix1))
-    assert(rMatrix1.type == Yale)
+    assert(rMatrix1 == ~sMatrix1)
+    assert_equal(rMatrix1.type, Yale)
 
-    assert(rMatrix2.equals(1 / (sMatrix2.dot(sMatrix2))))
-    assert(rMatrix2.type == Dok)
+    assert(rMatrix2 == ~sMatrix2 % ~sMatrix2)
+    assert_equal(rMatrix2.type, Dok)
 
-    assert(rMatrix3.equals(1 / (sMatrix3.dot(sMatrix3).dot(sMatrix3))))
-    assert(rMatrix3.type == Lil)
-
+    assert(dMatrix3 == rMatrix3, "Expected:\n#{dMatrix3.to_s}\n\nGot:\n#{rMatrix3.to_s}\n")
+    assert_equal(rMatrix3.type, Lil)
   end 
 
   def test_invert

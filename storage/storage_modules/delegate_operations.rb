@@ -10,10 +10,10 @@ module DelegateOperations
 		@storage.transpose
 	end
 
-	def rank
-		assert valid?
-		@storage.rank
-	end
+	#def rank
+	#	assert valid?
+	#	@storage.rank
+	#end
 
 	def det
 		assert valid?
@@ -23,6 +23,11 @@ module DelegateOperations
 	def complex_conjugate
 		assert valid?
 		@storage.complex_conjugate
+	end
+
+  def lu_factorization
+		assert valid?
+		@storage.factorize_lu
 	end
 
 	def cholesky_factorization

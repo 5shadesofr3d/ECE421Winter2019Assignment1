@@ -83,15 +83,12 @@ module DefaultArithmetic
 
 	def power(pow)
 		assert valid?
+		assert pow.is_a? Integer and pow >= 1
 
 		result = self.clone
-		if (pow < 0)
-			pow = -pow
-			result = result.invert
-		end
 
 		while (pow > 1)
-			result = result.dot(result)
+			result = result.dot(self)
 			pow -= 1
 		end
 

@@ -101,14 +101,14 @@ module Conditionals
 	def singular?
 		assert valid?
 		assert square?
-		assert self.det == 0
+		assert self.determinant == 0
 
 		self.to_matrix.singular?
 	end
 
 	def regular?
 		assert valid?
-		assert self.det != 0
+		assert self.determinant != 0
 		assert square?
 
 		self.to_matrix.regular?
@@ -154,7 +154,7 @@ module Conditionals
 		self.each_index do |i, j|
 			return false unless self[i, j] == mat[i, j]
 		end
-		
+
 		return true
 	end
 
