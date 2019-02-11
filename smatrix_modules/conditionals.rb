@@ -38,6 +38,7 @@ module Conditionals
 	def diagonal?
 		# returns true if the matrix is a diagonal matrix
 		assert valid?
+		assert square?
 
 		self.to_matrix.diagonal?
 	end
@@ -45,6 +46,7 @@ module Conditionals
 	def tridiagonal?
 		#pre
 		assert valid?
+		assert square?
 
 		upper = partition([0, self.rows - 1], [1, self.columns])
 		lower = partition([1, self.rows], [0, self.columns - 1])
