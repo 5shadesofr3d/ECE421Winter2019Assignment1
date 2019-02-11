@@ -79,11 +79,12 @@ module DefaultArithmetic
 	end
 
 	def power(pow)
-		assert mat.is_a? SparseStorage
+		# assert mat.is_a? SparseStorage DON'T NEED THIS
+		assert pow.is_a? Integer
 		yFactory = YaleFactory.new()
 		dFactory = DokFactory.new()
 		tempYaleSelf = yFactory.create(self)
-		result = dFactory.create(tempYaleSelf.pow(pow))
+		result = dFactory.create(tempYaleSelf.power(pow))
 		assert result.is_a? Dok
 		return result
 	end

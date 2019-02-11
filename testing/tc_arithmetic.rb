@@ -241,8 +241,6 @@ class TestArithmetic<Test::Unit::TestCase
     sMatrix2 = SMatrix.new(Dok.new(3, 3), :dok)
     sMatrix3 = SMatrix.new(Lil.new(3, 3), :lil)
 
-    eMatrix1 = SMatrix.new(Yale.new(3, 3))
-
 
     #fill in the 3 matrices with desired values
     #TODO: this will have to be randomly generated everytime
@@ -263,18 +261,64 @@ class TestArithmetic<Test::Unit::TestCase
 
     #Do the operations
     rMatrix1 = sMatrix1.power(2) #should return a Yale matrix type
-    rMatrix2 = sMatrix2.power(-1) #should return a DoK matrix type
+    rMatrix2 = sMatrix2.power(1) #should return a DoK matrix type
     rMatrix3 = sMatrix3.power(3) #should return a Lil matrix type
 
     # run the assertions
     assert(rMatrix1.equals(sMatrix1 * sMatrix1))
     assert(rMatrix1.type == Yale)
 
-    assert(rMatrix2.equals(1 / sMatrix2))
+    assert(rMatrix2.equals(sMatrix2))
     assert(rMatrix2.type == Dok)
 
     assert(rMatrix3.equals(sMatrix3 * sMatrix3 * sMatrix3))
     assert(rMatrix3.type == Lil)
+  end
+
+  def test_inverse_pow
+    #testing the power function to see if it will handle negative powers (inversing)
+    # NOTE: This is expected to fail so let it fail till a solution arises
+    #create the matrices required
+    sMatrix1 = SMatrix.new(Yale.new(3, 3))
+    sMatrix2 = SMatrix.new(Dok.new(3, 3), :dok)
+    sMatrix3 = SMatrix.new(Lil.new(3, 3), :lil)
+
+
+    #fill in the 3 matrices with desired values
+    #TODO: this will have to be randomly generated everytime
+    value = 1
+
+    for i in 0..2 do
+      for j in 0..2 do
+        sMatrix1[i, j] = value
+        sMatrix2[i, j] = value
+        sMatrix3[i, j] = value
+
+        value += 1
+      end
+    end
+
+    rMatrix1 = sMatrix1.power(-1)
+    rMatrix2 = sMatrix2.power(-2)
+    rMatrix3 = sMatrix3.power(-3)
+
+
+    #Create the assertions
+    assert(rMatrix1.equals(1 / sMatrix1))
+    assert(rMatrix1.type == Yale)
+
+    assert(rMatrix2.equals(1 / (sMatrix2 * sMatrix2)))
+    assert(rMatrix2.type == Dok)
+
+    assert(rMatrix3.equals(1 / (sMatrix3 * sMatrix3 * sMatrix3)))
+    assert(rMatrix3.type == Lil)
+
+  end 
+
+  def test_invert
+    # This is to test the built-in inverse function
+    #TODO: possibly implement the function
+    assert(false)
   end
 
 end

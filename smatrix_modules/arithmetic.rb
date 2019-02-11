@@ -139,7 +139,7 @@ module Arithmetic
 		result = self.clone
 		result.storage = @storage.power(pow)
 
-		assert
+		#assert
 		assert valid?
 		return result
 	end
