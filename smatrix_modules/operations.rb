@@ -92,7 +92,7 @@ module Operations
 		yFactory = YaleFactory.new
 		# Pre
 		assert valid?
-		assert @storage.symmetric? or @storage.hermitian?
+		assert symmetric? or hermitian?
 		result = @storage.cholesky_factorization
 		# Post
 		# We need to wrap returned matrices as an SMatrix
@@ -105,7 +105,7 @@ module Operations
 		yFactory = YaleFactory.new
 		#pre
 		assert valid?
-		assert @storage.shape[0] == @storage.shape[1]
+		assert square?
 		# TODO: Needs to be a 2D matrix
 		result = @storage.lu_factorization
 
