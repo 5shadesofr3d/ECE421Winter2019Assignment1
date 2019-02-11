@@ -30,20 +30,6 @@ module DelegateOperations
 		@storage.factorize_cholesky
 	end
 
-	def col_sum(col_num)
-		assert valid?
-		assert col_num >= 0
-		assert col_num < @storage.cols
-		@storage.sum(0)[col_num]
-	end
-
-	def row_sum(row_num)
-		assert valid?
-		assert row_num >= 0
-		assert row_num < @storage.rows
-		@storage.sum(1)[row_num]
-	end
-
 	def total_sum
 		sum = 0
 		@storage.each do |x|
