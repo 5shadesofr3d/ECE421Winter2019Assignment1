@@ -174,6 +174,22 @@ print "matrix_a:\n#{a.to_s}\n"
 print "multiply:\n#{(a % a).to_s}\n"
 print "square:\n#{(a ^ 0).to_s}\n"
 
+sMatrix1 = SMatrix.new(Matrix[
+    [3, 0, -2],
+    [2, 0, -2],
+    [0, 1, 1]
+], :yale)
+sMatrix2 = sMatrix1.to_dok
+sMatrix3 = sMatrix1.to_lil
+
+rMatrix1 = sMatrix1.power(-1)
+rMatrix2 = sMatrix2.power(-2)
+rMatrix3 = sMatrix3.power(-3)
+dMatrix3 = ~sMatrix3 % ~sMatrix3 % ~sMatrix3
+
+print "inv:\n#{(~sMatrix1).to_s}\n"
+print "inv pwr:\n#{rMatrix1.to_s}\n"
+
 # s[0, 0] = 9
 
 # i = IdentityMatrix.new(3)

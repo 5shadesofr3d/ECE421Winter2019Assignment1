@@ -9,12 +9,12 @@ class TestOperations<Test::Unit::TestCase
 
     def setup
         @row = @col = (rand * @@max_size).to_i
-        @a = S.random(@row, @col).to_i
-        @b = S.random(@row, @col).to_i
-        @c = S.random(@row, @col).to_i
-        @d = S.random(@row, @col).to_i
-        @z = S.zero(@row, @col)
-        @i = S.I(@col)
+        @a = S.random(@row, @col).to_i.to_yale
+        @b = S.random(@row, @col).to_i.to_yale
+        @c = S.random(@row, @col).to_i.to_yale
+        @d = S.random(@row, @col).to_i.to_yale
+        @z = S.zero(@row, @col).to_yale
+        @i = S.I(@col).to_yale
     end
     
     def test_addition1
