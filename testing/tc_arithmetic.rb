@@ -306,8 +306,20 @@ class TestArithmetic<Test::Unit::TestCase
   end 
 
   def test_invert
-    # This is to test the built-in inverse function
-    #TODO: possibly implement the function
+    # This is to test the built-in inverse function from SMatrix
+    maxSize = 50
+    row = col = (rand * maxSize).to_i
+    # Create a sample matrix
+    STestYale = SMatrix.random(row, col).to_yale
+    STestDok = SMatrix.random(row, col).to_dok
+    STestLil = SMatrix.random(row, col).to_lil
+
+    #Get the identity matrix
+    #NOTE: make sure the I builder is tested and verified
+    identityMatrix = SMatrix.I(row)
+
+
+
     assert(false)
   end
 
