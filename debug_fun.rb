@@ -190,6 +190,7 @@ dMatrix3 = ~sMatrix3 % ~sMatrix3 % ~sMatrix3
 print "inv:\n#{(rMatrix3).to_s}\n"
 print "inv pwr:\n#{dMatrix3.to_s}\n"
 print "inv pwr:\n#{dMatrix3==rMatrix3}\n"
+
 # s[0, 0] = 9
 
 # i = IdentityMatrix.new(3)

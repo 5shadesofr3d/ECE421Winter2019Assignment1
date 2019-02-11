@@ -194,6 +194,10 @@ class TestOperations<Test::Unit::TestCase
     yaleInverse = yaleMatrix.determinant
     dokInverse = dokMatrix.determinant
     lilInverse = lilMatrix.determinant
+
+    assert_equal(det, yaleInverse)
+    assert_equal(det, dokInverse)
+    assert_equal(det, lilInverse)
   end
 
   def test_lu
@@ -209,6 +213,17 @@ class TestOperations<Test::Unit::TestCase
 
   def test_conjugate
 
+  end
+
+  def test_eigen  
+    a = SMatrix.new(Matrix[
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ])
+    v, q, v_i = a.eigensystem
+
+    assert_equal(a, (v % q % v_i).to_i)
   end
 
   def test_partition
