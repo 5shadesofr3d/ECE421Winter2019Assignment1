@@ -305,7 +305,7 @@ class TestArithmetic<Test::Unit::TestCase
     assert_equal(rMatrix3.type, Lil)
   end 
 
-  def test_invert
+  def test_inverse
     # This is to test the built-in inverse function from SMatrix
     maxSize = 50
     row = col = (rand * maxSize).to_i
@@ -324,9 +324,9 @@ class TestArithmetic<Test::Unit::TestCase
     invertLil = mTestLil.inverse
 
     #Assert that the resulting matrix is indeed inverted
-    assert_equal(invertYale.dot(mTestYale), identityMatrix)
-    assert_equal(invertDok.dot(mTestDok), identityMatrix)
-    assert_equal(invertLil.dot(mTestLil), identityMatrix)
+    assert_equal(invertYale % mTestYale, identityMatrix)
+    assert_equal(invertDok % mTestDok, identityMatrix)
+    assert_equal(invertLil % mTestLil, identityMatrix)
   end
 
 end
