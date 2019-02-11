@@ -150,7 +150,6 @@ module Arithmetic
 			result = ~result
 		end
 		result.storage = result.storage.power(pow)
-		print "#{result[0, 0]}\n"
 
 		assert (result.storage.is_a? SparseStorage), "Resulting storage is not a SparseStorage"
 		assert valid?

@@ -187,9 +187,9 @@ rMatrix2 = sMatrix2.power(-2)
 rMatrix3 = sMatrix3.power(-3)
 dMatrix3 = ~sMatrix3 % ~sMatrix3 % ~sMatrix3
 
-print "inv:\n#{(~sMatrix1).to_s}\n"
-print "inv pwr:\n#{rMatrix1.to_s}\n"
-
+print "inv:\n#{(rMatrix3).to_s}\n"
+print "inv pwr:\n#{dMatrix3.to_s}\n"
+print "inv pwr:\n#{dMatrix3==rMatrix3}\n"
 # s[0, 0] = 9
 
 # i = IdentityMatrix.new(3)
