@@ -206,7 +206,7 @@ class TestConditionals<Test::Unit::TestCase
 		#Randomly change one of the elements...
 
 		row = rand(2)
-		
+
 		column = rand(2)
 		until column != row do
 			column = rand(2)
@@ -220,9 +220,6 @@ class TestConditionals<Test::Unit::TestCase
 		assert(!dokMatrix.symmetric?)
 		assert(!lilMatrix.symmetric?)
 
-
-
-
 	end
 
 	def test_hermitian
@@ -234,6 +231,39 @@ class TestConditionals<Test::Unit::TestCase
 	end
 
 	def test_orthoganal
+
+		yaleMatrix = SMatrix.new(Yale.new(2, 2))
+		dokMatrix = SMatrix.new(Dok.new(2, 2), :lil)
+		lilMatrix = SMatrix.new(Lil.new(2, 2), :lil)
+
+		for i in 0..1 do
+			for j in 0..1 do
+				yaleMatrix[i, j] = 0
+				dokMatrix[i, j] = 0
+				lilMatrix[i, j] = 0
+			end
+		end
+
+		yaleMatrix[0,0] = 1
+		yaleMatrix[1,1] = 1
+
+		dokMatrix[0,0] = 1
+		dokMatrix[1,1] = -1
+
+		lilMatrix[0,0] = 1
+		lilMatrix[1,1] = -1
+
+		assert(yaleMatrix.orthogonal?)
+		assert(dokMatrix.orthogonal?)
+		assert(lilMatrix.orthogonal?)
+
+		yaleMatrix[0,0] = 0
+		dokMatrix[1,1] = 0
+		lilMatrix[0,1] = 1
+
+		assert(!yaleMatrix.orthogonal?)
+		assert(!dokMatrix.orthogonal?)
+		assert(!dokMatrix.orthogonal?)
 
 	end
 
