@@ -3,6 +3,7 @@ require 'test/unit'
 require_relative '../storage/yale'
 require_relative '../storage/dok'
 require_relative '../storage/lil'
+require 'complex'
 require 'matrix'
 
 class TestConditionals<Test::Unit::TestCase
@@ -417,6 +418,33 @@ class TestConditionals<Test::Unit::TestCase
 	end
 
 	def test_real
+		yaleMatrix = SMatrix.new(Yale.new(3, 3))
+		dokMatrix = SMatrix.new(Dok.new(3, 3), :dok)
+		lilMatrix = SMatrix.new(Lil.new(3, 3), :lil)
+
+
+		for i in 0..2 do
+			for j in 0..2 do
+				value = rand(10)
+
+				yaleMatrix[i, j] = value
+				dokMatrix[i, j] = value
+				lilMatrix[i, j] = value
+
+			end
+		end
+
+		assert(yaleMatrix.real?)
+		assert(dokMatrix.real?)
+		assert(lilMatrix.real?)
+
+		yaleMatrix[rand(3), rand(3)] = Complex(rand(10), rand(10))
+		dokMatrix[rand(3), rand(3)] = Complex(rand(10), rand(10))
+		lilMatrix[rand(3), rand(3)] = Complex(rand(10), rand(10))
+
+		assert(!yaleMatrix.real?)
+		assert(!dokMatrix.real?)
+		assert(!lilMatrix.real?)
 
 	end
 
