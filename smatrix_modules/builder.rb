@@ -56,7 +56,7 @@ module Builder
 
 	def tridiagonal(upper, middle, lower)
 		#pre
-		assert size.is_a? Integer
+		#assert size.is_a? Integer Is there a size?
 		assert upper.is_a? Array and middle.is_a? Array and lower.is_a? Array
 		assert (upper.length == middle.length - 1) and (upper.length == lower.length)
 		assert middle.length >= 3
