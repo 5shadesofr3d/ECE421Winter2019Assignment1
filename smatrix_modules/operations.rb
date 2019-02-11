@@ -85,7 +85,7 @@ module Operations
 		assert square? #square
 
 		#post
-		return @storage.det
+		return self.to_matrix.determinant
 	end
 
 	# in a SMatrix.
