@@ -88,10 +88,10 @@ module Iterators
 		for i in 0 .. self.rows - 1
 			col << self[i, col_num]
 		end
-		yield col
 
 		#post
 		assert valid?
+		col
 	end
 
 	def each_row
@@ -120,10 +120,10 @@ module Iterators
 		for j in 0 .. self.columns - 1
 			row << self[row_num, j]
 		end
-		yield row
 
 		#post
 		assert valid?
+		row
 	end
 
 	def each_diagonal_index(offset = 0)

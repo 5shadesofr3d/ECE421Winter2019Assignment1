@@ -59,18 +59,18 @@ module DefaultOperations
 
 	def col_sum(col_num)
 		sum = 0
-		self.get_column(col_num) do |x|
+		self.get_column(col_num).each do |x|
 			sum += x
 		end
-		return sum
+		sum
 	end
 
 	def row_sum(row_num)
 		sum = 0
-		self.get_row(row_num) do |x|
+		self.get_row(row_num).each do |x|
 			sum += x
 		end
-		return sum
+		sum
 	end
 
 	def total_sum
@@ -78,6 +78,6 @@ module DefaultOperations
 		self.each_non_zero do |x|
 			sum += x
 		end
-		return sum
+		sum
 	end
 end

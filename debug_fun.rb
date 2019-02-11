@@ -197,17 +197,19 @@ print "square:\n#{(a ^ 0).to_s}\n"
 
 s = SMatrix.new(NMatrix[[1, 2, 3], [0, 5, 0], [0, 8, 0]], :yale)
 m = SMatrix.new(NMatrix[[1, 2, 3], [0, 5, 0], [0, 8, 0]], :lil)
-p = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :dok)
+p = SMatrix.new(NMatrix[[1, 2, 0], [0, 5, 0], [0, 8, 3]], :dok)
 
 puts "Total Sum Test:"
-puts p.total_sum # Doesn't work for dok, the dok is a nilclass error!
+puts p.total_sum
 puts m.total_sum
 puts s.total_sum
 
+puts "Row Sum Test:"
 puts s.row_sum(2)
 # puts m.row_sum(2) Doesn't work for lil? Possible bug.
-# puts p.row_sum(2) Same nilclass error as above!
+puts p.row_sum(2)
 
+puts "Col Sum Test:"
 puts s.col_sum(1)
 # puts m.col_sum(1) Doesn't work for lil? Possible bug.
-# puts p.col_sum(1)
+puts p.col_sum(0)
