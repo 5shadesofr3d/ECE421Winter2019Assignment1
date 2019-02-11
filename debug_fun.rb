@@ -185,7 +185,7 @@ print "square:\n#{(a ^ 0).to_s}\n"
 
 # print i.to_s
 # puts
-
+#
 # print z.to_s
 # puts
 
@@ -193,3 +193,22 @@ print "square:\n#{(a ^ 0).to_s}\n"
 # puts
 
 # f = StorageFactory.new
+
+s = SMatrix.new(NMatrix[[1, 2, 3], [0, 5, 0], [0, 8, 0]], :yale)
+m = SMatrix.new(NMatrix[[1, 2, 3], [0, 5, 0], [0, 8, 0]], :lil)
+p = SMatrix.new(NMatrix[[1, 2, 0], [0, 5, 0], [0, 8, 3]], :dok)
+
+puts "Total Sum Test:"
+puts p.total_sum
+puts m.total_sum
+puts s.total_sum
+
+puts "Row Sum Test:"
+puts s.row_sum(2)
+puts m.row_sum(2)
+puts p.row_sum(2)
+
+puts "Col Sum Test:"
+puts s.col_sum(1)
+puts m.col_sum(1)
+puts p.col_sum(0)
