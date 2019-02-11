@@ -89,12 +89,22 @@ module Operations
 
 	# in a SMatrix.
 	def cholesky
-		# Pre
-		assert valid?
-		assert (symmetric? or hermitian?)
-		c = self.to_nmatrix.cholesky_factorization
+		raise NotImplementedError
+	end
 
-		return [SMatrix.new(c[0], self.ftype), SMatrix.new(c[1], self.ftype)]
+	def eigensystem
+		assert valid?
+
+		v, d, v_inv = self.to_matrix.eigensystem
+
+		v = SMatrix.new(v, self.ftype)
+		d = SMatrix.new(d, self.ftype)
+		v_inv = SMatrix.new(v_inv, self.ftype)
+
+		assert d.diagonal?
+		assert ~v == v_inv
+
+		return [v, d, v_inv]
 	end
 
 	def lu_factorization
@@ -103,8 +113,16 @@ module Operations
 		assert valid?
 		assert square?
     
-		c = self.to_nmatrix.lu_factorization
-		return [SMatrix.new(c[0], self.ftype), SMatrix.new(c[1], self.ftype)]
+		l, u, perm = self.to_matrix.lup
+		l = SMatrix.new(l, self.ftype)
+		u = SMatrix.new(u, self.ftype)
+		perm = SMatrix.new(perm, self.ftype)
+
+		assert l.lower_triangular?
+		assert u.upper_triangular?
+		assert perm.permutation?
+
+		return [l, u, perm]
 	end
 
 	def conjugate

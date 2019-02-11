@@ -12,7 +12,7 @@ class TestConversions<Test::Unit::TestCase
 	# this is to test all of the functions in the conversions module for smatrix
 	# NOTE: for each of these tests, we will run the conversions from all of the different types
 	# => of storage]
-	@@maxsize = 60
+	@@maxsize = 10
 
 	def setup
 		# start setting up the variables for the test cases
@@ -97,7 +97,7 @@ class TestConversions<Test::Unit::TestCase
 		for i in 0..(@row-1) do
 			for j in 0..(@col-1) do
 				# assert the the element values are the same
-				assert(resultMatrix[i, j].is_a? Float)
+				assert (resultMatrix[i, j].is_a? Float), "#{i}, #{j} -> #{resultMatrix[i, j]} -> #{resultMatrix[i, j].class} -> #{resultMatrix.ftype}"
 			end
 		end
 	end
