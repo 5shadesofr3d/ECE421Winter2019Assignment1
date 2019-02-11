@@ -7,7 +7,9 @@ module Conversions
 
 		# post
 		self.each_row do |row|
-			str += "#{row}\n"
+			str += "[ "
+			row.each {|v| str += "%8.2f ".rjust(5) % v}
+			str += "]\n"
 		end
 
 		assert valid?
@@ -34,6 +36,17 @@ module Conversions
 		result = self.clone
 		self.each_index do |i, j|
 			result[i, j] = result[i, j].to_f
+		end
+		assert valid?
+
+		result
+	end
+
+	def to_i
+		assert valid?
+		result = self.clone
+		self.each_index do |i, j|
+			result[i, j] = result[i, j].to_i
 		end
 		assert valid?
 

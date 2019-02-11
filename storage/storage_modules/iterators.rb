@@ -1,3 +1,5 @@
+require 'set'
+
 module Iterators
 	def each
 		# iterates through each matrix element
@@ -45,6 +47,21 @@ module Iterators
 		assert valid?
 	end
 
+	def each_common_index(m)
+		# provides index iterators
+		assert valid?
+
+		nzv = Set[]
+		self.each_non_zero_index {|i, j| nzv.add([i, j])}
+		m.each_non_zero_index {|i, j| nzv.add([i, j])}
+		
+		nzv.each do |idx|
+			yield *idx
+		end
+
+		assert valid?
+	end
+
 	def each_column
 		#pre
 		assert self.columns >= 0
@@ -62,6 +79,21 @@ module Iterators
 		assert valid?
 	end
 
+	def get_column(col_num)
+		#pre
+		assert self.columns >= 0
+		assert valid?
+
+		col = []
+		for i in 0 .. self.rows - 1
+			col << self[i, col_num]
+		end
+
+		#post
+		assert valid?
+		col
+	end
+
 	def each_row
 		#pre
 		assert self.rows >= 0
@@ -77,6 +109,21 @@ module Iterators
 
 		#post
 		assert valid?
+	end
+
+  def get_row(row_num)
+		#pre
+		assert self.rows >= 0
+		assert valid?
+
+		row = []
+		for j in 0 .. self.columns - 1
+			row << self[row_num, j]
+		end
+
+		#post
+		assert valid?
+		row
 	end
 
 	def each_diagonal_index(offset = 0)

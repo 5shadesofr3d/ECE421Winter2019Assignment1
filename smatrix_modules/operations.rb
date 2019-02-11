@@ -25,7 +25,7 @@ module Operations
 		assert rowNum.is_a? Integer
 		assert rowNum >= 0
 		assert rowNum < @storage.rows
-		result = @storage.row_sum
+		result = @storage.row_sum(rowNum)
 		assert valid?
 		result
 	end
@@ -34,8 +34,8 @@ module Operations
 		assert valid?
 		assert colNum.is_a? Integer
 		assert colNum >= 0
-		assert colNum < @storage.cols
-		result = @storage.col_sum
+		assert colNum < @storage.columns
+		result = @storage.col_sum(colNum)
 		assert valid?
 		result
 	end
@@ -51,7 +51,8 @@ module Operations
 		assert valid?
 		#pre
 		#matrix to be transposed has been initialized
-		result = @storage.transpose
+		result = SMatrix.new(@storage.transpose, self.ftype)
+
 		#post
 		assert valid?
 		assert result.shape[0] == @storage.shape[1]
@@ -67,12 +68,11 @@ module Operations
 		assert valid?
 
 		#pre
-		assert @storage.det != 0 #det != 0
-		assert @storage.shape[0] == @storage.shape[1] #square only
-
+		assert regular?, "Not a regular matrix (thus not invertible)."
 		#post
-		@storage = @storage.invert
-		assert @storage.shape[0] == @storage.shape[1]
+		store_as(self.ftype, self.to_matrix.inverse)
+		
+		assert square?
 		assert valid?
 	end
 
@@ -80,7 +80,7 @@ module Operations
   # Should we discard this feature?
 	def hessenberg
 		assert valid?
-		assert @storage.rows == @storage.cols
+		assert square?
 
 		assert valid?
 	end
@@ -143,5 +143,40 @@ module Operations
 		# Post
 		# We need to wrap returned matrix as an SMatrix
 		return yFactory.create(@storage.complex_conjugate)
+	end
+
+	def partition(rows = [0, self.rows], columns = [0, self.columns])
+		# returns a partion of the current matrix
+		assert valid?
+		assert (rows.is_a? Array) and (columns.is_a? Array)
+		assert (rows[0] < rows[1]) and (columns[0] < columns[1])
+		assert (rows[1] <= self.rows) and (columns[1] <= self.columns)
+
+		row_count = rows[1] - rows[0]
+		column_count = columns[1] - columns[0]
+
+		matrix = Matrix.zero(row_count, column_count)
+		part = SMatrix.new(matrix)
+
+		part.each_index do |i, j|
+			part[i, j] = self[i + rows[0], j + columns[0]]
+		end
+
+		part
+	end
+
+	def ~
+		assert valid?
+		result = self.clone
+		result.inverse
+		assert valid?
+
+		return result
+	end
+
+	def t
+		assert valid?
+
+		return self.transpose
 	end
 end

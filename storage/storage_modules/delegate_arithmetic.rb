@@ -1,10 +1,6 @@
 module DelegateArithmetic
 	def +(m1)
 		assert m1.is_a? SparseStorage
-		if m1.is_a? Dok or m1.is_a? Lil
-			yFactory = YaleFactory.new
-			m1 = yFactory.create(m1)
-		end
 
 		@storage += m1.storage
 
@@ -13,10 +9,7 @@ module DelegateArithmetic
 
 	def -(m1)
 		assert m1.is_a? SparseStorage
-		if m1.is_a? Dok
-			yFactory = YaleFactory.new
-			m1 = yFactory.create(m1)
-		end
+
 		@storage -= m1.storage
 
 		self
@@ -24,6 +17,7 @@ module DelegateArithmetic
 
 	def *(scalar)
 		assert scalar.is_a? Numeric
+
 		@storage *= scalar
 
 		self
@@ -32,6 +26,7 @@ module DelegateArithmetic
 	def /(scalar)
 		assert scalar != 0
 		assert scalar.is_a? Numeric
+
 		@storage /= scalar
 
 		self
@@ -39,6 +34,7 @@ module DelegateArithmetic
 
 	def **(scalar)
 		assert scalar.is_a? Numeric
+
 		@storage **= scalar
 
 		self
@@ -46,23 +42,16 @@ module DelegateArithmetic
 
 	def power(pow)
 		assert pow.is_a? Numeric
-		@storage.pow(pow)
+		
+		@storage = @storage.pow(pow)
 
 		self
 	end
 
 	def dot(m1)
+		assert valid?
 		assert m1.is_a? SparseStorage
-		yFactory = YaleFactory.new
-		lFactory = LilFactory.new
-		if @storage.is_a? Yale
-			m1 = yFactory.create(m1)
-			@storage.dot(m1)
-		else #Lil
-			m1 = lFactory.create(m1)
-			@storage.dot(m1)
-		end
-		assert @storage.is_a? SparseStorage
-		self
+
+		@storage.dot(m1.storage)
 	end
 end

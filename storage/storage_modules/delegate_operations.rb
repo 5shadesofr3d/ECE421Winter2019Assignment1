@@ -5,6 +5,11 @@ module DelegateOperations
 		@storage.trace
 	end
 
+	def transpose
+		assert valid?
+		@storage.transpose
+	end
+
 	def rank
 		assert valid?
 		@storage.rank
@@ -25,15 +30,11 @@ module DelegateOperations
 		@storage.factorize_cholesky
 	end
 
-	def col_sum(colNum)
-		raise NotImplementedError
-	end
-
-	def row_sum(rowNum)
-		raise NotImplementedError
-	end
-
 	def total_sum
-		raise NotImplementedError
+		sum = 0
+		@storage.each do |x|
+			sum += x
+		end
+		return sum
 	end
 end
