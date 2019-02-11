@@ -3,6 +3,7 @@ require 'test/unit'
 require_relative '../storage/yale'
 require_relative '../storage/dok'
 require_relative '../storage/lil'
+require 'complex'
 require 'matrix'
 
 class TestConditionals<Test::Unit::TestCase
@@ -329,94 +330,121 @@ class TestConditionals<Test::Unit::TestCase
 
 	end
 
-	def test_singular
-		yaleMatrix = SMatrix.new(Yale.new(2, 2))
-		dokMatrix = SMatrix.new(Dok.new(2, 2), :dok)
-		lilMatrix = SMatrix.new(Lil.new(2, 2), :lil)
+	# def test_singular
+	# 	yaleMatrix = SMatrix.new(Yale.new(2, 2))
+	# 	dokMatrix = SMatrix.new(Dok.new(2, 2), :dok)
+	# 	lilMatrix = SMatrix.new(Lil.new(2, 2), :lil)
+	#
+	# 	invertedValues = [1, 0.5, 0.25, 0.125, 0.0625]
+	# 	values = [1, 2, 4, 8, 16]
+	# 	random = rand(5)
+	# 	invertedValue = invertedValues[random]
+	# 	value = values[random]
+	#
+	#
+	#
+	# 	yaleMatrix[0, 0] = 1
+	# 	yaleMatrix[0, 1] = invertedValue
+	# 	yaleMatrix[1, 0] = value
+	# 	yaleMatrix[1, 1] = 1
+	#
+	# 	dokMatrix[0, 0] = 1
+	# 	dokMatrix[0, 1] = invertedValue
+	# 	dokMatrix[1, 0] = value
+	# 	dokMatrix[1, 1] = 1
+	#
+	# 	lilMatrix[0, 0] = 1
+	# 	lilMatrix[0, 1] = invertedValue
+	# 	lilMatrix[1, 0] = value
+	# 	lilMatrix[1, 1] = 1
+	#
+	# 	assert(yaleMatrix.singular?)
+	# 	assert(dokMatrix.singular?)
+	# 	assert(lilMatrix.singular?)
+	#
+	# 	randomX = rand(2)
+	# 	randomY = rand(2)
+	# 	randomValue = rand(100)
+	# 	until randomValue > 16 do
+	# 		randomValue = rand(100)
+	# 	end
+	#
+	# 	yaleMatrix[randomX, randomY] = randomValue
+	# 	dokMatrix[randomX, randomY] = randomValue
+	# 	lilMatrix[randomX, randomY] = randomValue
+	#
+	# 	assert(!yaleMatrix.singular?)
+	# 	assert(!dokMatrix.singular?)
+	# 	assert(!lilMatrix.singular?)
+	#
+	#
+	# end
 
-		invertedValues = [1, 0.5, 0.25, 0.125, 0.0625]
-		values = [1, 2, 4, 8, 16]
-		random = rand(5)
-		invertedValue = invertedValues[random]
-		value = values[random]
-
-
-
-		yaleMatrix[0, 0] = 1
-		yaleMatrix[0, 1] = invertedValue
-		yaleMatrix[1, 0] = value
-		yaleMatrix[1, 1] = 1
-
-		dokMatrix[0, 0] = 1
-		dokMatrix[0, 1] = invertedValue
-		dokMatrix[1, 0] = value
-		dokMatrix[1, 1] = 1
-
-		lilMatrix[0, 0] = 1
-		lilMatrix[0, 1] = invertedValue
-		lilMatrix[1, 0] = value
-		lilMatrix[1, 1] = 1
-
-		assert(yaleMatrix.singular?)
-		assert(dokMatrix.singular?)
-		assert(lilMatrix.singular?)
-
-		randomX = rand(2)
-		randomY = rand(2)
-		randomValue = rand(100)
-		until randomValue > 16 do
-			randomValue = rand(100)
-		end
-
-		yaleMatrix[randomX, randomY] = randomValue
-		dokMatrix[randomX, randomY] = randomValue
-		lilMatrix[randomX, randomY] = randomValue
-
-		assert(!yaleMatrix.singular?)
-		assert(!dokMatrix.singular?)
-		assert(!lilMatrix.singular?)
-
-
-	end
-
-	def test_regular
-		yaleMatrix = SMatrix.new(Yale.new(2, 2))
-		dokMatrix = SMatrix.new(Dok.new(2, 2), :dok)
-		lilMatrix = SMatrix.new(Lil.new(2, 2), :lil)
-
-
-
-		yaleMatrix[0, 0] = 0.5
-		yaleMatrix[0, 1] = 0.5
-		yaleMatrix[1, 0] = 0.3
-		yaleMatrix[1, 1] = 0.7
-
-		dokMatrix[0, 0] = 0.5
-		dokMatrix[0, 1] = 0.5
-		dokMatrix[1, 0] = 0.3
-		dokMatrix[1, 1] = 0.7
-
-		lilMatrix[0, 0] = 0.5
-		lilMatrix[0, 1] = 0.5
-		lilMatrix[1, 0] = 0.3
-		lilMatrix[1, 1] = 0.7
-
-		assert(yaleMatrix.regular?)
-		assert(dokMatrix.regular?)
-		assert(lilMatrix.regular?)
-
-		yaleMatrix[0, 0] = -5
-		dokMatrix[0, 0] = -5
-		lilMatrix[0, 0] = -5
-
-		assert(!yaleMatrix.regular?)
-		assert(!dokMatrix.regular?)
-		assert(!lilMatrix.regular?)
-
-
-	end
+	# def test_regular
+	# 	yaleMatrix = SMatrix.new(Yale.new(2, 2))
+	# 	dokMatrix = SMatrix.new(Dok.new(2, 2), :dok)
+	# 	lilMatrix = SMatrix.new(Lil.new(2, 2), :lil)
+	#
+	#
+	#
+	# 	yaleMatrix[0, 0] = 0.5
+	# 	yaleMatrix[0, 1] = 0.5
+	# 	yaleMatrix[1, 0] = 0.3
+	# 	yaleMatrix[1, 1] = 0.7
+	#
+	# 	dokMatrix[0, 0] = 0.5
+	# 	dokMatrix[0, 1] = 0.5
+	# 	dokMatrix[1, 0] = 0.3
+	# 	dokMatrix[1, 1] = 0.7
+	#
+	# 	lilMatrix[0, 0] = 0.5
+	# 	lilMatrix[0, 1] = 0.5
+	# 	lilMatrix[1, 0] = 0.3
+	# 	lilMatrix[1, 1] = 0.7
+	#
+	# 	assert(yaleMatrix.regular?)
+	# 	assert(dokMatrix.regular?)
+	# 	assert(lilMatrix.regular?)
+	#
+	# 	yaleMatrix[0, 0] = -5
+	# 	dokMatrix[0, 0] = -5
+	# 	lilMatrix[0, 0] = -5
+	#
+	# 	assert(!yaleMatrix.regular?)
+	# 	assert(!dokMatrix.regular?)
+	# 	assert(!lilMatrix.regular?)
+	#
+	#
+	# end
 
 	def test_real
+		yaleMatrix = SMatrix.new(Yale.new(3, 3))
+		dokMatrix = SMatrix.new(Dok.new(3, 3), :dok)
+		lilMatrix = SMatrix.new(Lil.new(3, 3), :lil)
+
+
+		for i in 0..2 do
+			for j in 0..2 do
+				value = rand(10)
+
+				yaleMatrix[i, j] = value
+				dokMatrix[i, j] = value
+				lilMatrix[i, j] = value
+
+			end
+		end
+
+		assert(yaleMatrix.real?)
+		assert(dokMatrix.real?)
+		assert(lilMatrix.real?)
+
+		yaleMatrix[rand(3), rand(3)] = Complex(rand(10), rand(10))
+		dokMatrix[rand(3), rand(3)] = Complex(rand(10), rand(10))
+		lilMatrix[rand(3), rand(3)] = Complex(rand(10), rand(10))
+
+		assert(!yaleMatrix.real?)
+		assert(!dokMatrix.real?)
+		assert(!lilMatrix.real?)
 
 	end
 
@@ -424,29 +452,108 @@ class TestConditionals<Test::Unit::TestCase
 		yaleMatrix = SMatrix.new(Yale.new(2, 2))
 		dokMatrix = SMatrix.new(Dok.new(2, 2), :dok)
 		lilMatrix = SMatrix.new(Lil.new(2, 2), :lil)
-		assert yaleMatrix.square?
-		assert dokMatrix.square?
-		assert lilMatrix.square?
+
+		assert(yaleMatrix.square?)
+		assert(dokMatrix.square?)
+		assert(lilMatrix.square?)
 
 		yaleMatrix2 = SMatrix.new(Yale.new(2, 3))
 		dokMatrix2 = SMatrix.new(Dok.new(2, 3), :dok)
 		lilMatrix2 = SMatrix.new(Lil.new(2, 3), :lil)
 
 
-		assert !yaleMatrix2.square?
-		assert !dokMatrix2.square?
-		assert !lilMatrix2.square?
+		assert(!yaleMatrix2.square?)
+		assert(!dokMatrix2.square?)
+		assert(!lilMatrix2.square?)
 	end
 
-	def test_unitary
+	# def test_unitary
+	#
+	# end
+
+	def test_upper_triangular
+		yaleMatrix = SMatrix.new(Yale.new(3, 3))
+		dokMatrix = SMatrix.new(Dok.new(3, 3), :dok)
+		lilMatrix = SMatrix.new(Lil.new(3, 3), :lil)
+
+
+		for i in 0..2 do
+			for j in 0..2 do
+				value = rand(10)
+				if j >= i
+					yaleMatrix[i, j] = value
+					dokMatrix[i, j] = value
+					lilMatrix[i, j] = value
+				else
+					yaleMatrix[i, j] = 0
+					dokMatrix[i, j] = 0
+					lilMatrix[i, j] = 0
+				end
+
+			end
+		end
+
+		assert(yaleMatrix.upper_triangular?)
+		assert(dokMatrix.upper_triangular?)
+		assert(lilMatrix.upper_triangular?)
+
+		randomRow = rand(2) + 1
+		randomCol = rand(2)
+
+		if randomCol == randomRow
+			randomCol = 0
+		end
+
+		yaleMatrix[randomRow, randomCol] = rand(9) + 1
+		dokMatrix[randomRow, randomCol] = rand(9) + 1
+		lilMatrix[randomRow, randomCol] = rand(9) + 1
+
+		assert(!yaleMatrix.upper_triangular?)
+		assert(!dokMatrix.upper_triangular?)
+		assert(!lilMatrix.upper_triangular?)
 
 	end
 
-	def upper_triangular
+	def test_lower_triangular
+		yaleMatrix = SMatrix.new(Yale.new(3, 3))
+		dokMatrix = SMatrix.new(Dok.new(3, 3), :dok)
+		lilMatrix = SMatrix.new(Lil.new(3, 3), :lil)
 
-	end
 
-	def lower_triangular
+		for i in 0..2 do
+			for j in 0..2 do
+				value = rand(10)
+				if i >= j
+					yaleMatrix[i, j] = value
+					dokMatrix[i, j] = value
+					lilMatrix[i, j] = value
+				else
+					yaleMatrix[i, j] = 0
+					dokMatrix[i, j] = 0
+					lilMatrix[i, j] = 0
+				end
+
+			end
+		end
+
+		assert yaleMatrix.lower_triangular?
+		assert dokMatrix.lower_triangular?
+		assert lilMatrix.lower_triangular?
+
+		randomRow = rand(2)
+		randomCol = rand(2) + 1
+
+		if randomCol == randomRow
+			randomRow = 0
+		end
+
+		yaleMatrix[randomRow, randomCol] = rand(9) + 1
+		dokMatrix[randomRow, randomCol] = rand(9) + 1
+		lilMatrix[randomRow, randomCol] = rand(9) + 1
+
+		assert !yaleMatrix.lower_triangular?
+		assert !dokMatrix.lower_triangular?
+		assert !lilMatrix.lower_triangular?
 
 	end
 

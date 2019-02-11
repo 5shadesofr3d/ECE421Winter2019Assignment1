@@ -56,9 +56,9 @@ class TestOperations<Test::Unit::TestCase
     lilMatrix[1, 1] = 0
     lilMatrix[2, 2] = 0
 
-    #assert(yaleMatrix.rank == 3)
-    #assert(dokMatrix.rank == 2)
-    #assert(lilMatrix.rank == 1)
+    assert(yaleMatrix.rank == 2)
+    assert(dokMatrix.rank == 1)
+    assert(lilMatrix.rank == 0)
 
   end
 
