@@ -169,6 +169,37 @@ print "identity:\n#{SMatrix.I(5).to_s}\n"
 
 print "random:\n#{SMatrix.random(5).to_s}\n"
 
+sMatrix1 = SMatrix.new(Yale.new(3, 3))
+sMatrix2 = SMatrix.new(Dok.new(3, 3), :dok)
+sMatrix3 = SMatrix.new(Lil.new(3, 3), :lil)
+
+
+#fill in the 3 matrices with desired values
+#TODO: this will have to be randomly generated everytime
+value = 1
+
+for i in 0..2 do
+  for j in 0..2 do
+    sMatrix1[i, j] = value
+    sMatrix2[i, j] = value
+    sMatrix3[i, j] = value
+
+    value += 1
+  end
+end
+
+
+
+
+ #Do the operations
+#rMatrix1 =  #should return a Yale matrix type
+rMatrix2 = sMatrix2.power(1) #should return a DoK matrix type
+rMatrix3 = sMatrix3.power(3) #should return a Lil matrix type
+test_result = sMatrix1.dot(sMatrix1)
+
+print "#{sMatrix1.power(2).to_s}\n\n"
+print test_result.to_s
+
 
 # s[0, 0] = 9
 

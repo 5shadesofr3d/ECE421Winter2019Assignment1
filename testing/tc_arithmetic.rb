@@ -263,15 +263,16 @@ class TestArithmetic<Test::Unit::TestCase
     rMatrix1 = sMatrix1.power(2) #should return a Yale matrix type
     rMatrix2 = sMatrix2.power(1) #should return a DoK matrix type
     rMatrix3 = sMatrix3.power(3) #should return a Lil matrix type
+    test_result = sMatrix1.dot(sMatrix1)
 
     # run the assertions
-    assert(rMatrix1.equals(sMatrix1 * sMatrix1))
+    assert(rMatrix1.equals(sMatrix1.dot(sMatrix1)))
     assert(rMatrix1.type == Yale)
 
     assert(rMatrix2.equals(sMatrix2))
     assert(rMatrix2.type == Dok)
 
-    assert(rMatrix3.equals(sMatrix3 * sMatrix3 * sMatrix3))
+    assert(rMatrix3.equals(sMatrix3.dot(sMatrix3).dot(sMatrix3)))
     assert(rMatrix3.type == Lil)
   end
 
@@ -307,10 +308,10 @@ class TestArithmetic<Test::Unit::TestCase
     assert(rMatrix1.equals(1 / sMatrix1))
     assert(rMatrix1.type == Yale)
 
-    assert(rMatrix2.equals(1 / (sMatrix2 * sMatrix2)))
+    assert(rMatrix2.equals(1 / (sMatrix2.dot(sMatrix2))))
     assert(rMatrix2.type == Dok)
 
-    assert(rMatrix3.equals(1 / (sMatrix3 * sMatrix3 * sMatrix3)))
+    assert(rMatrix3.equals(1 / (sMatrix3.dot(sMatrix3).dot(sMatrix3))))
     assert(rMatrix3.type == Lil)
 
   end 
