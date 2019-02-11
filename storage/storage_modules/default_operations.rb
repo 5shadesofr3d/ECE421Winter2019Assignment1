@@ -21,7 +21,6 @@ module DefaultOperations
 	end
 
 	def invert
-		assert result.is_a? Dok
 		yFactory = YaleFactory.new
 		dFactory = DokFactory.new
 		temp = yFactory.create(self)
@@ -32,7 +31,6 @@ module DefaultOperations
 	end
 
 	def complex_conjugate
-		assert result.is_a? Dok
 		yFactory = YaleFactory.new
 		dFactory = DokFactory.new
 		temp = yFactory.create(self)
@@ -43,14 +41,12 @@ module DefaultOperations
 	end
 
 	def lu_factorization
-		assert result.is_a? Dok
 		yFactory = YaleFactory.new
 		temp = yFactory.create(self)
 		return temp.factorize_lu
 	end
 
 	def cholesky_factorization
-		assert result.is_a? Dok
 		yFactory = YaleFactory.new
 		temp = yFactory.create(self)
 		return temp.factorize_cholesky
