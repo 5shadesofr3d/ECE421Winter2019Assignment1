@@ -143,6 +143,36 @@ class TestOperations<Test::Unit::TestCase
 
   end
 
+  def test_transpose
+    yaleMatrix= SMatrix.new(Yale.new(3, 3))
+    dokMatrix = SMatrix.new(Dok.new(3, 3), :dok)
+    lilMatrix = SMatrix.new(Lil.new(3, 3), :lil)
+
+    for i in 0..2 do
+      for j in 0..2 do
+        value = rand(10)
+
+        yaleMatrix[i, j] = value
+        dokMatrix[i, j] = value
+        lilMatrix[i, j] = value
+
+      end
+    end
+
+    yaleTranspose = yaleMatrix.transpose
+    dokTranspose = dokMatrix.transpose
+    lilTranspose = lilMatrix.transpose
+
+    for i in 0..2 do
+      for j in 0..2 do
+        assert(yaleMatrix[i, j] == yaleTranspose[j, i])
+        assert(dokMatrix[i, j] == dokTranspose[j, i])
+        assert(lilMatrix[i, j] == lilTranspose[j, i])
+      end
+    end
+
+  end
+
 
 
 end
