@@ -68,6 +68,9 @@ module Conditionals
 	def hermitian?
 		#Pre
 		assert valid?
+		assert square?
+		assert normal?
+		#assert main diagonal is all real nums
 
 		# Post
 		self.to_matrix.hermitian?
@@ -81,24 +84,30 @@ module Conditionals
 
 	def orthogonal?
 		assert valid?
+		assert square?
 
 		self.to_matrix.orthogonal?
 	end
 
 	def permutation?
 		assert valid?
+		assert square?
 
 		self.to_matrix.permutation?
 	end
 
 	def singular?
 		assert valid?
+		assert square?
+		assert self.det == 0
 
 		self.to_matrix.singular?
 	end
 
 	def regular?
 		assert valid?
+		assert self.det != 0
+		assert square?
 
 		self.to_matrix.regular?
 	end
@@ -117,18 +126,21 @@ module Conditionals
 
 	def unitary?
 		assert valid?
+		assert square?
 
 		self.to_matrix.unitary?
 	end
 
 	def upper_triangular?
 		assert valid?
+		assert square?
 
 		self.to_matrix.upper_triangular?
 	end
 
 	def lower_triangular?
 		assert valid?
+		assert square?
 
 		self.to_matrix.lower_triangular?
 	end
