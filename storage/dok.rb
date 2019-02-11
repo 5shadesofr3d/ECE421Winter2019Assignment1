@@ -67,6 +67,17 @@ class Dok < SparseStorage
 		assert valid?
 	end
 
+	def each_non_zero_index
+		# provides index iterators
+		assert valid?
+		
+		@hash.each_key do |key|
+			yield *key
+		end
+
+		assert valid?
+	end
+
 	def clone
 		instance = self.class.new(@rows, @columns)
 		instance.hash = @hash.clone

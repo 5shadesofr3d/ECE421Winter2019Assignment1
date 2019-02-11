@@ -31,4 +31,5 @@ class Yale < NStorage
 	def type
 		return Yale
 	end
+	
 end

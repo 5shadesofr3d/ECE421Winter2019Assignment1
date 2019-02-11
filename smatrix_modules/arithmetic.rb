@@ -6,8 +6,11 @@ module Arithmetic
 		assert mat.is_a? SMatrix
 		assert mat.shape == self.shape
 
+		mat_factory = mat.ftype
+		mat.store_as(self.ftype) # convert the matrix to the same type as lhs
 		result = self.clone
 		result.storage += mat.storage
+		mat.store_as(mat_factory) # convert the matrix to original type
 
 		#post
 		assert mat.shape == self.shape
@@ -26,13 +29,27 @@ module Arithmetic
 		assert mat.is_a? SMatrix
 		assert mat.shape == self.shape
 
+		mat_factory = mat.ftype
+		mat.store_as(self.ftype) # convert the matrix to the same type as lhs
 		result = self.clone
 		result.storage -= mat.storage
+		mat.store_as(mat_factory) # convert the matrix to original type
 
 		#post
 		assert mat.shape == self.shape
 		assert @storage.is_a? SparseStorage
 		#TODO: assert result.storage-result.storage == ZERO matrix A-0 = A
+		assert valid?
+		return result
+	end
+
+	def -@
+		assert valid?
+
+		result = SMatrix.zero(self.rows, self.columns)
+		result.store_as(self.ftype)
+		result.storage -= self.storage
+
 		assert valid?
 		return result
 	end
@@ -90,32 +107,46 @@ module Arithmetic
 	# same matrix type.
 	def dot(mat)
 		#pre
-		assert valid?
-		assert mat.is_a? SMatrix
-		assert mat.rows == @storage.cols #MxN * NxK
+		assert valid?, "class invariants failed [begin]"
+		assert (mat.is_a? SMatrix), "rhs is not a SMatrix"
+		assert self.rows == mat.columns
 
-		result = self.clone
-		result.storage = @storage.dot(mat)
+		mat_factory = mat.ftype
+		mat.store_as(self.ftype)
+		result = SMatrix.new(self.storage.dot(mat.storage), self.ftype)
+		mat.store_as(mat_factory)
+
 		#post
-		assert mat.is_a? SMatrix
-		assert result.storage == mat.storage.dot(@storage) #AB == BA
+		assert (mat.is_a? SMatrix), "rhs is no longer an SMatrix"
 		#TODO: assert result.storage * result.storage.transpose == EYE A*A^-1 = I
 		#TODO: assert @storage*EYE == @storage #AI = A
 		#TODO: assert EYE*@storage == @storage #IA = A
-		assert valid?
+		assert valid?, "class invariants failed [end]"
 		return result
+	end
+
+	def %(mat)
+		dot(mat)
+	end
+
+	# Raise matrix to a power
+	def ^(pow)
+		power(pow)
 	end
 
 	# Raise matrix to a power
 	def power(pow)
 		assert valid?
 		assert pow.is_a? Integer
-		assert @storage.shape[0] == @storage.shape[1]
+		assert square?
+
+		if (pow == 0)
+			return SMatrix.I(self.rows)
+		end
 
 		result = self.clone
-		result.storage = @storage.pow(pow)
+		result.storage = result.storage.power(pow)
 
-		assert
 		assert valid?
 		return result
 	end

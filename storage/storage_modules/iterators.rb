@@ -1,3 +1,5 @@
+require 'set'
+
 module Iterators
 	def each
 		# iterates through each matrix element
@@ -40,6 +42,21 @@ module Iterators
 
 		self.each_index do |i, j|
 			yield i, j unless self[i, j] == 0
+		end
+
+		assert valid?
+	end
+
+	def each_common_index(m)
+		# provides index iterators
+		assert valid?
+
+		nzv = Set[]
+		self.each_non_zero_index {|i, j| nzv.add([i, j])}
+		m.each_non_zero_index {|i, j| nzv.add([i, j])}
+		
+		nzv.each do |idx|
+			yield *idx
 		end
 
 		assert valid?

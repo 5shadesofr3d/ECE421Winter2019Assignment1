@@ -42,6 +42,17 @@ module Conversions
 		result
 	end
 
+	def to_i
+		assert valid?
+		result = self.clone
+		self.each_index do |i, j|
+			result[i, j] = result[i, j].to_i
+		end
+		assert valid?
+
+		result
+	end
+
 	def to_matrix
 		assert valid?
 		result = Matrix[*self.to_a]

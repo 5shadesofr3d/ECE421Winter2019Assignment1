@@ -8,9 +8,12 @@ module Builder
 	def eye(size)
 		#pre
 		assert size.is_a? Integer
-		assert size > 0
+		assert size >= 0
 
-		result = SMatrix.new(Matrix.I(size))
+		result = SMatrix.new(Dok.new(size, size))
+		result.each_diagonal_index do |i, j|
+			result[i, j] = 1
+		end
 
 		#post
 		assert result.identity?
@@ -22,10 +25,10 @@ module Builder
 		#pre
 		assert rows.is_a? Integer
 		assert cols.is_a? Integer
-		assert rows > 0
-		assert cols > 0
+		assert rows >= 0
+		assert cols >= 0
 		
-		result = SMatrix.new(Matrix.zero(rows, cols))
+		result = SMatrix.new(Dok.new(rows, cols))
 
 		#post
 		assert result.zero?
@@ -35,19 +38,17 @@ module Builder
 
 	def random(rows, cols = rows, non_zero_factor = 0.3, spread = 1000)
 		#pre
-		assert rows.is_a? Integer
-		assert cols.is_a? Integer
-		assert rows > 0
-		assert cols > 0
+		assert (rows.is_a? Integer), "rows not an integer"
+		assert (cols.is_a? Integer), "cols not an integer"
+		assert rows >= 0
+		assert cols >= 0
 
-		matrix = Matrix.build(rows, cols) do
+		result = SMatrix.zero(rows, cols)
+		result.each_index do |i, j|
 			if rand <= non_zero_factor
-				rand * spread
-			else
-				0
+				result[i, j] = rand * spread
 			end
 		end
-		result = SMatrix.new(matrix)
 
 		#post
 		result
