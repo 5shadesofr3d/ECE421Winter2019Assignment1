@@ -27,7 +27,7 @@ class TestOperations<Test::Unit::TestCase
     end
 
     assert(yaleMatrix.trace == randomSum)
-    #assert(dokMatrix.trace == randomSum)
+    assert(dokMatrix.trace == randomSum)
     assert(lilMatrix.trace == randomSum)
 
   end
