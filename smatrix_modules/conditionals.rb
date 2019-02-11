@@ -152,7 +152,7 @@ module Conditionals
 		self.each_index do |i, j|
 			return false unless self[i, j] == mat[i, j]
 		end
-		
+
 		return true
 	end
 

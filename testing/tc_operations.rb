@@ -173,6 +173,85 @@ class TestOperations<Test::Unit::TestCase
 
   end
 
+  #def test_determinant
+    #yaleMatrix= SMatrix.new(Yale.new(2, 2))
+    #dokMatrix = SMatrix.new(Dok.new(2, 2), :dok)
+    #lilMatrix = SMatrix.new(Lil.new(2, 2), :lil)
+
+    #for i in 0..1 do
+      #for j in 0..1 do
+        #value = rand(10)
+
+        #yaleMatrix[i, j] = value
+        #dokMatrix[i, j] = value
+        #lilMatrix[i, j] = value
+
+      #end
+    #end
+
+    #det = (yaleMatrix[0, 0] * yaleMatrix[1, 1]) - (yaleMatrix[0, 1] * yaleMatrix[1, 0])
+
+    #yaleInverse = yaleMatrix.determinant
+    #dokInverse = dokMatrix.determinant
+    #lilInverse = lilMatrix.determinant
+  #end
+
+  def test_cholesky
+    yaleMatrix = SMatrix.new(Yale.new(3, 3))
+    dokMatrix = SMatrix.new(Dok.new(3, 3), :dok)
+    lilMatrix = SMatrix.new(Lil.new(3, 3), :lil)
+    resultMatrix = SMatrix.new(Yale.new(3, 3))
+
+    yaleMatrix[0, 0] = 25
+    dokMatrix[0, 0] = 25
+    lilMatrix[0, 0] = 25
+    resultMatrix[0, 0] = 5
+
+    yaleMatrix[0, 1] = 15
+    dokMatrix[0, 1] = 15
+    lilMatrix[0, 1] = 15
+    resultMatrix[0, 1] = 0
+
+    yaleMatrix[0, 2] = -5
+    dokMatrix[0, 2] = -5
+    lilMatrix[0, 2] = -5
+    resultMatrix[0, 2] = 0
+
+    yaleMatrix[1, 0] = 15
+    dokMatrix[1, 0] = 15
+    lilMatrix[1, 0] = 15
+    resultMatrix[1, 0] = 3
+
+    yaleMatrix[1, 1] = 18
+    dokMatrix[1, 1] = 18
+    lilMatrix[1, 1] = 18
+    resultMatrix[1, 1] = 3
+
+    yaleMatrix[1, 2] = 0
+    dokMatrix[1, 2] = 0
+    lilMatrix[1, 2] = 0
+    resultMatrix[1, 2] = 0
+
+    yaleMatrix[2, 0] = -5
+    dokMatrix[2, 0] = -5
+    lilMatrix[2, 0] = -5
+    resultMatrix[2, 0] = -1
+
+    yaleMatrix[2, 1] = 0
+    dokMatrix[2, 1] = 0
+    lilMatrix[2, 1] = 0
+    resultMatrix[2, 1] = 1
+
+    yaleMatrix[2, 2] = 11
+    dokMatrix[2, 2] = 11
+    lilMatrix[2, 2] = 11
+    resultMatrix[2, 2] = 3
+
+    assert(resultMatrix.equals(yaleMatrix.cholesky))
+    assert(resultMatrix.equals(dokMatrix.cholesky))
+    assert(resultMatrix.equals(lilMatrix.cholesky))
+
+  end
 
 
 end
