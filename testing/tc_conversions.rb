@@ -8,9 +8,10 @@ require 'matrix'
 STest = SMatrix
 
 class TestConversions<Test::Unit::TestCase
+
 	# this is to test all of the functions in the conversions module for smatrix
 	# NOTE: for each of these tests, we will run the conversions from all of the different types
-	# => of storage
+	# => of storage]
 	@@maxsize = 60
 
 	def setup

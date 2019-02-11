@@ -68,6 +68,8 @@ module Operations
 		assert valid?
 
 		#pre
+		assert self.determinant != 0
+		assert square?
 		assert regular?, "Not a regular matrix (thus not invertible)."
 		#post
 		store_as(self.ftype, self.to_matrix.inverse)
@@ -101,7 +103,7 @@ module Operations
 		assert valid?
 
 		#pre
-		assert @storage.shape[0] == @storage.shape[1] #square
+		assert square? #square
 
 		#post
 		return @storage.det
