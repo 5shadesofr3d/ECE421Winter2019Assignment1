@@ -310,17 +310,23 @@ class TestArithmetic<Test::Unit::TestCase
     maxSize = 50
     row = col = (rand * maxSize).to_i
     # Create a sample matrix
-    STestYale = SMatrix.random(row, col).to_yale
-    STestDok = SMatrix.random(row, col).to_dok
-    STestLil = SMatrix.random(row, col).to_lil
+    mTestYale = SMatrix.random(row, col).to_yale
+    mTestDok = SMatrix.random(row, col).to_dok
+    mTestLil = SMatrix.random(row, col).to_lil
 
     #Get the identity matrix
     #NOTE: make sure the I builder is tested and verified
     identityMatrix = SMatrix.I(row)
 
+    #Get the inverted matrix
+    invertYale = mTestYale.inverse
+    invertDok = mTestDok.inverse
+    invertLil = mTestLil.inverse
 
-
-    assert(false)
+    #Assert that the resulting matrix is indeed inverted
+    assert_equal(invertYale.dot(mTestYale), identityMatrix)
+    assert_equal(invertDok.dot(mTestDok), identityMatrix)
+    assert_equal(invertLil.dot(mTestLil), identityMatrix)
   end
 
 end
