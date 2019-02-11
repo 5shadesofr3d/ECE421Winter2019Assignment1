@@ -15,9 +15,8 @@ module Operations
 
 	def rank
 		assert valid?
-		result = @storage.rank
-		assert valid?
-		result
+
+		return self.to_matrix.rank
 	end
 
 	def row_sum(rowNum)
