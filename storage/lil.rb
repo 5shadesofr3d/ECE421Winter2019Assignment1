@@ -9,7 +9,7 @@ class Lil < NStorage
 
 	public
 	def initialize(row_count, column_count)
-		@storage = NMatrix.new([row_count, column_count], stype: :list)
+		@storage = NMatrix.new([row_count, column_count], stype: :list, dtype: :object)
 		super(row_count, column_count)
 		
 		assert valid?

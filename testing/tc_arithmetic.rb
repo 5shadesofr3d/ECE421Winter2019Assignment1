@@ -295,15 +295,14 @@ class TestArithmetic<Test::Unit::TestCase
 
 
     #Create the assertions
-    assert_equal(rMatrix1, ~sMatrix1)
+    assert(rMatrix1 == ~sMatrix1)
     assert_equal(rMatrix1.type, Yale)
 
-    assert_equal(rMatrix2, ~sMatrix2 % ~sMatrix2)
+    assert(rMatrix2 == ~sMatrix2 % ~sMatrix2)
     assert_equal(rMatrix2.type, Dok)
 
-    assert_equal(rMatrix3, dMatrix3)
+    assert(dMatrix3 == rMatrix3, "Expected:\n#{dMatrix3.to_s}\n\nGot:\n#{rMatrix3.to_s}\n")
     assert_equal(rMatrix3.type, Lil)
-
   end 
 
   def test_invert

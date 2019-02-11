@@ -43,7 +43,7 @@ module DelegateArithmetic
 	def power(pow)
 		assert pow.is_a? Integer
 
-		@storage = @storage.pow(pow).cast(stype: :yale, dtype: :object)
+		@storage = @storage.pow(pow).cast(dtype: :object)
 
 		self
 	end

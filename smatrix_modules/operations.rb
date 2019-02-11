@@ -89,29 +89,22 @@ module Operations
 
 	# in a SMatrix.
 	def cholesky
-		yFactory = YaleFactory.new
 		# Pre
 		assert valid?
-		assert @storage.symmetric? or @storage.hermitian?
-		result = @storage.cholesky_factorization
-		# Post
-		# We need to wrap returned matrices as an SMatrix
-		return [yFactory.create(result[0]),yFactory.create(result[1])]
+		assert (symmetric? or hermitian?)
+		c = self.to_nmatrix.cholesky_factorization
 
+		return [SMatrix.new(c[0], self.ftype), SMatrix.new(c[1], self.ftype)]
 	end
 
 	def lu_factorization
 		# matrices in SMatrix so conversions MUST be done.
-		yFactory = YaleFactory.new
 		#pre
 		assert valid?
-		assert @storage.shape[0] == @storage.shape[1]
-		# TODO: Needs to be a 2D matrix
-		result = @storage.lu_factorization
+		assert square?
 
-		#post
-		# We need to wrap returned matrices as an SMatrix
-		return [yFactory.create(result[0]),yFactory.create(result[1])]
+		c = self.to_nmatrix.lu_factorization
+		return [SMatrix.new(c[0], self.ftype), SMatrix.new(c[1], self.ftype)]
 	end
 
 	def conjugate
