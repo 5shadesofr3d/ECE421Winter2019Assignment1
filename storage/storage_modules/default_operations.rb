@@ -56,12 +56,12 @@ module DefaultOperations
 		return temp.factorize_cholesky
 	end
 
-	def hermitian?
-		assert result.is_a? Dok
-		yFactory = YaleFactory.new
-		temp = yFactory.create(self)
-		return temp.hermitian?
-	end
+	#def hermitian?
+	#	assert result.is_a? Dok
+	#	yFactory = YaleFactory.new
+	#	temp = yFactory.create(self)
+	#	return temp.hermitian?
+	#end
 
 	def col_sum(col_num)
 		sum = 0

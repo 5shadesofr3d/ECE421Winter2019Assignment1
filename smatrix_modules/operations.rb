@@ -102,7 +102,7 @@ module Operations
 		#pre
 		assert valid?
 		assert square?
-
+    
 		c = self.to_nmatrix.lu_factorization
 		return [SMatrix.new(c[0], self.ftype), SMatrix.new(c[1], self.ftype)]
 	end
