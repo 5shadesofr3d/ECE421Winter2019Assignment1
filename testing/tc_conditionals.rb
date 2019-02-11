@@ -176,10 +176,52 @@ class TestConditionals<Test::Unit::TestCase
 		assert(!yaleMatrix.tridiagonal?)
 		assert(!dokMatrix.tridiagonal?)
 		assert(!lilMatrix.tridiagonal?)
-		
+
 	end
 
 	def test_symmetry
+		#setup
+
+		yaleMatrix = SMatrix.new(Yale.new(3, 3))
+		dokMatrix = SMatrix.new(Dok.new(3, 3), :dok)
+		lilMatrix = SMatrix.new(Lil.new(3, 3), :lil)
+
+		for i in 0..2 do
+			for j in 0..2 do
+
+				yaleMatrix[i, j] = rand(6)
+				yaleMatrix[j, i] = yaleMatrix[i, j]
+				dokMatrix[i, j] = rand(6)
+				dokMatrix[j, i] = dokMatrix[i, j]
+				lilMatrix[i, j] = rand(6)
+				lilMatrix[j, i] = lilMatrix[i, j]
+
+			end
+		end
+
+		assert(yaleMatrix.symmetric?)
+		assert(dokMatrix.symmetric?)
+		assert(lilMatrix.symmetric?)
+
+		#Randomly change one of the elements...
+
+		row = rand(2)
+		
+		column = rand(2)
+		until column != row do
+			column = rand(2)
+		end
+
+		yaleMatrix[row, column] = 7
+		dokMatrix[row, column] = 7
+		lilMatrix[row, column] = 7
+
+		assert(!yaleMatrix.symmetric?)
+		assert(!dokMatrix.symmetric?)
+		assert(!lilMatrix.symmetric?)
+
+
+
 
 	end
 
