@@ -39,7 +39,7 @@ class TestOperations<Test::Unit::TestCase
 
     for i in 0..2 do
       for j in 0..2 do
-        value = rand(10)
+        value = rand(10) + 1
         if i == j
           yaleMatrix[i, j] = value
           dokMatrix[i, j] = value
@@ -56,9 +56,9 @@ class TestOperations<Test::Unit::TestCase
     lilMatrix[1, 1] = 0
     lilMatrix[2, 2] = 0
 
-    assert(yaleMatrix.rank == 2)
-    assert(dokMatrix.rank == 1)
-    assert(lilMatrix.rank == 0)
+    assert (yaleMatrix.rank == 3), "Expected 3, Got: #{yaleMatrix.rank}"
+    assert (dokMatrix.rank == 2), "Expected 2, Got: #{yaleMatrix.rank}"
+    assert (lilMatrix.rank == 1), "Expected 1, Got: #{yaleMatrix.rank}"
 
   end
 
