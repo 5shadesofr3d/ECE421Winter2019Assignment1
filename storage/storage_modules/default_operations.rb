@@ -2,7 +2,7 @@ module DefaultOperations
 	# TODO: Is this how we should deal with abstract methods? Or should we leave them out?
 	def det
 		yFactory = YaleFactory.new
-		temp = yFactory.create(@storage)
+		temp = yFactory.create(self)
 		return temp.det
 	end
 
@@ -18,7 +18,7 @@ module DefaultOperations
 		assert result.is_a? Dok
 		yFactory = YaleFactory.new
 		dFactory = DokFactory.new
-		temp = yFactory.create(@storage)
+		temp = yFactory.create(self)
 		temp = temp.invert
 		result = dFactory.create(temp)
 		assert result.is_a? Dok
@@ -29,7 +29,7 @@ module DefaultOperations
 		assert result.is_a? Dok
 		yFactory = YaleFactory.new
 		dFactory = DokFactory.new
-		temp = yFactory.create(@storage)
+		temp = yFactory.create(self)
 		temp = temp.complex_conjugate
 		result = dFactory.create(temp)
 		assert result.is_a? Dok
@@ -39,27 +39,27 @@ module DefaultOperations
 	def lu_factorization
 		assert result.is_a? Dok
 		yFactory = YaleFactory.new
-		temp = yFactory.create(@storage)
+		temp = yFactory.create(self)
 		return temp.factorize_lu
 	end
 
 	def cholesky_factorization
 		assert result.is_a? Dok
 		yFactory = YaleFactory.new
-		temp = yFactory.create(@storage)
+		temp = yFactory.create(self)
 		return temp.factorize_cholesky
 	end
 
 	def hermitian?
 		assert result.is_a? Dok
 		yFactory = YaleFactory.new
-		temp = yFactory.create(@storage)
+		temp = yFactory.create(self)
 		return temp.hermitian?
 	end
 
 	def col_sum(col_num)
 		sum = 0
-		@storage.get_column(col_num) do |x|
+		self.get_column(col_num) do |x|
 			sum += x
 		end
 		return sum
@@ -67,7 +67,7 @@ module DefaultOperations
 
 	def row_sum(row_num)
 		sum = 0
-		@storage.get_row(row_num) do |x|
+		self.get_row(row_num) do |x|
 			sum += x
 		end
 		return sum
@@ -75,7 +75,7 @@ module DefaultOperations
 
 	def total_sum
 		sum = 0
-		@storage.each_non_zero do |x| # @Storage is NIL, need help.
+		self.each_non_zero do |x|
 			sum += x
 		end
 		return sum

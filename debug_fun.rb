@@ -200,7 +200,7 @@ m = SMatrix.new(NMatrix[[1, 2, 3], [0, 5, 0], [0, 8, 0]], :lil)
 p = SMatrix.new(NMatrix[[0, 2, 0], [0, 5, 0], [0, 8, 0]], :dok)
 
 puts "Total Sum Test:"
-# puts p.total_sum Doesn't work for dok, the dok is a nilclass error!
+puts p.total_sum # Doesn't work for dok, the dok is a nilclass error!
 puts m.total_sum
 puts s.total_sum
 
