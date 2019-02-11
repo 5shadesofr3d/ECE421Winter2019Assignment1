@@ -25,6 +25,11 @@ module DelegateOperations
 		@storage.complex_conjugate
 	end
 
+  def lu_factorization
+		assert valid?
+		@storage.factorize_lu
+	end
+
 	def cholesky_factorization
 		assert valid?
 		@storage.factorize_cholesky
