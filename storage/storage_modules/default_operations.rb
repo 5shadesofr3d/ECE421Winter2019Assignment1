@@ -1,5 +1,11 @@
 module DefaultOperations
 	# TODO: Is this how we should deal with abstract methods? Or should we leave them out?
+	def trace
+		yFactory = YaleFactory.new
+		temp = yFactory.create(self)
+		return temp.trace
+	end
+
 	def det
 		yFactory = YaleFactory.new
 		temp = yFactory.create(self)

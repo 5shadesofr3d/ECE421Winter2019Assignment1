@@ -38,6 +38,7 @@ module Conditionals
 	def diagonal?
 		# returns true if the matrix is a diagonal matrix
 		assert valid?
+		assert square?
 
 		self.to_matrix.diagonal?
 	end
@@ -45,6 +46,7 @@ module Conditionals
 	def tridiagonal?
 		#pre
 		assert valid?
+		assert square?
 
 		upper = partition([0, self.rows - 1], [1, self.columns])
 		lower = partition([1, self.rows], [0, self.columns - 1])
@@ -68,6 +70,9 @@ module Conditionals
 	def hermitian?
 		#Pre
 		assert valid?
+		assert square?
+		assert normal?
+		#assert main diagonal is all real nums
 
 		# Post
 		self.to_matrix.hermitian?
@@ -81,24 +86,30 @@ module Conditionals
 
 	def orthogonal?
 		assert valid?
+		assert square?
 
 		self.to_matrix.orthogonal?
 	end
 
 	def permutation?
 		assert valid?
+		assert square?
 
 		self.to_matrix.permutation?
 	end
 
 	def singular?
 		assert valid?
+		assert square?
+		assert self.det == 0
 
 		self.to_matrix.singular?
 	end
 
 	def regular?
 		assert valid?
+		assert self.det != 0
+		assert square?
 
 		self.to_matrix.regular?
 	end
@@ -117,18 +128,21 @@ module Conditionals
 
 	def unitary?
 		assert valid?
+		assert square?
 
 		self.to_matrix.unitary?
 	end
 
 	def upper_triangular?
 		assert valid?
+		assert square?
 
 		self.to_matrix.upper_triangular?
 	end
 
 	def lower_triangular?
 		assert valid?
+		assert square?
 
 		self.to_matrix.lower_triangular?
 	end

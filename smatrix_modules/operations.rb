@@ -7,7 +7,7 @@ module Operations
 	def trace
 		#pre
 		assert valid?
-		assert @storage.rows == @storage.cols
+		assert @storage.rows == @storage.columns
 		result = @storage.trace
 		assert valid?
 		result
@@ -68,10 +68,12 @@ module Operations
 		assert valid?
 
 		#pre
+		assert self.determinant != 0
+		assert square?
 		assert regular?, "Not a regular matrix (thus not invertible)."
 		#post
 		store_as(self.ftype, self.to_matrix.inverse)
-		
+
 		assert square?
 		assert valid?
 	end
@@ -80,7 +82,7 @@ module Operations
 		assert valid?
 
 		#pre
-		assert @storage.shape[0] == @storage.shape[1] #square
+		assert square? #square
 
 		#post
 		return @storage.det
