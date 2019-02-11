@@ -17,7 +17,7 @@ module Arithmetic
 		assert @storage.is_a? SparseStorage
 		#assert result.storage + result.storage == (2*result.storage) #A+A = 2A
 		#assert result.storage == self.clone.storage + mat.storage #A+B = B+A
-		#TODO: assert result.storage+ZEROMATRIX == result.storage A+0 = A
+		#assert result.storage+ZEROMATRIX == result.storage A+0 = A
 		assert valid?
 		return result
 	end
@@ -38,7 +38,7 @@ module Arithmetic
 		#post
 		assert mat.shape == self.shape
 		assert @storage.is_a? SparseStorage
-		#TODO: assert result.storage-result.storage == ZERO matrix A-0 = A
+		#assert result.storage-result.storage == ZERO matrix A-0 = A
 		assert valid?
 		return result
 	end
@@ -118,9 +118,9 @@ module Arithmetic
 
 		#post
 		assert (mat.is_a? SMatrix), "rhs is no longer an SMatrix"
-		#TODO: assert result.storage * result.storage.transpose == EYE A*A^-1 = I
-		#TODO: assert @storage*EYE == @storage #AI = A
-		#TODO: assert EYE*@storage == @storage #IA = A
+		#assert result.storage * result.storage.transpose == EYE A*A^-1 = I
+		#assert @storage*EYE == @storage #AI = A
+		#assert EYE*@storage == @storage #IA = A
 		assert valid?, "class invariants failed [end]"
 		return result
 	end
