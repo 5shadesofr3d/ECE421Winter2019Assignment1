@@ -66,6 +66,36 @@ class TestConditionals<Test::Unit::TestCase
 	end
 
 	def test_zero
+		#setup
+
+		yaleMatrix = SMatrix.new(Yale.new(3, 3))
+		dokMatrix = SMatrix.new(Dok.new(3, 3), :dok)
+		lilMatrix = SMatrix.new(Lil.new(3, 3), :lil)
+
+		value = 0
+		for i in 0..2 do
+			for j in 0..2 do
+				yaleMatrix[i, j] = value
+				dokMatrix[i, j] = value
+				lilMatrix[i, j] = value
+			end
+		end
+
+		#Ensure all equal the 3x3 zero matrix
+
+		assert(yaleMatrix.zero?)
+		assert(dokMatrix.zero?)
+		assert(lilMatrix.zero?)
+
+		#Add a 1 to each
+
+		yaleMatrix[0,0] = 1
+		dokMatrix[1,1] = 1
+		lilMatrix[2,2] = 1
+
+		assert(!yaleMatrix.zero?)
+		assert(!dokMatrix.zero?)
+		assert(!lilMatrix.zero?)
 
 	end
 
