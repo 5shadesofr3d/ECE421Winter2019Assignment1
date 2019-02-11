@@ -305,10 +305,57 @@ class TestArithmetic<Test::Unit::TestCase
     assert_equal(rMatrix3.type, Lil)
   end 
 
-  def test_invert
-    # This is to test the built-in inverse function
-    #TODO: possibly implement the function
-    assert(false)
+  def test_inverse
+    # This is to test the built-in inverse function from SMatrix
+    maxSize = 10
+    row = col = (rand * maxSize).to_i
+    # Create a sample matrix
+    mTestYale = SMatrix.random(row, col).to_yale
+    while mTestYale.determinant == 0 do
+        mTestYale = SMatrix.random(row, col).to_yale
+    end
+
+    mTestDok = SMatrix.random(row, col).to_dok
+    while mTestDok.determinant == 0 do
+        mTestDok = SMatrix.random(row, col).to_dok
+    end
+
+    mTestLil = SMatrix.random(row, col).to_lil
+    while mTestLil.determinant == 0 do
+        mTestLil = SMatrix.random(row, col).to_lil
+    end
+
+    #Get the identity matrix
+    #NOTE: make sure the I builder is tested and verified
+    identityMatrix = SMatrix.I(row)
+
+    #Get the inverted matrix
+    invertYale = mTestYale.inverse
+    invertDok = mTestDok.inverse
+    invertLil = mTestLil.inverse
+
+    # TODO: These assertions have rounding errors
+    # invert2Yale = invertYale.inverse
+    # invert2Dok = invertDok.inverse
+    # invert2Lil = invertLil.inverse
+
+
+
+    #Assert that the resulting matrix is indeed inverted
+
+    # TODO: These assertions have rounding errors
+    # # The first set of asserts verifies that the inverse of an inverted matrix
+    # # is identical to its original matrix
+    # assert_equal(invert2Yale, mTestYale)
+    # assert_equal(invert2Dok, mTestDok)
+    # assert_equal(invert2Lil, mTestLil)
+
+
+    # The second set of assertions will be to check that the dot of the inverted matrix with
+    # the original is just the identity matrix of nxn (identical size)
+    assert_equal((invertYale % mTestYale).to_i, identityMatrix)
+    assert_equal((invertDok % mTestDok).to_i, identityMatrix)
+    assert_equal((invertLil % mTestLil).to_i, identityMatrix)
   end
 
 end

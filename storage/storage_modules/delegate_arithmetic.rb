@@ -9,7 +9,7 @@ module DelegateArithmetic
 
 	def -(m1)
 		assert m1.is_a? SparseStorage
-
+		
 		@storage -= m1.storage
 
 		self

@@ -38,6 +38,7 @@ module Arithmetic
 		#post
 		assert mat.shape == self.shape
 		assert @storage.is_a? SparseStorage
+		
 		#assert result.storage-result.storage == ZERO matrix A-0 = A
 		assert valid?
 		return result

@@ -215,17 +215,30 @@ s = SMatrix.new(NMatrix[[1, 2, 3], [0, 5, 0], [0, 8, 0]], :yale)
 m = SMatrix.new(NMatrix[[1, 2, 3], [0, 5, 0], [0, 8, 0]], :lil)
 p = SMatrix.new(NMatrix[[1, 2, 0], [0, 5, 0], [0, 8, 3]], :dok)
 
-puts "Total Sum Test:"
-puts p.total_sum
-puts m.total_sum
-puts s.total_sum
+# puts "Total Sum Test:"
+# puts p.total_sum
+# puts m.total_sum
+# puts s.total_sum
 
-puts "Row Sum Test:"
-puts s.row_sum(2)
-puts m.row_sum(2)
-puts p.row_sum(2)
+# puts "Row Sum Test:"
+# puts s.row_sum(2)
+# puts m.row_sum(2)
+# puts p.row_sum(2)
 
-puts "Col Sum Test:"
-puts s.col_sum(1)
-puts m.col_sum(1)
-puts p.col_sum(0)
+# puts "Col Sum Test:"
+# puts s.col_sum(1)
+# puts m.col_sum(1)
+# puts p.col_sum(0)
+
+testFloat = SMatrix.random(3, 3).to_lil
+
+print "Matrix type: #{testFloat.type}\n"
+print "Matrix is type? Dok: #{testFloat.type.is_a? Dok}\n"
+print "\tLil: #{testFloat.type == Lil}\n"
+print "\tYale: #{testFloat.type.is_a? Yale}\n"
+print "Float Matrix:#{testFloat.to_s}\n"
+for i in 0..2 do
+	for j in 0..2 do
+		print "Is a float? -> [#{i}, #{j}]: #{testFloat[i, j]} #{testFloat[i, j].is_a? Float}\n"
+	end 
+end
